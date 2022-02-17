@@ -17,15 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let localStorage = LocalStorage()
-        
-        if localStorage.isFirstLaunch() {
+        if LocalStorage().isFirstLaunch() {
             let nav = UINavigationController(rootViewController: FirstLaunchController())
             window?.rootViewController = nav
         } else {
             window?.rootViewController = MainTabController()
         }
-
         window?.makeKeyAndVisible()
     }
 

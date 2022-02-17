@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class FirstLaunchController: UIViewController {
     
@@ -31,16 +30,7 @@ final class FirstLaunchController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
-        let realm = try! Realm()
-        
-        let firstDay = FirstDay()
-        firstDay.key = "firstDay"
-        firstDay.date = Date()
-        
-        try! realm.write({
-            realm.add(firstDay)
-        })
+        configureFirstDay()
     }
 
     // MARK: - Helpers
@@ -68,20 +58,19 @@ final class FirstLaunchController: UIViewController {
         ])
     }
     
+    private func configureFirstDay() {
+        RealmManager.shared.insert(firstDay: FirstDay())
+    }
+    
     // MARK: - Actions
     
     @objc func touchUpOkButton(_ sender: UIBarButtonItem) {
-        print("확인")
+//        LocalStorage().setFirstTime()
+        view.window?.rootViewController = MainTabController()
     }
     
     @objc func touchUpDateButton(_ sender: UIButton) {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-        datePicker.locale = Locale(identifier: "ko_KR")
-//        datePicker.setDate(firstDate, animated: true)
+        let datePicker = self.configureDatePicker()
         
         let contentView = UIViewController()
         contentView.view.addSubview(datePicker)
@@ -96,6 +85,7 @@ final class FirstLaunchController: UIViewController {
         
         let dateChooseActionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         dateChooseActionSheet.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            RealmManager.shared.update(date: datePicker.date)
             self.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
         }))
         dateChooseActionSheet.setValue(contentView, forKey: "contentViewController")

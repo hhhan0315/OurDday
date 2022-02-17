@@ -22,4 +22,8 @@ struct LocalStorage {
             return false
         }
     }
+    
+    func setFirstTime() {
+        defaults.set("No", forKey: key)
+    }
 }

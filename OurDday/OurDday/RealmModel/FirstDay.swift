@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class FirstDay: Object {
-    @objc dynamic var key: String = ""
+    @objc dynamic var key: String = "FirstDay"
     @objc dynamic var date: Date = Date()
     
     override class func primaryKey() -> String? {

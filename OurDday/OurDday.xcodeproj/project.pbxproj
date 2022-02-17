@@ -23,6 +23,7 @@
 		0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19327BDE31600552FE0 /* SettingsCell.swift */; };
 		0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19627BDE81700552FE0 /* FirstDay.swift */; };
 		0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19927BDEAF900552FE0 /* RealmManager.swift */; };
+		0138EB0527BE1187003E99B1 /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0427BE1187003E99B1 /* ViewControllerUtils.swift */; };
 		62FB759EB4FFF2FDBFED20B9 /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		0134D19327BDE31600552FE0 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		0134D19627BDE81700552FE0 /* FirstDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDay.swift; sourceTree = "<group>"; };
 		0134D19927BDEAF900552FE0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		0138EB0427BE1187003E99B1 /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		2DA248200935EC3CB1E338D0 /* Pods-OurDday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.release.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.release.xcconfig"; sourceTree = "<group>"; };
 		69F9529BCC9E3253E99E0107 /* Pods-OurDday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.debug.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.debug.xcconfig"; sourceTree = "<group>"; };
 		D16D8EE346043F61E22D367A /* Pods_OurDday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurDday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				0134D19027BDE30000552FE0 /* DateUtils.swift */,
+				0138EB0427BE1187003E99B1 /* ViewControllerUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
+				0138EB0527BE1187003E99B1 /* ViewControllerUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
