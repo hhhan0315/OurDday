@@ -9,10 +9,20 @@
 /* Begin PBXBuildFile section */
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
-		0134D16D27BDDE0400552FE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16C27BDDE0400552FE0 /* ViewController.swift */; };
-		0134D17027BDDE0400552FE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0134D16E27BDDE0400552FE0 /* Main.storyboard */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
 		0134D17527BDDE0600552FE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17327BDDE0600552FE0 /* LaunchScreen.storyboard */; };
+		0134D18027BDE14200552FE0 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D17F27BDE14200552FE0 /* LocalStorage.swift */; };
+		0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18127BDE2AF00552FE0 /* MainTabController.swift */; };
+		0134D18927BDE2AF00552FE0 /* SettingsDayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18227BDE2AF00552FE0 /* SettingsDayController.swift */; };
+		0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18327BDE2AF00552FE0 /* HomeController.swift */; };
+		0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */; };
+		0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18527BDE2AF00552FE0 /* CalendarController.swift */; };
+		0134D18D27BDE2AF00552FE0 /* DayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18627BDE2AF00552FE0 /* DayController.swift */; };
+		0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18727BDE2AF00552FE0 /* SettingsController.swift */; };
+		0134D19127BDE30000552FE0 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19027BDE30000552FE0 /* DateUtils.swift */; };
+		0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19327BDE31600552FE0 /* SettingsCell.swift */; };
+		0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19627BDE81700552FE0 /* FirstDay.swift */; };
+		0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19927BDEAF900552FE0 /* RealmManager.swift */; };
 		62FB759EB4FFF2FDBFED20B9 /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,11 +30,21 @@
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0134D16C27BDDE0400552FE0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0134D16F27BDDE0400552FE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0134D17127BDDE0600552FE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0134D17427BDDE0600552FE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0134D17627BDDE0600552FE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0134D17F27BDE14200552FE0 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		0134D18127BDE2AF00552FE0 /* MainTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		0134D18227BDE2AF00552FE0 /* SettingsDayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDayController.swift; sourceTree = "<group>"; };
+		0134D18327BDE2AF00552FE0 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
+		0134D18527BDE2AF00552FE0 /* CalendarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		0134D18627BDE2AF00552FE0 /* DayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayController.swift; sourceTree = "<group>"; };
+		0134D18727BDE2AF00552FE0 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		0134D19027BDE30000552FE0 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		0134D19327BDE31600552FE0 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		0134D19627BDE81700552FE0 /* FirstDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDay.swift; sourceTree = "<group>"; };
+		0134D19927BDEAF900552FE0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		2DA248200935EC3CB1E338D0 /* Pods-OurDday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.release.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.release.xcconfig"; sourceTree = "<group>"; };
 		69F9529BCC9E3253E99E0107 /* Pods-OurDday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.debug.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.debug.xcconfig"; sourceTree = "<group>"; };
 		D16D8EE346043F61E22D367A /* Pods_OurDday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurDday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,15 +83,81 @@
 		0134D16727BDDE0400552FE0 /* OurDday */ = {
 			isa = PBXGroup;
 			children = (
-				0134D16827BDDE0400552FE0 /* AppDelegate.swift */,
-				0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */,
-				0134D16C27BDDE0400552FE0 /* ViewController.swift */,
-				0134D16E27BDDE0400552FE0 /* Main.storyboard */,
-				0134D17127BDDE0600552FE0 /* Assets.xcassets */,
-				0134D17327BDDE0600552FE0 /* LaunchScreen.storyboard */,
 				0134D17627BDDE0600552FE0 /* Info.plist */,
+				0134D17C27BDE05100552FE0 /* Supporting Files */,
+				0134D19227BDE30E00552FE0 /* View */,
+				0134D17D27BDE10C00552FE0 /* Controller */,
+				0134D17E27BDE11600552FE0 /* Storage */,
+				0134D19827BDEAEF00552FE0 /* API */,
+				0134D19527BDE7DC00552FE0 /* RealmModel */,
+				0134D18F27BDE2EE00552FE0 /* Utils */,
 			);
 			path = OurDday;
+			sourceTree = "<group>";
+		};
+		0134D17C27BDE05100552FE0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0134D16827BDDE0400552FE0 /* AppDelegate.swift */,
+				0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */,
+				0134D17327BDDE0600552FE0 /* LaunchScreen.storyboard */,
+				0134D17127BDDE0600552FE0 /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0134D17D27BDE10C00552FE0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */,
+				0134D18127BDE2AF00552FE0 /* MainTabController.swift */,
+				0134D18327BDE2AF00552FE0 /* HomeController.swift */,
+				0134D18627BDE2AF00552FE0 /* DayController.swift */,
+				0134D18527BDE2AF00552FE0 /* CalendarController.swift */,
+				0134D18727BDE2AF00552FE0 /* SettingsController.swift */,
+				0134D18227BDE2AF00552FE0 /* SettingsDayController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0134D17E27BDE11600552FE0 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				0134D17F27BDE14200552FE0 /* LocalStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		0134D18F27BDE2EE00552FE0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0134D19027BDE30000552FE0 /* DateUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0134D19227BDE30E00552FE0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0134D19327BDE31600552FE0 /* SettingsCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0134D19527BDE7DC00552FE0 /* RealmModel */ = {
+			isa = PBXGroup;
+			children = (
+				0134D19627BDE81700552FE0 /* FirstDay.swift */,
+			);
+			path = RealmModel;
+			sourceTree = "<group>";
+		};
+		0134D19827BDEAEF00552FE0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0134D19927BDEAF900552FE0 /* RealmManager.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		160A99A8D51BB9E84C2B163B /* Frameworks */ = {
@@ -88,7 +174,6 @@
 				69F9529BCC9E3253E99E0107 /* Pods-OurDday.debug.xcconfig */,
 				2DA248200935EC3CB1E338D0 /* Pods-OurDday.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -154,7 +239,6 @@
 			files = (
 				0134D17527BDDE0600552FE0 /* LaunchScreen.storyboard in Resources */,
 				0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */,
-				0134D17027BDDE0400552FE0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,8 +291,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0134D16D27BDDE0400552FE0 /* ViewController.swift in Sources */,
+				0134D19127BDE30000552FE0 /* DateUtils.swift in Sources */,
+				0134D18027BDE14200552FE0 /* LocalStorage.swift in Sources */,
+				0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */,
+				0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */,
+				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
+				0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
+				0134D18D27BDE2AF00552FE0 /* DayController.swift in Sources */,
+				0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */,
+				0134D18927BDE2AF00552FE0 /* SettingsDayController.swift in Sources */,
+				0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */,
+				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
+				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,14 +311,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0134D16E27BDDE0400552FE0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0134D16F27BDDE0400552FE0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0134D17327BDDE0600552FE0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -364,8 +451,7 @@
 				INFOPLIST_FILE = OurDday/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -395,8 +481,7 @@
 				INFOPLIST_FILE = OurDday/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
