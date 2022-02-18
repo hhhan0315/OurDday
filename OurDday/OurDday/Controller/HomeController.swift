@@ -13,17 +13,32 @@ final class HomeController: UIViewController {
     
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage(named: "sample")
         return imageView
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "1일"
         return label
     }()
 
     // MARK: - Life cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let date = RealmManager.shared.readFirstDayDate()
+        let calendar = Calendar.current
+        
+        let from = calendar.startOfDay(for: date)
+        let to = calendar.startOfDay(for: Date())
+        
+        let components = calendar.dateComponents([.day], from: from, to: to)
+        let dayCount = components.day!
+        
+        if dayCount >= 0 {
+            dateLabel.text = "\(abs(dayCount) + 1)일"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -40,7 +40,7 @@ final class RealmManager {
         }
     }
     
-    func readFirstDay() -> FirstDay? {
-        return realm.objects(FirstDay.self).first
+    func readFirstDayDate() -> Date {
+        return realm.objects(FirstDay.self).first?.date ?? Date()
     }
 }

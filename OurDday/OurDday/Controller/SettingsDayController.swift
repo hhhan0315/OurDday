@@ -11,15 +11,7 @@ final class SettingsDayController: UIViewController {
 
     // MARK: - Properties
     
-    private let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ko_KR")
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-        return datePicker
-    }()
+    private lazy var datePicker = self.configureDatePicker()
     
     // MARK: - Life cycle
     
@@ -50,8 +42,7 @@ final class SettingsDayController: UIViewController {
     // MARK: - Actions
     
     @objc func touchOkButton(_ sender: UIBarButtonItem) {
-//        let date = DateUtils.makeKoreanDateString(date: datePicker.date)
-//        CoreDataManager.shared.insertFirstDay(date: date)
+        RealmManager.shared.update(date: datePicker.date)
         navigationController?.popViewController(animated: true)
     }
 }

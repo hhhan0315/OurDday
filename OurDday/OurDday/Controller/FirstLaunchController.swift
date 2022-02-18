@@ -23,6 +23,8 @@ final class FirstLaunchController: UIViewController {
         button.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
         return button
     }()
+    
+    private let storage = LocalStorage()
 
     // MARK: - Life cycle
     
@@ -65,7 +67,7 @@ final class FirstLaunchController: UIViewController {
     // MARK: - Actions
     
     @objc func touchUpOkButton(_ sender: UIBarButtonItem) {
-//        LocalStorage().setFirstTime()
+        storage.setFirstTime()
         view.window?.rootViewController = MainTabController()
     }
     

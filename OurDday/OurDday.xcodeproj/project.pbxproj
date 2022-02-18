@@ -17,13 +17,15 @@
 		0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18327BDE2AF00552FE0 /* HomeController.swift */; };
 		0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */; };
 		0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18527BDE2AF00552FE0 /* CalendarController.swift */; };
-		0134D18D27BDE2AF00552FE0 /* DayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18627BDE2AF00552FE0 /* DayController.swift */; };
+		0134D18D27BDE2AF00552FE0 /* SpecialDayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18627BDE2AF00552FE0 /* SpecialDayController.swift */; };
 		0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18727BDE2AF00552FE0 /* SettingsController.swift */; };
 		0134D19127BDE30000552FE0 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19027BDE30000552FE0 /* DateUtils.swift */; };
 		0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19327BDE31600552FE0 /* SettingsCell.swift */; };
 		0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19627BDE81700552FE0 /* FirstDay.swift */; };
 		0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19927BDEAF900552FE0 /* RealmManager.swift */; };
 		0138EB0527BE1187003E99B1 /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0427BE1187003E99B1 /* ViewControllerUtils.swift */; };
+		0138EB0827BE6938003E99B1 /* SpecialEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* SpecialEvent.swift */; };
+		0138EB0A27BF44CE003E99B1 /* SpecialDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* SpecialDaysCell.swift */; };
 		62FB759EB4FFF2FDBFED20B9 /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,13 +42,15 @@
 		0134D18327BDE2AF00552FE0 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		0134D18527BDE2AF00552FE0 /* CalendarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
-		0134D18627BDE2AF00552FE0 /* DayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayController.swift; sourceTree = "<group>"; };
+		0134D18627BDE2AF00552FE0 /* SpecialDayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialDayController.swift; sourceTree = "<group>"; };
 		0134D18727BDE2AF00552FE0 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		0134D19027BDE30000552FE0 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		0134D19327BDE31600552FE0 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		0134D19627BDE81700552FE0 /* FirstDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDay.swift; sourceTree = "<group>"; };
 		0134D19927BDEAF900552FE0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		0138EB0427BE1187003E99B1 /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
+		0138EB0727BE6938003E99B1 /* SpecialEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialEvent.swift; sourceTree = "<group>"; };
+		0138EB0927BF44CE003E99B1 /* SpecialDaysCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialDaysCell.swift; sourceTree = "<group>"; };
 		2DA248200935EC3CB1E338D0 /* Pods-OurDday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.release.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.release.xcconfig"; sourceTree = "<group>"; };
 		69F9529BCC9E3253E99E0107 /* Pods-OurDday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.debug.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.debug.xcconfig"; sourceTree = "<group>"; };
 		D16D8EE346043F61E22D367A /* Pods_OurDday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurDday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +91,7 @@
 			children = (
 				0134D17627BDDE0600552FE0 /* Info.plist */,
 				0134D17C27BDE05100552FE0 /* Supporting Files */,
+				0138EB0627BE692D003E99B1 /* Model */,
 				0134D19227BDE30E00552FE0 /* View */,
 				0134D17D27BDE10C00552FE0 /* Controller */,
 				0134D17E27BDE11600552FE0 /* Storage */,
@@ -114,7 +119,7 @@
 				0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */,
 				0134D18127BDE2AF00552FE0 /* MainTabController.swift */,
 				0134D18327BDE2AF00552FE0 /* HomeController.swift */,
-				0134D18627BDE2AF00552FE0 /* DayController.swift */,
+				0134D18627BDE2AF00552FE0 /* SpecialDayController.swift */,
 				0134D18527BDE2AF00552FE0 /* CalendarController.swift */,
 				0134D18727BDE2AF00552FE0 /* SettingsController.swift */,
 				0134D18227BDE2AF00552FE0 /* SettingsDayController.swift */,
@@ -143,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				0134D19327BDE31600552FE0 /* SettingsCell.swift */,
+				0138EB0927BF44CE003E99B1 /* SpecialDaysCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -161,6 +167,14 @@
 				0134D19927BDEAF900552FE0 /* RealmManager.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		0138EB0627BE692D003E99B1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0138EB0727BE6938003E99B1 /* SpecialEvent.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		160A99A8D51BB9E84C2B163B /* Frameworks */ = {
@@ -301,9 +315,11 @@
 				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
 				0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
-				0134D18D27BDE2AF00552FE0 /* DayController.swift in Sources */,
+				0134D18D27BDE2AF00552FE0 /* SpecialDayController.swift in Sources */,
+				0138EB0827BE6938003E99B1 /* SpecialEvent.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */,
 				0134D18927BDE2AF00552FE0 /* SettingsDayController.swift in Sources */,
+				0138EB0A27BF44CE003E99B1 /* SpecialDaysCell.swift in Sources */,
 				0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,

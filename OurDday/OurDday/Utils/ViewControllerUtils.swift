@@ -16,8 +16,8 @@ extension UIViewController {
         }
         datePicker.locale = Locale(identifier: "ko_KR")
         
-        guard let firstDay = RealmManager.shared.readFirstDay() else { return datePicker }
-        datePicker.setDate(firstDay.date, animated: false)
+        let date = RealmManager.shared.readFirstDayDate()
+        datePicker.setDate(date, animated: false)
         return datePicker
     }
 }
