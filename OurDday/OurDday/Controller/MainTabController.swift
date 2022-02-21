@@ -39,7 +39,9 @@ final class MainTabController: UITabBarController {
         let nav = UINavigationController(rootViewController: rootViewController)
         nav.tabBarItem.image = unselectedImage
         nav.tabBarItem.selectedImage = selectedImage
-        nav.navigationBar.tintColor = .black
+        nav.navigationBar.tintColor = .white
+        nav.navigationBar.barTintColor = UIColor.appColor(.mainColor)
+        nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         return nav
     }
 }

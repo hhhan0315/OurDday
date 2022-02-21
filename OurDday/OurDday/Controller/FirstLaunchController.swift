@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 final class FirstLaunchController: UIViewController {
     
@@ -92,7 +91,7 @@ final class FirstLaunchController: UIViewController {
     }
     
     @objc func touchUpDateButton(_ sender: UIButton) {
-        let datePicker = self.configureDatePicker()
+        let datePicker = CustomDatePicker()
         
         let contentView = UIViewController()
         contentView.view.addSubview(datePicker)

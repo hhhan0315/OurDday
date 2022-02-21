@@ -11,13 +11,17 @@ final class HomeController: UIViewController {
     
     // MARK: - Properties
     
-    private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.appColor(.mainColor)
+        label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
+        return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .darkGray
+        label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
 
@@ -26,18 +30,7 @@ final class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let date = RealmManager.shared.readFirstDayDate()
-        let calendar = Calendar.current
-        
-        let from = calendar.startOfDay(for: date)
-        let to = calendar.startOfDay(for: Date())
-        
-        let components = calendar.dateComponents([.day], from: from, to: to)
-        let dayCount = components.day!
-        
-        if dayCount >= 0 {
-            dateLabel.text = "\(abs(dayCount) + 1)일"
-        }
+        checkDate()
     }
     
     override func viewDidLoad() {
@@ -51,20 +44,34 @@ final class HomeController: UIViewController {
     private func configureUI() {
         navigationItem.title = "디데이"
         
-        view.addSubview(backgroundImageView)
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
-        
+        view.addSubview(countLabel)
         view.addSubview(dateLabel)
+        
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
+            countLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            countLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            dateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
         ])
+    }
+    
+    private func checkDate() {
+        let saveDate = RealmManager.shared.readFirstDayDate()
+        let calendar = Calendar.current
+        
+        let from = calendar.startOfDay(for: saveDate)
+        let to = calendar.startOfDay(for: Date())
+        
+        let components = calendar.dateComponents([.day], from: from, to: to)
+        let dayCount = components.day ?? 0
+        
+        if dayCount >= 0 {
+            countLabel.text = "\(abs(dayCount) + 1)일"
+            dateLabel.text = saveDate.toButtonStringKST()
+        }
     }
 }

@@ -11,7 +11,7 @@ final class SettingsDayController: UIViewController {
 
     // MARK: - Properties
     
-    private lazy var datePicker = self.configureDatePicker()
+    private let datePicker = CustomDatePicker()
     
     // MARK: - Life cycle
     
