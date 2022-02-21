@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class FirstLaunchController: UIViewController {
     
@@ -14,13 +15,24 @@ final class FirstLaunchController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "우리 처음 만난 날"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
         return label
     }()
     
-    private let dateButton: UIButton = {        
+    private let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "날짜를 선택해주세요"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .darkGray
+        return label
+    }()
+    
+    private let dateButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(Date().toButtonStringKST(), for: .normal)
         button.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
+        button.setTitleColor(UIColor.appColor(.mainColor), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         return button
     }()
     
@@ -41,23 +53,31 @@ final class FirstLaunchController: UIViewController {
         view.backgroundColor = .white
         
         navigationItem.title = "우리만의 디데이"
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.barTintColor = UIColor.appColor(.mainColor)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
         
         view.addSubview(titleLabel)
+        view.addSubview(infoLabel)
+        view.addSubview(dateButton)
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
-        ])
-        
-        view.addSubview(dateButton)
-        dateButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            
+            infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            
             dateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dateButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            dateButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
             dateButton.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
+        
     }
     
     private func configureFirstDay() {
@@ -83,16 +103,14 @@ final class FirstLaunchController: UIViewController {
             datePicker.trailingAnchor.constraint(equalTo: contentView.view.trailingAnchor),
             datePicker.bottomAnchor.constraint(equalTo: contentView.view.bottomAnchor),
         ])
-        contentView.preferredContentSize.height = 300
-        
-        let dateChooseActionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        dateChooseActionSheet.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             RealmManager.shared.update(date: datePicker.date)
             self.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
         }))
-        dateChooseActionSheet.setValue(contentView, forKey: "contentViewController")
-        dateChooseActionSheet.view.tintColor = .black
+        alert.setValue(contentView, forKey: "contentViewController")
         
-        present(dateChooseActionSheet, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

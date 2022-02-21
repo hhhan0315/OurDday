@@ -7,6 +7,8 @@
 
 import Foundation
 
+// 이것도 enum으로 구분??
+
 // 100일, 1주년 기념일 모델
 struct SpecialEvent {
     var title: String
