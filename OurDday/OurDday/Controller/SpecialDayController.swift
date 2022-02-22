@@ -25,7 +25,7 @@ final class SpecialDayController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableView.reloadData()
+        tableView.reloadData()        
     }
     
     // MARK: - Helpers
@@ -57,7 +57,6 @@ final class SpecialDayController: UITableViewController {
         }
         
         events.sort {$0.day < $1.day}
-        
     }
 
 }
@@ -94,5 +93,13 @@ extension SpecialDayController {
 //        }
         
         return cell
+    }
+}
+
+// MARK: - TabBarReselctHandling
+
+extension SpecialDayController: TabBarReselctHandling {
+    func handleReselect() {
+        tableView.setContentOffset(CGPoint(x: 0, y: -88.0), animated: true)
     }
 }
