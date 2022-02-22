@@ -37,7 +37,7 @@ final class MainTabController: UITabBarController {
         
         viewControllers = [home, day, calendar, settings]
         
-        tabBar.tintColor = .black
+        tabBar.tintColor = UIColor.customColor(.mainColor)
     }
     
     private func configureTemplateNavigationController(unselectedImage: UIImage?, selectedImage: UIImage?, rootViewController: UIViewController) -> UINavigationController {

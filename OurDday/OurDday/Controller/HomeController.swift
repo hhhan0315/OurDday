@@ -30,7 +30,10 @@ final class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        countDate()
+        let saveDate = RealmManager.shared.readFirstDayDate()
+        
+        countLabel.text = "\(abs(Calendar.countDaysFromNow(fromDate: saveDate)) + 1)일"
+        dateLabel.text = saveDate.toButtonStringKST()
     }
     
     override func viewDidLoad() {
@@ -59,19 +62,4 @@ final class HomeController: UIViewController {
         ])
     }
     
-    private func countDate() {
-        let saveDate = RealmManager.shared.readFirstDayDate()
-        let calendar = Calendar.current
-        
-        let from = calendar.startOfDay(for: saveDate)
-        let to = calendar.startOfDay(for: Date())
-        
-        let components = calendar.dateComponents([.day], from: from, to: to)
-        let dayCount = components.day ?? 0
-        
-        if dayCount >= 0 {
-            countLabel.text = "\(abs(dayCount) + 1)일"
-            dateLabel.text = saveDate.toButtonStringKST()
-        }
-    }
 }

@@ -29,6 +29,7 @@ final class SpecialDayCell: UITableViewCell {
     let countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleBold)
+        label.textColor = UIColor.customColor(.mainColor)
         return label
     }()
     

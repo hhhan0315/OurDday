@@ -34,17 +34,18 @@ final class SpecialDayController: UITableViewController {
         navigationItem.title = "기념일"
         
         tableView.register(SpecialDayCell.self, forCellReuseIdentifier: SpecialDayCell.identifier)
-        tableView.rowHeight = 85
+        tableView.rowHeight = 80
         tableView.separatorInset.right = tableView.separatorInset.left
     }
     
     private func configureEvents() {
         let firstDayDate = RealmManager.shared.readFirstDayDate()
         
+        let today = Event(type: .today, day: 0, firstDayDate: firstDayDate)
         let ten = Event(type: .hundred, day: 10, firstDayDate: firstDayDate)
         let fifty = Event(type: .hundred, day: 50, firstDayDate: firstDayDate)
         
-        events.append(contentsOf: [ten, fifty])
+        events.append(contentsOf: [today, ten, fifty])
         
         for day in stride(from: 100, through: 10000, by: 100) {
             let event = Event(type: .hundred, day: day, firstDayDate: firstDayDate)
@@ -56,7 +57,7 @@ final class SpecialDayController: UITableViewController {
             events.append(event)
         }
         
-        events.sort {$0.day < $1.day}
+        events.sort {$0.date < $1.date}
     }
 
 }
@@ -75,18 +76,17 @@ extension SpecialDayController {
         cell.selectionStyle = .none
         
         let event = events[indexPath.row]
-        let dayCount = event.dayCount()
+        let dayCount = Calendar.countDaysFromNow(fromDate: event.date)
         
         cell.titleLabel.text = event.title
-        cell.countLabel.text = dayCount == 0 ? "Today" : dayCount > 0 ? "" : "D\(dayCount)"
-        cell.countLabel.textColor = UIColor.customColor(.mainColor)
+        cell.countLabel.text = dayCount == 0 ? "오늘" : dayCount > 0 ? "" : "D\(dayCount)"
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd(EEE)"
         formatter.locale = Locale(identifier: "ko_kr")
         cell.dateTitleLabel.text = formatter.string(from: event.date)
         
-//        if event.isPass {
+//        if dayCount > 0 {
 //            cell.titleLabel.textColor = .lightGray
 //            cell.dateTitleLabel.textColor = .lightGray
 //            cell.countLabel.textColor = .lightGray
