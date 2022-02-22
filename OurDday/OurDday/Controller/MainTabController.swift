@@ -40,7 +40,7 @@ final class MainTabController: UITabBarController {
         nav.tabBarItem.image = unselectedImage
         nav.tabBarItem.selectedImage = selectedImage
         nav.navigationBar.tintColor = .white
-        nav.navigationBar.barTintColor = UIColor.appColor(.mainColor)
+        nav.navigationBar.barTintColor = UIColor.customColor(.mainColor)
         nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         return nav
     }

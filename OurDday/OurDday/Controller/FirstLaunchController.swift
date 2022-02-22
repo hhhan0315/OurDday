@@ -14,14 +14,14 @@ final class FirstLaunchController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "우리 처음 만난 날"
-        label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
+        label.font = UIFont.customFontSize(.bigBold)
         return label
     }()
     
     private let infoLabel: UILabel = {
         let label = UILabel()
         label.text = "날짜를 선택해주세요"
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.customFontSize(.middleSystem)
         label.textColor = .darkGray
         return label
     }()
@@ -30,7 +30,7 @@ final class FirstLaunchController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(Date().toButtonStringKST(), for: .normal)
         button.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
-        button.setTitleColor(UIColor.appColor(.mainColor), for: .normal)
+        button.setTitleColor(UIColor.customColor(.mainColor), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         return button
     }()
@@ -54,7 +54,7 @@ final class FirstLaunchController: UIViewController {
         navigationItem.title = "우리만의 디데이"
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.barTintColor = UIColor.appColor(.mainColor)
+        navigationController?.navigationBar.barTintColor = UIColor.customColor(.mainColor)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
         
         view.addSubview(titleLabel)

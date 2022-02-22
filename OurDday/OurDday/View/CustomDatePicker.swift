@@ -13,11 +13,12 @@ final class CustomDatePicker: UIDatePicker {
         super.init(frame: frame)
         
         self.datePickerMode = .date
+        self.locale = Locale(identifier: "ko_kr")
+        self.setDate(RealmManager.shared.readFirstDayDate(), animated: false)
+        
         if #available(iOS 13.4, *) {
             self.preferredDatePickerStyle = .wheels
         }
-        self.locale = Locale(identifier: "ko_kr")
-        self.setDate(RealmManager.shared.readFirstDayDate(), animated: false)
     }
     
     required init?(coder: NSCoder) {

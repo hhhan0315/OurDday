@@ -1,5 +1,5 @@
 //
-//  SpecialDaysCell.swift
+//  SpecialDayCell.swift
 //  OurDday
 //
 //  Created by rae on 2022/02/18.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SpecialDaysCell: UITableViewCell {
+final class SpecialDayCell: UITableViewCell {
 
     // MARK: - Properties
     
@@ -15,20 +15,20 @@ final class SpecialDaysCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18.0)
+        label.font = UIFont.customFontSize(.middleBold)
         return label
     }()
     
     let dateTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.font = UIFont.customFontSize(.smallSystem)
         label.textColor = .darkGray
         return label
     }()
     
     let countLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15.0)
+        label.font = UIFont.customFontSize(.middleBold)
         return label
     }()
     

@@ -23,10 +23,11 @@
 		0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19327BDE31600552FE0 /* SettingsCell.swift */; };
 		0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19627BDE81700552FE0 /* FirstDay.swift */; };
 		0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19927BDEAF900552FE0 /* RealmManager.swift */; };
-		0138EB0827BE6938003E99B1 /* SpecialEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* SpecialEvent.swift */; };
-		0138EB0A27BF44CE003E99B1 /* SpecialDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* SpecialDaysCell.swift */; };
+		0138EB0827BE6938003E99B1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* Event.swift */; };
+		0138EB0A27BF44CE003E99B1 /* SpecialDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* SpecialDayCell.swift */; };
 		01C80CA127C36D9700E2845B /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA027C36D9700E2845B /* ColorUtils.swift */; };
 		01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */; };
+		01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA827C47A9000E2845B /* FontUtils.swift */; };
 		62FB759EB4FFF2FDBFED20B9 /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,10 +50,11 @@
 		0134D19327BDE31600552FE0 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		0134D19627BDE81700552FE0 /* FirstDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDay.swift; sourceTree = "<group>"; };
 		0134D19927BDEAF900552FE0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
-		0138EB0727BE6938003E99B1 /* SpecialEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialEvent.swift; sourceTree = "<group>"; };
-		0138EB0927BF44CE003E99B1 /* SpecialDaysCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialDaysCell.swift; sourceTree = "<group>"; };
+		0138EB0727BE6938003E99B1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		0138EB0927BF44CE003E99B1 /* SpecialDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialDayCell.swift; sourceTree = "<group>"; };
 		01C80CA027C36D9700E2845B /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		01C80CA827C47A9000E2845B /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		2DA248200935EC3CB1E338D0 /* Pods-OurDday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.release.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.release.xcconfig"; sourceTree = "<group>"; };
 		69F9529BCC9E3253E99E0107 /* Pods-OurDday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.debug.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.debug.xcconfig"; sourceTree = "<group>"; };
 		D16D8EE346043F61E22D367A /* Pods_OurDday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurDday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +144,7 @@
 			children = (
 				0134D19027BDE30000552FE0 /* DateUtils.swift */,
 				01C80CA027C36D9700E2845B /* ColorUtils.swift */,
+				01C80CA827C47A9000E2845B /* FontUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -149,8 +152,8 @@
 		0134D19227BDE30E00552FE0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0138EB0927BF44CE003E99B1 /* SpecialDayCell.swift */,
 				0134D19327BDE31600552FE0 /* SettingsCell.swift */,
-				0138EB0927BF44CE003E99B1 /* SpecialDaysCell.swift */,
 				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
 			);
 			path = View;
@@ -175,7 +178,7 @@
 		0138EB0627BE692D003E99B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0138EB0727BE6938003E99B1 /* SpecialEvent.swift */,
+				0138EB0727BE6938003E99B1 /* Event.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -320,12 +323,13 @@
 				0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
 				0134D18D27BDE2AF00552FE0 /* SpecialDayController.swift in Sources */,
-				0138EB0827BE6938003E99B1 /* SpecialEvent.swift in Sources */,
+				0138EB0827BE6938003E99B1 /* Event.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */,
 				0134D18927BDE2AF00552FE0 /* SettingsDayController.swift in Sources */,
-				0138EB0A27BF44CE003E99B1 /* SpecialDaysCell.swift in Sources */,
+				0138EB0A27BF44CE003E99B1 /* SpecialDayCell.swift in Sources */,
 				0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
+				01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */,
 				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
 				01C80CA127C36D9700E2845B /* ColorUtils.swift in Sources */,

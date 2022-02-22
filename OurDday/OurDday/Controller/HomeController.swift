@@ -13,15 +13,15 @@ final class HomeController: UIViewController {
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.appColor(.mainColor)
-        label.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
+        label.textColor = UIColor.customColor(.mainColor)
+        label.font = UIFont.customFontSize(.bigBold)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.customFontSize(.middleSystem)
         return label
     }()
 
@@ -30,7 +30,7 @@ final class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        checkDate()
+        countDate()
     }
     
     override func viewDidLoad() {
@@ -59,7 +59,7 @@ final class HomeController: UIViewController {
         ])
     }
     
-    private func checkDate() {
+    private func countDate() {
         let saveDate = RealmManager.shared.readFirstDayDate()
         let calendar = Calendar.current
         
