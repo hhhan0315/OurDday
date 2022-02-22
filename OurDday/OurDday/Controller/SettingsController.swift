@@ -11,7 +11,7 @@ final class SettingsController: UITableViewController {
     
     // MARK: - Properties
     
-    private let titles = ["기념일 설정"]
+    private let titles = ["기념일 설정", "테마 설정"]
 
     // MARK: - Life cycle
     
@@ -29,7 +29,7 @@ final class SettingsController: UITableViewController {
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorInset.right = tableView.separatorInset.left
-        tableView.rowHeight = 60
+        tableView.rowHeight = 80
         tableView.isScrollEnabled = false
     }
 }
@@ -46,7 +46,7 @@ extension SettingsController {
             return UITableViewCell()
         }
         
-        cell.textLabel?.text = titles[indexPath.row]
+        cell.titleLabel.text = titles[indexPath.row]
         
         return cell
     }

@@ -80,23 +80,11 @@ extension SpecialDayController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SpecialDayCell.identifier, for: indexPath) as? SpecialDayCell else {
             return UITableViewCell()
         }
-        cell.selectionStyle = .none
         
         let event = events[indexPath.row]
         
-        cell.titleLabel.text = event.title
-        cell.countLabel.text = event.dayCount == 0 ? "오늘" : event.dayCount > 0 ? "" : "D\(event.dayCount)"
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd(EEE)"
-        formatter.locale = Locale(identifier: "ko_kr")
-        cell.dateTitleLabel.text = formatter.string(from: event.date)
-        
-//        if dayCount > 0 {
-//            cell.titleLabel.textColor = .lightGray
-//            cell.dateTitleLabel.textColor = .lightGray
-//            cell.countLabel.textColor = .lightGray
-//        }
+        cell.configure(event: event)
+        cell.selectionStyle = .none
         
         return cell
     }

@@ -22,14 +22,12 @@ final class SpecialDayCell: UITableViewCell {
     let dateTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.smallSystem)
-        label.textColor = .darkGray
         return label
     }()
     
     let countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleBold)
-        label.textColor = UIColor.customColor(.mainColor)
         return label
     }()
     
@@ -66,5 +64,22 @@ final class SpecialDayCell: UITableViewCell {
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
         ])
+    }
+    
+    func configure(event: Event) {
+        let dayCount = event.dayCount
+        
+        titleLabel.text = event.title
+        titleLabel.textColor = dayCount > 0 ? UIColor.lightGray : UIColor.black
+        
+        countLabel.text = dayCount == 0 ? "오늘" : dayCount > 0 ? "" : "D\(dayCount)"
+        countLabel.textColor = dayCount > 0 ? UIColor.lightGray : UIColor.customColor(.mainColor)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd(EEE)"
+        formatter.locale = Locale(identifier: "ko_kr")
+        
+        dateTitleLabel.text = formatter.string(from: event.date)
+        dateTitleLabel.textColor = dayCount > 0 ? UIColor.lightGray : UIColor.darkGray
     }
 }
