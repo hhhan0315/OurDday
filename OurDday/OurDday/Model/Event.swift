@@ -18,6 +18,7 @@ struct Event {
     var isPass: Bool = false
     var title: String
     var date: Date
+    var dayCount: Int
     
     init(type: EventType, day: Int, firstDayDate: Date) {
         switch type {
@@ -34,5 +35,6 @@ struct Event {
             self.title = "\(abs(Calendar.countDaysFromNow(fromDate: firstDayDate)) + 1)일" 
             self.date = Date()
         }
+        self.dayCount = Calendar.countDaysFromNow(fromDate: self.date)
     }
 }

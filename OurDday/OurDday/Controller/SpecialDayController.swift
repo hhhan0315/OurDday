@@ -19,12 +19,12 @@ final class SpecialDayController: UITableViewController {
         super.viewDidLoad()
 
         configureUI()
-        configureEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        configureEvents()
         tableView.reloadData()        
     }
     
@@ -39,13 +39,13 @@ final class SpecialDayController: UITableViewController {
     }
     
     private func configureEvents() {
+        events.removeAll()
         let firstDayDate = RealmManager.shared.readFirstDayDate()
         
-        let today = Event(type: .today, day: 0, firstDayDate: firstDayDate)
         let ten = Event(type: .hundred, day: 10, firstDayDate: firstDayDate)
         let fifty = Event(type: .hundred, day: 50, firstDayDate: firstDayDate)
         
-        events.append(contentsOf: [today, ten, fifty])
+        events.append(contentsOf: [ten, fifty])
         
         for day in stride(from: 100, through: 10000, by: 100) {
             let event = Event(type: .hundred, day: day, firstDayDate: firstDayDate)
@@ -55,6 +55,13 @@ final class SpecialDayController: UITableViewController {
         for day in stride(from: 365, through: 10000, by: 365) {
             let event = Event(type: .year, day: day, firstDayDate: firstDayDate)
             events.append(event)
+        }
+        
+        let today = Event(type: .today, day: 0, firstDayDate: firstDayDate)
+        let eventsHaveToday = events.contains { $0.dayCount == today.dayCount }
+        
+        if eventsHaveToday == false {
+            events.append(today)
         }
         
         events.sort {$0.date < $1.date}
@@ -76,10 +83,9 @@ extension SpecialDayController {
         cell.selectionStyle = .none
         
         let event = events[indexPath.row]
-        let dayCount = Calendar.countDaysFromNow(fromDate: event.date)
         
         cell.titleLabel.text = event.title
-        cell.countLabel.text = dayCount == 0 ? "오늘" : dayCount > 0 ? "" : "D\(dayCount)"
+        cell.countLabel.text = event.dayCount == 0 ? "오늘" : event.dayCount > 0 ? "" : "D\(event.dayCount)"
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd(EEE)"
