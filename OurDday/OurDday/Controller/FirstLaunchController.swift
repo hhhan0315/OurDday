@@ -52,8 +52,8 @@ final class FirstLaunchController: UIViewController {
         view.backgroundColor = .white
         
         navigationItem.title = "우리만의 디데이"
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = UIColor.customColor(.textColor)
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.customColor(.textColor)]
         navigationController?.navigationBar.barTintColor = UIColor.customColor(.mainColor)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
         

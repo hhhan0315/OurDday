@@ -27,27 +27,17 @@ final class MainTabController: UITabBarController {
     private func configureUI() {
         view.backgroundColor = .white
         
-        let home = configureTemplateNavigationController(unselectedImage: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"), rootViewController: HomeController())
+        let home = MainTabController.configureTemplateNavigationController(unselectedImage: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"), rootViewController: HomeController())
         
-        let day = configureTemplateNavigationController(unselectedImage: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"), rootViewController: SpecialDayController())
+        let day = MainTabController.configureTemplateNavigationController(unselectedImage: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"), rootViewController: SpecialDayController())
         
-        let calendar = configureTemplateNavigationController(unselectedImage: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"), rootViewController: CalendarController())
+        let calendar = MainTabController.configureTemplateNavigationController(unselectedImage: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar"), rootViewController: CalendarController())
         
-        let settings = configureTemplateNavigationController(unselectedImage: UIImage(systemName: "gear"), selectedImage: UIImage(systemName: "gear"), rootViewController: SettingsController())
+        let settings = MainTabController.configureTemplateNavigationController(unselectedImage: UIImage(systemName: "gear"), selectedImage: UIImage(systemName: "gear"), rootViewController: SettingsController())
         
         viewControllers = [home, day, calendar, settings]
         
         tabBar.tintColor = UIColor.customColor(.mainColor)
-    }
-    
-    private func configureTemplateNavigationController(unselectedImage: UIImage?, selectedImage: UIImage?, rootViewController: UIViewController) -> UINavigationController {
-        let nav = UINavigationController(rootViewController: rootViewController)
-        nav.tabBarItem.image = unselectedImage
-        nav.tabBarItem.selectedImage = selectedImage
-        nav.navigationBar.tintColor = .white
-        nav.navigationBar.barTintColor = UIColor.customColor(.mainColor)
-        nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        return nav
     }
     
 }

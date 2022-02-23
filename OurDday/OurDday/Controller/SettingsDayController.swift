@@ -27,6 +27,7 @@ final class SettingsDayController: UIViewController {
         view.backgroundColor = .white
         
         navigationItem.title = "기념일 설정"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(touchCancelButton(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchOkButton(_:)))
         
         view.addSubview(datePicker)
@@ -41,8 +42,12 @@ final class SettingsDayController: UIViewController {
 
     // MARK: - Actions
     
+    @objc func touchCancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func touchOkButton(_ sender: UIBarButtonItem) {
         RealmManager.shared.update(date: datePicker.date)
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }

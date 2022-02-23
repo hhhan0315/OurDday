@@ -25,6 +25,7 @@ final class SettingsController: UITableViewController {
     
     private func configureUI() {
         navigationItem.title = "설정"
+        navigationItem.backButtonTitle = ""
         
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.tableFooterView = UIView(frame: .zero)
@@ -59,8 +60,8 @@ extension SettingsController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.row == 0 {
-            let next = SettingsDayController()
-            navigationController?.pushViewController(next, animated: true)
+            let nav = SettingsController.configureTemplateNavigationController(rootViewController: SettingsDayController())
+            present(nav, animated: true, completion: nil)
         }
     }
 }
