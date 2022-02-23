@@ -30,7 +30,6 @@ final class CalendarController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
-//        tableView.delegate = self
         tableView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
 //        tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorInset.right = tableView.separatorInset.left
@@ -75,7 +74,9 @@ final class CalendarController: UIViewController {
     // MARK: - Actions
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
-        let nav = CalendarController.configureTemplateNavigationController(rootViewController: CalendarAddController())
+        let calendarAddController = CalendarAddController()
+        calendarAddController.chooseDate = calendar.selectedDate ?? calendar.today
+        let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
         present(nav, animated: true, completion: nil)
     }
 }
