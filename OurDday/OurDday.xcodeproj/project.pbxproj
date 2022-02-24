@@ -34,6 +34,7 @@
 		01FE724C27C6241E009B5425 /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE724B27C6241E009B5425 /* ViewControllerUtils.swift */; };
 		01FE724F27C63109009B5425 /* AddTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE724E27C63109009B5425 /* AddTextFieldCell.swift */; };
 		01FE725127C63113009B5425 /* AddDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE725027C63113009B5425 /* AddDatePickerCell.swift */; };
+		01FE725327C76185009B5425 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE725227C76185009B5425 /* CalendarEvent.swift */; };
 		62FB759EB4FFF2FDBFED20B9 /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		01FE724B27C6241E009B5425 /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		01FE724E27C63109009B5425 /* AddTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldCell.swift; sourceTree = "<group>"; };
 		01FE725027C63113009B5425 /* AddDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDatePickerCell.swift; sourceTree = "<group>"; };
+		01FE725227C76185009B5425 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		2DA248200935EC3CB1E338D0 /* Pods-OurDday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.release.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.release.xcconfig"; sourceTree = "<group>"; };
 		69F9529BCC9E3253E99E0107 /* Pods-OurDday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurDday.debug.xcconfig"; path = "Target Support Files/Pods-OurDday/Pods-OurDday.debug.xcconfig"; sourceTree = "<group>"; };
 		D16D8EE346043F61E22D367A /* Pods_OurDday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OurDday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				0134D19627BDE81700552FE0 /* FirstDay.swift */,
+				01FE725227C76185009B5425 /* CalendarEvent.swift */,
 			);
 			path = RealmModel;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				0134D18927BDE2AF00552FE0 /* SettingsDayController.swift in Sources */,
 				0138EB0A27BF44CE003E99B1 /* SpecialDayCell.swift in Sources */,
 				0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */,
+				01FE725327C76185009B5425 /* CalendarEvent.swift in Sources */,
 				01FE724C27C6241E009B5425 /* ViewControllerUtils.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */,

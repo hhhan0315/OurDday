@@ -76,6 +76,7 @@ final class CalendarController: UIViewController {
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarAddController = CalendarAddController()
         calendarAddController.chooseDate = calendar.selectedDate ?? calendar.today
+        calendarAddController.delegate = self
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
         present(nav, animated: true, completion: nil)
     }
@@ -94,6 +95,21 @@ extension CalendarController: UITableViewDataSource {
         }
                 
         return cell
+    }
+}
+
+// MARK: - CalendarAddControllerDelegate
+
+extension CalendarController: CalendarAddControllerDelegate {
+    func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
+    
+        RealmManager.shared.insert(calendarEvent: calendarEvent)
+        
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func calendarAddControllerDidCancel(_ controller: CalendarAddController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 

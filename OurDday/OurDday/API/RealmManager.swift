@@ -26,6 +26,12 @@ final class RealmManager {
 //        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
+    func insert(calendarEvent: CalendarEvent) {
+        try! realm.write({
+            realm.add(calendarEvent)
+        })        
+    }
+    
     private func deleteAll() {
         try! realm.write {
             realm.deleteAll()

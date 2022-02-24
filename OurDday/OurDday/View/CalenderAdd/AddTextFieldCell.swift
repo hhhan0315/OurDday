@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol AddTextFieldCellDelegate: AnyObject {
+    func addTextFieldChange(_ text: String)
+}
+
 final class AddTextFieldCell: UITableViewCell {
 
     // MARK: - Properties
+    
+    weak var delegate: AddTextFieldCellDelegate?
     
     static let identifier = "AddTextFieldCell"
     
@@ -19,6 +25,7 @@ final class AddTextFieldCell: UITableViewCell {
         textField.placeholder = "제목"
         textField.clearButtonMode = .always
         textField.autocapitalizationType = .none
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return textField
     }()
 
@@ -45,6 +52,14 @@ final class AddTextFieldCell: UITableViewCell {
             textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+    
+    // MARK: - Actions
+    
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        if let text = sender.text {
+            delegate?.addTextFieldChange(text)
+        }
     }
 }
 

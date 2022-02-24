@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddDatePickerCellDelegate: AnyObject {
+    
+}
+
 final class AddDatePickerCell: UITableViewCell {
 
     // MARK: - Properties

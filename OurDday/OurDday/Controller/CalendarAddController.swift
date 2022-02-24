@@ -7,10 +7,18 @@
 
 import UIKit
 
+protocol CalendarAddControllerDelegate: AnyObject {
+    func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent)
+    func calendarAddControllerDidCancel(_ controller: CalendarAddController)
+}
+
 final class CalendarAddController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: CalendarAddControllerDelegate?
+    
+    var titleText: String = ""
     var chooseDate: Date!
     
     private lazy var tableView: UITableView = {
@@ -59,11 +67,15 @@ final class CalendarAddController: UIViewController {
     // 여기도 delegate로 수정한 뒤 CalendarController에서 동작하는 걸로??
     
     @objc func touchCancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        delegate?.calendarAddControllerDidCancel(self)
     }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
 //        dismiss(animated: true, completion: nil)
+        let calendarEvent = CalendarEvent()
+        calendarEvent.title = titleText
+        calendarEvent.date = chooseDate
+        delegate?.calendarAddControllerDidSave(self, calendarEvent)
     }
     
     @objc func touchTableView(_ sender: UITableView) {
@@ -91,6 +103,7 @@ extension CalendarAddController: UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
+            cell.delegate = self
 
             return cell
         } else if indexPath.section == 1 {
@@ -120,5 +133,14 @@ extension CalendarAddController: UITableViewDelegate {
         } else {
             return 0
         }
+    }
+}
+
+// MARK: - AddTextFieldCellDelegate
+
+extension CalendarAddController: AddTextFieldCellDelegate {
+    func addTextFieldChange(_ text: String) {
+        navigationItem.rightBarButtonItem?.isEnabled = !text.isEmpty
+        titleText = text
     }
 }
