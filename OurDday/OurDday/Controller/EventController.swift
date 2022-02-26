@@ -10,11 +10,9 @@ import UIKit
 final class EventController: UITableViewController {
     
     // MARK: - Properties
+        
+    private let viewModel = EventViewModel()
     
-    private var events = [Event]()
-    
-    private var firstDayDate: Date!
-
     // MARK: - Life cycle
     
     override func viewDidLoad() {
@@ -26,7 +24,7 @@ final class EventController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        configureEvents()
+        viewModel.update()
         tableView.reloadData()
     }
     
@@ -39,36 +37,6 @@ final class EventController: UITableViewController {
         tableView.rowHeight = 80
         tableView.separatorInset.right = tableView.separatorInset.left
     }
-    
-    private func configureEvents() {
-        firstDayDate = RealmManager.shared.readFirstDayDate()
-        
-        events.removeAll()
-        
-        let ten = Event(type: .hundred, day: 10)
-        let fifty = Event(type: .hundred, day: 50)
-        
-        events.append(contentsOf: [ten, fifty])
-        
-        for day in stride(from: 100, through: 10000, by: 100) {
-            let event = Event(type: .hundred, day: day)
-            events.append(event)
-        }
-
-        for day in stride(from: 365, through: 10000, by: 365) {
-            let event = Event(type: .year, day: day)
-            events.append(event)
-        }
-        
-        let today = Event(type: .today, day: Calendar.countDaysFromNow(fromDate: firstDayDate))
-        let checkToday = events.contains { $0.day == today.day + 1 }
-        
-        if !checkToday {
-            events.append(today)
-        }
-
-        events.sort {$0.day < $1.day}
-    }
 
 }
 
@@ -76,7 +44,7 @@ final class EventController: UITableViewController {
 
 extension EventController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return viewModel.eventsCount()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,9 +52,9 @@ extension EventController {
             return UITableViewCell()
         }
         
-        let event = events[indexPath.row]
+        let event = viewModel.event(at: indexPath.row)
                 
-        let eventCellViewModel = EventCellViewModel(event: event, firstDayDate: firstDayDate)
+        let eventCellViewModel = EventCellViewModel(event: event)
         cell.viewModel = eventCellViewModel
         
         cell.selectionStyle = .none

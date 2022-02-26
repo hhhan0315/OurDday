@@ -13,10 +13,10 @@ struct EventCellViewModel {
     let calendar: Calendar
     let firstDayDate: Date
     
-    init(event: Event, firstDayDate: Date) {
+    init(event: Event) {
         self.event = event
         self.calendar = Calendar.current
-        self.firstDayDate = firstDayDate
+        self.firstDayDate = RealmManager.shared.readFirstDayDate()
     }
     
     var title: String {
