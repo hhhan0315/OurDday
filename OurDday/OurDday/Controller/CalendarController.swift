@@ -6,34 +6,18 @@
 //
 
 import UIKit
-import FSCalendar
 
 final class CalendarController: UIViewController {
     
     // MARK: - Properties
-
-    private lazy var calendar: FSCalendar = {
-        let calendar = FSCalendar()
-        calendar.delegate = self
-        calendar.dataSource = self
-        calendar.locale = Locale(identifier: "ko_kr")
-        calendar.scrollDirection = .vertical
-        calendar.appearance.headerDateFormat = "yyyy.MM"
-        calendar.appearance.headerTitleColor = .black
-        calendar.appearance.weekdayTextColor = .darkGray
-        calendar.appearance.titleWeekendColor = .red
-        calendar.appearance.todayColor = .customColor(.mainColor)
-        calendar.appearance.selectionColor = .darkGray
-        return calendar
-    }()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
-        tableView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
-//        tableView.tableFooterView = UIView(frame: .zero)
-        tableView.separatorInset.right = tableView.separatorInset.left
-        tableView.rowHeight = 60
+        tableView.delegate = self
+        tableView.register(FSCalendarCell.self, forCellReuseIdentifier: FSCalendarCell.identifier)
+        tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
+        tableView.isScrollEnabled = false
         return tableView
     }()
     
@@ -52,21 +36,12 @@ final class CalendarController: UIViewController {
         navigationItem.backButtonTitle = ""
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchAddButton(_:)))
         
-        view.addSubview(calendar)
         view.addSubview(tableView)
-        
-        calendar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            calendar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            calendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2),
-            
-            tableView.topAnchor.constraint(equalTo: calendar.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: calendar.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: calendar.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
@@ -75,7 +50,7 @@ final class CalendarController: UIViewController {
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarAddController = CalendarAddController()
-        calendarAddController.chooseDate = calendar.selectedDate ?? calendar.today
+//        calendarAddController.chooseDate = calendar.selectedDate ?? calendar.today
         calendarAddController.delegate = self
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
         present(nav, animated: true, completion: nil)
@@ -85,16 +60,50 @@ final class CalendarController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension CalendarController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarCell.identifier, for: indexPath) as? CalendarCell else {
+        
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FSCalendarCell.identifier, for: indexPath) as? FSCalendarCell else {
+                return UITableViewCell()
+            }
+            
+            cell.selectionStyle = .none
+
+            return cell
+        } else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTodoCell.identifier, for: indexPath) as? CalendarTodoCell else {
+                return UITableViewCell()
+            }
+            
+            cell.selectionStyle = .none
+            
+            return cell
+        } else {
             return UITableViewCell()
         }
-                
-        return cell
+        
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension CalendarController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 400.0
+        } else if indexPath.section == 1 {
+            return 55.0
+        } else {
+            return 0
+        }
     }
 }
 
@@ -102,9 +111,7 @@ extension CalendarController: UITableViewDataSource {
 
 extension CalendarController: CalendarAddControllerDelegate {
     func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
-    
         RealmManager.shared.insert(calendarEvent: calendarEvent)
-        
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -115,11 +122,11 @@ extension CalendarController: CalendarAddControllerDelegate {
 
 // MARK: - FSCalendarDelegate, FSCalendarDataSource
 
-extension CalendarController: FSCalendarDelegate, FSCalendarDataSource {
+//extension CalendarController: FSCalendarDelegate, FSCalendarDataSource {
 //    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
 //        <#code#>
 //    }
     
-}
+//}
 
 

@@ -1,5 +1,5 @@
 //
-//  CalendarCell.swift
+//  CalendarTodoCell.swift
 //  OurDday
 //
 //  Created by rae on 2022/02/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CalendarCell: UITableViewCell {
+final class CalendarTodoCell: UITableViewCell {
 
     // MARK: - Properties
     

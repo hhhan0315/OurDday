@@ -25,10 +25,11 @@
 		0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19927BDEAF900552FE0 /* RealmManager.swift */; };
 		013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BD27C9C8EF003949DF /* EventViewModel.swift */; };
 		013822C027C9CA98003949DF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BF27C9CA98003949DF /* EventManager.swift */; };
+		013822C327C9D6AC003949DF /* FSCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822C227C9D6AC003949DF /* FSCalendarCell.swift */; };
 		0138EB0827BE6938003E99B1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* Event.swift */; };
 		0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* EventCell.swift */; };
 		01434BF627C600D1005241DB /* CalendarAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF527C600D1005241DB /* CalendarAddController.swift */; };
-		01434BF827C6058E005241DB /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF727C6058E005241DB /* CalendarCell.swift */; };
+		01434BF827C6058E005241DB /* CalendarTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF727C6058E005241DB /* CalendarTodoCell.swift */; };
 		01C80CA127C36D9700E2845B /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA027C36D9700E2845B /* ColorUtils.swift */; };
 		01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */; };
 		01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA827C47A9000E2845B /* FontUtils.swift */; };
@@ -62,10 +63,11 @@
 		0134D19927BDEAF900552FE0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		013822BD27C9C8EF003949DF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		013822BF27C9CA98003949DF /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		013822C227C9D6AC003949DF /* FSCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarCell.swift; sourceTree = "<group>"; };
 		0138EB0727BE6938003E99B1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0138EB0927BF44CE003E99B1 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		01434BF527C600D1005241DB /* CalendarAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAddController.swift; sourceTree = "<group>"; };
-		01434BF727C6058E005241DB /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		01434BF727C6058E005241DB /* CalendarTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTodoCell.swift; sourceTree = "<group>"; };
 		01C80CA027C36D9700E2845B /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		01C80CA827C47A9000E2845B /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
@@ -176,10 +178,10 @@
 		0134D19227BDE30E00552FE0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				013822C127C9D64B003949DF /* Calendar */,
 				01FE724D27C630F0009B5425 /* CalenderAdd */,
 				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
 				0134D19327BDE31600552FE0 /* SettingsCell.swift */,
-				01434BF727C6058E005241DB /* CalendarCell.swift */,
 				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
 			);
 			path = View;
@@ -201,6 +203,15 @@
 				013822BF27C9CA98003949DF /* EventManager.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		013822C127C9D64B003949DF /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				013822C227C9D6AC003949DF /* FSCalendarCell.swift */,
+				01434BF727C6058E005241DB /* CalendarTodoCell.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		0138EB0627BE692D003E99B1 /* Model */ = {
@@ -368,6 +379,7 @@
 				01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */,
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
 				0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */,
+				013822C327C9D6AC003949DF /* FSCalendarCell.swift in Sources */,
 				0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */,
 				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
 				0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */,
@@ -383,7 +395,7 @@
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
 				01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */,
-				01434BF827C6058E005241DB /* CalendarCell.swift in Sources */,
+				01434BF827C6058E005241DB /* CalendarTodoCell.swift in Sources */,
 				01FE724F27C63109009B5425 /* AddTextFieldCell.swift in Sources */,
 				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
 				01C80CAB27C5048700E2845B /* CalendarUtils.swift in Sources */,
