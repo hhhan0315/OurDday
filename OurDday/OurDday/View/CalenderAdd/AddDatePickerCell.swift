@@ -15,6 +15,8 @@ final class AddDatePickerCell: UITableViewCell {
 
     // MARK: - Properties
     
+    weak var delegate: AddDatePickerCellDelegate?
+    
     static let identifier = "AddDatePickerCell"
     
     private let datePicker: UIDatePicker = {

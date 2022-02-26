@@ -71,7 +71,6 @@ final class CalendarAddController: UIViewController {
     }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
-//        dismiss(animated: true, completion: nil)
         let calendarEvent = CalendarEvent()
         calendarEvent.title = titleText
         calendarEvent.date = chooseDate

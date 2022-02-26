@@ -1,5 +1,5 @@
 //
-//  SpecialDayController.swift
+//  EventController.swift
 //  TheDayCouple
 //
 //  Created by rae on 2022/02/09.
@@ -7,11 +7,13 @@
 
 import UIKit
 
-final class SpecialDayController: UITableViewController {
+final class EventController: UITableViewController {
     
     // MARK: - Properties
     
     private var events = [Event]()
+    
+    private var firstDayDate: Date!
 
     // MARK: - Life cycle
     
@@ -25,7 +27,7 @@ final class SpecialDayController: UITableViewController {
         super.viewWillAppear(animated)
         
         configureEvents()
-        tableView.reloadData()        
+        tableView.reloadData()
     }
     
     // MARK: - Helpers
@@ -33,57 +35,60 @@ final class SpecialDayController: UITableViewController {
     private func configureUI() {
         navigationItem.title = "기념일"
         
-        tableView.register(SpecialDayCell.self, forCellReuseIdentifier: SpecialDayCell.identifier)
+        tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.identifier)
         tableView.rowHeight = 80
         tableView.separatorInset.right = tableView.separatorInset.left
     }
     
     private func configureEvents() {
-        events.removeAll()
-        let firstDayDate = RealmManager.shared.readFirstDayDate()
+        firstDayDate = RealmManager.shared.readFirstDayDate()
         
-        let ten = Event(type: .hundred, day: 10, firstDayDate: firstDayDate)
-        let fifty = Event(type: .hundred, day: 50, firstDayDate: firstDayDate)
+        events.removeAll()
+        
+        let ten = Event(type: .hundred, day: 10)
+        let fifty = Event(type: .hundred, day: 50)
         
         events.append(contentsOf: [ten, fifty])
         
         for day in stride(from: 100, through: 10000, by: 100) {
-            let event = Event(type: .hundred, day: day, firstDayDate: firstDayDate)
+            let event = Event(type: .hundred, day: day)
             events.append(event)
         }
-        
+
         for day in stride(from: 365, through: 10000, by: 365) {
-            let event = Event(type: .year, day: day, firstDayDate: firstDayDate)
+            let event = Event(type: .year, day: day)
             events.append(event)
         }
         
-        let today = Event(type: .today, day: 0, firstDayDate: firstDayDate)
-        let eventsHaveToday = events.contains { $0.dayCount == today.dayCount }
+        let today = Event(type: .today, day: Calendar.countDaysFromNow(fromDate: firstDayDate))
+        let checkToday = events.contains { $0.day == today.day + 1 }
         
-        if eventsHaveToday == false {
+        if !checkToday {
             events.append(today)
         }
-        
-        events.sort {$0.date < $1.date}
+
+        events.sort {$0.day < $1.day}
     }
 
 }
 
 // MARK: - UITableViewDataSource
 
-extension SpecialDayController {
+extension EventController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SpecialDayCell.identifier, for: indexPath) as? SpecialDayCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.identifier, for: indexPath) as? EventCell else {
             return UITableViewCell()
         }
         
         let event = events[indexPath.row]
+                
+        let eventCellViewModel = EventCellViewModel(event: event, firstDayDate: firstDayDate)
+        cell.viewModel = eventCellViewModel
         
-        cell.configure(event: event)
         cell.selectionStyle = .none
         
         return cell
@@ -92,7 +97,7 @@ extension SpecialDayController {
 
 // MARK: - TabBarReselctHandling
 
-extension SpecialDayController: TabBarReselctHandling {
+extension EventController: TabBarReselctHandling {
     func handleReselect() {
         tableView.setContentOffset(CGPoint(x: 0, y: -88.0), animated: true)
     }

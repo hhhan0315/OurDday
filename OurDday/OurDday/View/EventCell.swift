@@ -1,5 +1,5 @@
 //
-//  SpecialDayCell.swift
+//  EventCell.swift
 //  OurDday
 //
 //  Created by rae on 2022/02/18.
@@ -7,25 +7,31 @@
 
 import UIKit
 
-final class SpecialDayCell: UITableViewCell {
+final class EventCell: UITableViewCell {
 
     // MARK: - Properties
     
-    static let identifier = "SpecialDaysCell"
+    static let identifier = "EventCell"
     
-    let titleLabel: UILabel = {
+    var viewModel: EventCellViewModel? {
+        didSet {
+            configure()
+        }
+    }
+    
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleBold)
         return label
     }()
     
-    let dateTitleLabel: UILabel = {
+    private let dateTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.smallSystem)
         return label
     }()
     
-    let countLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleBold)
         return label
@@ -66,20 +72,19 @@ final class SpecialDayCell: UITableViewCell {
         ])
     }
     
-    func configure(event: Event) {
-        let dayCount = event.dayCount
+    private func configure() {
+        guard let viewModel = viewModel else {
+            return
+        }
         
-        titleLabel.text = event.title
-        titleLabel.textColor = dayCount > 0 ? UIColor.lightGray : UIColor.black
+        titleLabel.text = viewModel.title
+        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.black
         
-        countLabel.text = dayCount == 0 ? "오늘" : dayCount > 0 ? "" : "D\(dayCount)"
-        countLabel.textColor = dayCount > 0 ? UIColor.lightGray : UIColor.customColor(.mainColor)
+        countLabel.text = viewModel.countTitle
+        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.customColor(.mainColor)
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd(EEE)"
-        formatter.locale = Locale(identifier: "ko_kr")
-        
-        dateTitleLabel.text = formatter.string(from: event.date)
-        dateTitleLabel.textColor = dayCount > 0 ? UIColor.lightGray : UIColor.darkGray
+        dateTitleLabel.text = viewModel.dateTitle
+        dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.darkGray
     }
+    
 }
