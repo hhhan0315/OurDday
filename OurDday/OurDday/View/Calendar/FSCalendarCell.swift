@@ -20,24 +20,28 @@ final class FSCalendarCell: UITableViewCell {
     
     weak var delegate: FSCalendarCellDelegate?
     
+    private let calendarEvents = RealmManager.shared.readCalendarEvent()
+    
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.delegate = self
+        calendar.dataSource = self
         calendar.locale = Locale(identifier: "ko_kr")
-        calendar.scrollDirection = .vertical
+//        calendar.scrollDirection = .vertical
         calendar.appearance.headerDateFormat = "yyyy.MM"
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.weekdayTextColor = .darkGray
         calendar.appearance.titleWeekendColor = .red
         calendar.appearance.todayColor = .customColor(.mainColor)
         calendar.appearance.selectionColor = .darkGray
+        calendar.appearance.headerMinimumDissolvedAlpha = 0
         return calendar
     }()
     
     private lazy var prevButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = UIColor.customColor(.mainColor)
+        button.tintColor = .black
         button.addTarget(self, action: #selector(touchPrevButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -45,7 +49,7 @@ final class FSCalendarCell: UITableViewCell {
     private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.tintColor = UIColor.customColor(.mainColor)
+        button.tintColor = .black
         button.addTarget(self, action: #selector(touchNextButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -108,5 +112,18 @@ final class FSCalendarCell: UITableViewCell {
 extension FSCalendarCell: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         delegate?.fsCalendarChoose(date)
+    }
+}
+
+// MARK: - FSCalendarDataSource
+
+extension FSCalendarCell: FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let dateEvents = calendarEvents.map { $0.dateString }
+        if dateEvents.contains(date.toCalendarDateString()) {
+            return 1
+        } else {
+            return 0
+        }
     }
 }

@@ -11,6 +11,7 @@ final class SettingsController: UIViewController {
     
     // MARK: - Properties
     
+    private let iconNames = ["calendar", "paintbrush"]
     private let titles = ["기념일 설정", "테마 설정"]
     
     private lazy var tableView: UITableView = {
@@ -61,6 +62,7 @@ extension SettingsController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.iconImageView.image = UIImage(systemName: iconNames[indexPath.row])
         cell.titleLabel.text = titles[indexPath.row]
         
         return cell

@@ -22,6 +22,7 @@ final class CalendarController: UIViewController {
     }()
     
     private var calendarDate = Date()
+    private var selectCalendarEvents = [CalendarEvent]()
     
     // MARK: - Life cycle
     
@@ -67,7 +68,11 @@ extension CalendarController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1
+        } else {
+            return selectCalendarEvents.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,6 +92,7 @@ extension CalendarController: UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
+            cell.titleLabel.text = selectCalendarEvents[indexPath.row].title
             
             return cell
         } else {
@@ -103,7 +109,7 @@ extension CalendarController: UITableViewDelegate {
         if indexPath.section == 0 {
             return 400.0
         } else if indexPath.section == 1 {
-            return 55.0
+            return 50.0
         } else {
             return 0
         }
@@ -115,6 +121,8 @@ extension CalendarController: UITableViewDelegate {
 extension CalendarController: CalendarAddControllerDelegate {
     func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
         RealmManager.shared.insert(calendarEvent: calendarEvent)
+        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
+        tableView.reloadSections(IndexSet(0...1), with: .automatic)
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -128,5 +136,7 @@ extension CalendarController: CalendarAddControllerDelegate {
 extension CalendarController: FSCalendarCellDelegate {
     func fsCalendarChoose(_ date: Date) {
         calendarDate = date
+        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == date.toCalendarDateString()}
+        tableView.reloadSections(IndexSet(1...1), with: .automatic)
     }
 }

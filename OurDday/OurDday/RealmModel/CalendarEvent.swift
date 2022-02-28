@@ -9,6 +9,11 @@ import Foundation
 import RealmSwift
 
 class CalendarEvent: Object {
+    @objc dynamic var id: Int = 0
     @objc dynamic var title: String = ""
-    @objc dynamic var date: Date = Date()
+    @objc dynamic var dateString: String = ""
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 }

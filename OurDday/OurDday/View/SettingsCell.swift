@@ -13,6 +13,12 @@ final class SettingsCell: UITableViewCell {
     
     static let identifier = "SettingsCell"
     
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .black
+        return imageView
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleSystem)
@@ -34,13 +40,18 @@ final class SettingsCell: UITableViewCell {
     // MARK: - Helpers
     
     private func configureUI() {
+        addSubview(iconImageView)
         addSubview(titleLabel)
         
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
+            
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 20.0),
         ])
     }
 }

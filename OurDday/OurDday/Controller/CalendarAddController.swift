@@ -63,9 +63,7 @@ final class CalendarAddController: UIViewController {
     }
     
     // MARK: - Actions
-    
-    // 여기도 delegate로 수정한 뒤 CalendarController에서 동작하는 걸로??
-    
+        
     @objc func touchCancelButton(_ sender: UIBarButtonItem) {
         delegate?.calendarAddControllerDidCancel(self)
     }
@@ -73,7 +71,8 @@ final class CalendarAddController: UIViewController {
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarEvent = CalendarEvent()
         calendarEvent.title = titleText
-        calendarEvent.date = calendarDate
+        calendarEvent.dateString = calendarDate.toCalendarDateString()
+        
         delegate?.calendarAddControllerDidSave(self, calendarEvent)
     }
     

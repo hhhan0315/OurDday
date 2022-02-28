@@ -27,6 +27,8 @@ final class RealmManager {
     }
     
     func insert(calendarEvent: CalendarEvent) {
+        let newId = realm.objects(CalendarEvent.self).count + 1
+        calendarEvent.id = newId
         try! realm.write({
             realm.add(calendarEvent)
         })        
@@ -48,5 +50,9 @@ final class RealmManager {
     
     func readFirstDayDate() -> Date {
         return realm.objects(FirstDay.self).first?.date ?? Date()
+    }
+    
+    func readCalendarEvent() -> [CalendarEvent] {
+        return Array(realm.objects(CalendarEvent.self))
     }
 }
