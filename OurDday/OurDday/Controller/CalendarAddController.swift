@@ -19,7 +19,7 @@ final class CalendarAddController: UIViewController {
     weak var delegate: CalendarAddControllerDelegate?
     
     var titleText: String = ""
-//    var chooseDate: Date!
+    var calendarDate = Date()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -73,7 +73,7 @@ final class CalendarAddController: UIViewController {
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarEvent = CalendarEvent()
         calendarEvent.title = titleText
-//        calendarEvent.date = chooseDate
+        calendarEvent.date = calendarDate
         delegate?.calendarAddControllerDidSave(self, calendarEvent)
     }
     
@@ -111,7 +111,7 @@ extension CalendarAddController: UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
-//            cell.configure(date: self.chooseDate)
+            cell.configure(date: self.calendarDate)
             
             return cell
         } else {

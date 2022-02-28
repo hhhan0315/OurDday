@@ -8,16 +8,21 @@
 import UIKit
 import FSCalendar
 
+protocol FSCalendarCellDelegate: AnyObject {
+    func fsCalendarChoose(_ date: Date)
+}
+
 final class FSCalendarCell: UITableViewCell {
 
     // MARK: - Properties
     
     static let identifier = "FSCalendarCell"
     
+    weak var delegate: FSCalendarCellDelegate?
+    
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
-//        calendar.delegate = self
-//        calendar.dataSource = self
+        calendar.delegate = self
         calendar.locale = Locale(identifier: "ko_kr")
         calendar.scrollDirection = .vertical
         calendar.appearance.headerDateFormat = "yyyy.MM"
@@ -95,5 +100,13 @@ final class FSCalendarCell: UITableViewCell {
     
     @objc func touchNextButton(_ sender: UIButton) {
         moveCurrentPage(moveUp: true)
+    }
+}
+
+// MARK: - FSCalendarDelegate
+
+extension FSCalendarCell: FSCalendarDelegate {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        delegate?.fsCalendarChoose(date)
     }
 }

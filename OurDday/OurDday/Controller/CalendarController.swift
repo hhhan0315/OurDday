@@ -21,6 +21,8 @@ final class CalendarController: UIViewController {
         return tableView
     }()
     
+    private var calendarDate = Date()
+    
     // MARK: - Life cycle
     
     override func viewDidLoad() {
@@ -50,7 +52,7 @@ final class CalendarController: UIViewController {
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarAddController = CalendarAddController()
-//        calendarAddController.chooseDate = calendar.selectedDate ?? calendar.today
+        calendarAddController.calendarDate = self.calendarDate
         calendarAddController.delegate = self
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
         present(nav, animated: true, completion: nil)
@@ -76,6 +78,7 @@ extension CalendarController: UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
+            cell.delegate = self
 
             return cell
         } else if indexPath.section == 1 {
@@ -120,13 +123,10 @@ extension CalendarController: CalendarAddControllerDelegate {
     }
 }
 
-// MARK: - FSCalendarDelegate, FSCalendarDataSource
+// MARK: - FSCalendarCellDelegate
 
-//extension CalendarController: FSCalendarDelegate, FSCalendarDataSource {
-//    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-//        <#code#>
-//    }
-    
-//}
-
-
+extension CalendarController: FSCalendarCellDelegate {
+    func fsCalendarChoose(_ date: Date) {
+        calendarDate = date
+    }
+}
