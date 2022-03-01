@@ -27,7 +27,6 @@ final class FSCalendarCell: UITableViewCell {
         calendar.delegate = self
         calendar.dataSource = self
         calendar.locale = Locale(identifier: "ko_kr")
-//        calendar.scrollDirection = .vertical
         calendar.appearance.headerDateFormat = "yyyy.MM"
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.weekdayTextColor = .darkGray
@@ -124,6 +123,28 @@ extension FSCalendarCell: FSCalendarDataSource {
             return 1
         } else {
             return 0
+        }
+    }
+}
+
+// MARK: - FSCalendarDelegateAppearance
+
+extension FSCalendarCell: FSCalendarDelegateAppearance {
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        let dateEvents = calendarEvents.map { $0.dateString }
+        if dateEvents.contains(date.toCalendarDateString()) {
+            return [UIColor.customColor(.mainColor)]
+        } else {
+            return nil
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
+        let dateEvents = calendarEvents.map { $0.dateString }
+        if dateEvents.contains(date.toCalendarDateString()) {
+            return [UIColor.customColor(.mainColor)]
+        } else {
+            return nil
         }
     }
 }

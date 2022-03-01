@@ -11,13 +11,21 @@ final class CalendarController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var tableView: UITableView = {
+    private lazy var calendarTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FSCalendarCell.self, forCellReuseIdentifier: FSCalendarCell.identifier)
-        tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
         tableView.isScrollEnabled = false
+        return tableView
+    }()
+    
+    private lazy var todoTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
         return tableView
     }()
     
@@ -39,13 +47,22 @@ final class CalendarController: UIViewController {
         navigationItem.backButtonTitle = ""
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchAddButton(_:)))
         
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(calendarTableView)
+        view.addSubview(todoTableView)
+        
+        calendarTableView.translatesAutoresizingMaskIntoConstraints = false
+        todoTableView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            calendarTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            calendarTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            calendarTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2),
+            
+            todoTableView.topAnchor.constraint(equalTo: calendarTableView.bottomAnchor),
+            todoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            todoTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -63,12 +80,8 @@ final class CalendarController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension CalendarController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if tableView == calendarTableView {
             return 1
         } else {
             return selectCalendarEvents.count
@@ -77,7 +90,7 @@ extension CalendarController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
+        if tableView == calendarTableView {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FSCalendarCell.identifier, for: indexPath) as? FSCalendarCell else {
                 return UITableViewCell()
             }
@@ -86,7 +99,7 @@ extension CalendarController: UITableViewDataSource {
             cell.delegate = self
 
             return cell
-        } else if indexPath.section == 1 {
+        } else if tableView == todoTableView {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTodoCell.identifier, for: indexPath) as? CalendarTodoCell else {
                 return UITableViewCell()
             }
@@ -106,10 +119,10 @@ extension CalendarController: UITableViewDataSource {
 
 extension CalendarController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 400.0
-        } else if indexPath.section == 1 {
-            return 50.0
+        if tableView == calendarTableView {
+            return view.frame.height * 3/7
+        } else if tableView == todoTableView {
+            return 44.0
         } else {
             return 0
         }
@@ -122,7 +135,8 @@ extension CalendarController: CalendarAddControllerDelegate {
     func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
         RealmManager.shared.insert(calendarEvent: calendarEvent)
         selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
-        tableView.reloadSections(IndexSet(0...1), with: .automatic)
+        calendarTableView.reloadData()
+        todoTableView.reloadData()
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -137,6 +151,7 @@ extension CalendarController: FSCalendarCellDelegate {
     func fsCalendarChoose(_ date: Date) {
         calendarDate = date
         selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == date.toCalendarDateString()}
-        tableView.reloadSections(IndexSet(1...1), with: .automatic)
+        calendarTableView.reloadData()
+        todoTableView.reloadData()
     }
 }

@@ -16,9 +16,4 @@ enum EventType {
 struct Event {
     let type: EventType
     let day: Int
-    
-    init(type: EventType, day: Int) {
-        self.type = type
-        self.day = day
-    }
 }

@@ -7,15 +7,9 @@
 
 import UIKit
 
-protocol AddDatePickerCellDelegate: AnyObject {
-    
-}
-
 final class AddDatePickerCell: UITableViewCell {
 
     // MARK: - Properties
-    
-    weak var delegate: AddDatePickerCellDelegate?
     
     static let identifier = "AddDatePickerCell"
     

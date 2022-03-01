@@ -15,7 +15,7 @@ final class EventCell: UITableViewCell {
     
     var viewModel: EventCellViewModel? {
         didSet {
-            configure()
+            configureViewModel()
         }
     }
     
@@ -72,7 +72,7 @@ final class EventCell: UITableViewCell {
         ])
     }
     
-    private func configure() {
+    private func configureViewModel() {
         guard let viewModel = viewModel else {
             return
         }

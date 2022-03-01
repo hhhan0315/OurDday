@@ -7,11 +7,18 @@
 
 import UIKit
 
+protocol SettingsDayControllerDelegate: AnyObject {
+    func settingsDayControllerDidSave(_ controller: SettingsDayController, _ date: Date)
+    func settingsDayControllerDidCancel(_ controller: SettingsDayController)
+}
+
 final class SettingsDayController: UIViewController {
 
     // MARK: - Properties
     
     private let datePicker = CustomDatePicker()
+    
+    weak var delegate: SettingsDayControllerDelegate?
     
     // MARK: - Life cycle
     
@@ -43,11 +50,10 @@ final class SettingsDayController: UIViewController {
     // MARK: - Actions
     
     @objc func touchCancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        delegate?.settingsDayControllerDidCancel(self)
     }
     
     @objc func touchOkButton(_ sender: UIBarButtonItem) {
-        RealmManager.shared.update(date: datePicker.date)
-        dismiss(animated: true, completion: nil)
+        delegate?.settingsDayControllerDidSave(self, datePicker.date)
     }
 }

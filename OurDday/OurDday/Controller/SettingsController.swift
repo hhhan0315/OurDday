@@ -11,8 +11,7 @@ final class SettingsController: UIViewController {
     
     // MARK: - Properties
     
-    private let iconNames = ["calendar", "paintbrush"]
-    private let titles = ["기념일 설정", "테마 설정"]
+    private let viewModel = SettingsViewModel()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -54,7 +53,7 @@ final class SettingsController: UIViewController {
 
 extension SettingsController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return viewModel.settingsCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,8 +61,9 @@ extension SettingsController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.iconImageView.image = UIImage(systemName: iconNames[indexPath.row])
-        cell.titleLabel.text = titles[indexPath.row]
+        let setting = viewModel.setting(at: indexPath.row)
+        let settingsCellViewModel = SettingsCellViewModel(setting: setting)
+        cell.viewModel = settingsCellViewModel
         
         return cell
     }
@@ -76,8 +76,23 @@ extension SettingsController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.row == 0 {
-            let nav = SettingsController.configureTemplateNavigationController(rootViewController: SettingsDayController())
+            let settingsDayController = SettingsDayController()
+            settingsDayController.delegate = self
+            let nav = SettingsController.configureTemplateNavigationController(rootViewController: settingsDayController)
             present(nav, animated: true, completion: nil)
         }
+    }
+}
+
+// MARK: - SettingsDayControllerDelegate
+
+extension SettingsController: SettingsDayControllerDelegate {
+    func settingsDayControllerDidSave(_ controller: SettingsDayController, _ date: Date) {
+        RealmManager.shared.update(date: date)
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func settingsDayControllerDidCancel(_ controller: SettingsDayController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

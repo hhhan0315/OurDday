@@ -13,6 +13,12 @@ final class SettingsCell: UITableViewCell {
     
     static let identifier = "SettingsCell"
     
+    var viewModel: SettingsCellViewModel? {
+        didSet {
+            configureViewModel()
+        }
+    }
+    
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .black
@@ -53,5 +59,14 @@ final class SettingsCell: UITableViewCell {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 20.0),
         ])
+    }
+    
+    private func configureViewModel() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        iconImageView.image = UIImage(systemName: viewModel.iconName)
+        titleLabel.text = viewModel.title
     }
 }
