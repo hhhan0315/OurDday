@@ -7,10 +7,10 @@
 
 import Foundation
 
-class EventManager {
+final class EventManager {
     static let shared = EventManager()
     
-    func getEvents() -> [Event] {
+    func getEvents(completion: @escaping([Event]) -> Void) {
         var events = [Event]()
         let firstDayDate = RealmManager.shared.readFirstDayDate()
         
@@ -38,6 +38,6 @@ class EventManager {
 
         events.sort {$0.day < $1.day}
         
-        return events
+        completion(events)
     }
 }

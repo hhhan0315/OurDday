@@ -30,7 +30,6 @@
 		0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* EventCell.swift */; };
 		01434BF627C600D1005241DB /* CalendarAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF527C600D1005241DB /* CalendarAddController.swift */; };
 		01434BF827C6058E005241DB /* CalendarTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF727C6058E005241DB /* CalendarTodoCell.swift */; };
-		0153C70C27CE09F600C6F9BC /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70B27CE09F600C6F9BC /* CalendarViewModel.swift */; };
 		0153C70E27CE0B8600C6F9BC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */; };
 		0153C71027CE0D1300C6F9BC /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */; };
 		0153C71227CE0D6700C6F9BC /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C71127CE0D6700C6F9BC /* Setting.swift */; };
@@ -72,7 +71,6 @@
 		0138EB0927BF44CE003E99B1 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		01434BF527C600D1005241DB /* CalendarAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAddController.swift; sourceTree = "<group>"; };
 		01434BF727C6058E005241DB /* CalendarTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTodoCell.swift; sourceTree = "<group>"; };
-		0153C70B27CE09F600C6F9BC /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
 		0153C71127CE0D6700C6F9BC /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 			children = (
 				013822BD27C9C8EF003949DF /* EventViewModel.swift */,
 				01FE725727C7AE85009B5425 /* EventCellViewModel.swift */,
-				0153C70B27CE09F600C6F9BC /* CalendarViewModel.swift */,
 				0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */,
 				0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */,
 			);
@@ -412,7 +409,6 @@
 				01FE724F27C63109009B5425 /* AddTextFieldCell.swift in Sources */,
 				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
 				01C80CAB27C5048700E2845B /* CalendarUtils.swift in Sources */,
-				0153C70C27CE09F600C6F9BC /* CalendarViewModel.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
 				0153C71027CE0D1300C6F9BC /* SettingsCellViewModel.swift in Sources */,
 				0153C71227CE0D6700C6F9BC /* Setting.swift in Sources */,

@@ -38,6 +38,7 @@ final class CalendarController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
+        updateSelectedCalendarEvents()
     }
 
     // MARK: - Helpers
@@ -64,6 +65,12 @@ final class CalendarController: UIViewController {
             todoTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    private func updateSelectedCalendarEvents() {
+        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
+        calendarTableView.reloadData()
+        todoTableView.reloadData()
     }
     
     // MARK: - Actions
@@ -106,13 +113,23 @@ extension CalendarController: UITableViewDataSource {
             
             cell.selectionStyle = .none
             cell.titleLabel.text = selectCalendarEvents[indexPath.row].title
-            
+
             return cell
         } else {
             return UITableViewCell()
         }
         
     }
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if tableView == todoTableView {
+//            if editingStyle == .delete {
+//                let event = selectCalendarEvents[indexPath.row]
+//                print(event)
+//            }
+//        }
+//
+//    }
 }
 
 // MARK: - UITableViewDelegate
@@ -120,9 +137,9 @@ extension CalendarController: UITableViewDataSource {
 extension CalendarController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == calendarTableView {
-            return view.frame.height * 3/7
+            return view.frame.height * 1/2 - 60
         } else if tableView == todoTableView {
-            return 44.0
+            return 64.0
         } else {
             return 0
         }
@@ -134,9 +151,7 @@ extension CalendarController: UITableViewDelegate {
 extension CalendarController: CalendarAddControllerDelegate {
     func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
         RealmManager.shared.insert(calendarEvent: calendarEvent)
-        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
-        calendarTableView.reloadData()
-        todoTableView.reloadData()
+        updateSelectedCalendarEvents()
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -150,8 +165,6 @@ extension CalendarController: CalendarAddControllerDelegate {
 extension CalendarController: FSCalendarCellDelegate {
     func fsCalendarChoose(_ date: Date) {
         calendarDate = date
-        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == date.toCalendarDateString()}
-        calendarTableView.reloadData()
-        todoTableView.reloadData()
+        updateSelectedCalendarEvents()
     }
 }

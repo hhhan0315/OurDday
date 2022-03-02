@@ -21,19 +21,17 @@ final class FSCalendarCell: UITableViewCell {
     weak var delegate: FSCalendarCellDelegate?
     
     private let calendarEvents = RealmManager.shared.readCalendarEvent()
-    
+        
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.delegate = self
         calendar.dataSource = self
         calendar.locale = Locale(identifier: "ko_kr")
-        calendar.appearance.headerDateFormat = "yyyy.MM"
-        calendar.appearance.headerTitleColor = .black
         calendar.appearance.weekdayTextColor = .darkGray
         calendar.appearance.titleWeekendColor = .red
         calendar.appearance.todayColor = .customColor(.mainColor)
         calendar.appearance.selectionColor = .darkGray
-        calendar.appearance.headerMinimumDissolvedAlpha = 0
+        calendar.headerHeight = 0
         return calendar
     }()
     
@@ -53,6 +51,20 @@ final class FSCalendarCell: UITableViewCell {
         return button
     }()
     
+    private lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.customFontSize(.middleBold)
+        label.text = calendar.currentPage.toCalendarHeaderLabel()
+        return label
+    }()
+    
+    private lazy var headerStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [prevButton, headerLabel, nextButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
     // MARK: - Life cycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -69,30 +81,37 @@ final class FSCalendarCell: UITableViewCell {
     
     private func configureUI() {
         addSubview(calendar)
-        addSubview(prevButton)
-        addSubview(nextButton)
+        addSubview(headerStackView)
         
         calendar.translatesAutoresizingMaskIntoConstraints = false
-        prevButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        headerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            calendar.topAnchor.constraint(equalTo: topAnchor),
+            headerStackView.topAnchor.constraint(equalTo: topAnchor),
+            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
+            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            headerStackView.heightAnchor.constraint(equalToConstant: 44.0),
+            
+            calendar.topAnchor.constraint(equalTo: headerStackView.bottomAnchor),
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
             calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
             calendar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            prevButton.topAnchor.constraint(equalTo: calendar.topAnchor, constant: 15.0),
-            prevButton.leadingAnchor.constraint(equalTo: calendar.leadingAnchor, constant: 20.0),
-            
-            nextButton.topAnchor.constraint(equalTo: calendar.topAnchor, constant: 15.0),
-            nextButton.trailingAnchor.constraint(equalTo: calendar.trailingAnchor, constant: -20.0),
         ])
     }
 
     private func moveCurrentPage(moveUp: Bool) {
         let moveDate = Calendar.current.date(byAdding: .month, value: moveUp ? 1 : -1, to: calendar.currentPage) ?? Date()
         calendar.setCurrentPage(moveDate, animated: true)
+        headerLabel.text = calendar.currentPage.toCalendarHeaderLabel()
+    }
+    
+    private func calendarEventsHaveDate(date: Date) -> Bool {
+        let dateEvents = calendarEvents.map { $0.dateString }
+        if dateEvents.contains(date.toCalendarDateString()) {
+            return true
+        } else {
+            return false
+        }
     }
     
     // MARK: - Actions
@@ -118,12 +137,7 @@ extension FSCalendarCell: FSCalendarDelegate {
 
 extension FSCalendarCell: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let dateEvents = calendarEvents.map { $0.dateString }
-        if dateEvents.contains(date.toCalendarDateString()) {
-            return 1
-        } else {
-            return 0
-        }
+        return calendarEventsHaveDate(date: date) ? 1 : 0
     }
 }
 
@@ -131,20 +145,10 @@ extension FSCalendarCell: FSCalendarDataSource {
 
 extension FSCalendarCell: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        let dateEvents = calendarEvents.map { $0.dateString }
-        if dateEvents.contains(date.toCalendarDateString()) {
-            return [UIColor.customColor(.mainColor)]
-        } else {
-            return nil
-        }
+        return calendarEventsHaveDate(date: date) ? [UIColor.customColor(.mainColor)] : nil
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        let dateEvents = calendarEvents.map { $0.dateString }
-        if dateEvents.contains(date.toCalendarDateString()) {
-            return [UIColor.customColor(.mainColor)]
-        } else {
-            return nil
-        }
+        return calendarEventsHaveDate(date: date) ? [UIColor.customColor(.mainColor)] : nil
     }
 }

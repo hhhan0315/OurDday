@@ -8,7 +8,6 @@
 import Foundation
 
 struct EventCellViewModel {
-    
     let event: Event
     let calendar: Calendar
     let firstDayDate: Date

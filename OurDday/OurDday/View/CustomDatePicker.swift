@@ -9,6 +9,8 @@ import UIKit
 
 final class CustomDatePicker: UIDatePicker {
     
+    // MARK: - Life cycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

@@ -10,7 +10,7 @@ import Foundation
 extension Date {
     func toButtonStringKST() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 M월 d일"
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         dateFormatter.timeZone = TimeZone(identifier: "KST")
         return dateFormatter.string(from: self)
     }
@@ -19,6 +19,13 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: self)
+    }
+    
+    func toCalendarHeaderLabel() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        dateFormatter.dateFormat = "yyyy.MM"
         return dateFormatter.string(from: self)
     }
 }

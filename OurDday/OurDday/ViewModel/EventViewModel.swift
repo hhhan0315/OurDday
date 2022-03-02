@@ -7,11 +7,13 @@
 
 import Foundation
 
-class EventViewModel {
+final class EventViewModel {
     private var events = [Event]()
     
     func update() {
-        self.events = EventManager.shared.getEvents()
+        EventManager.shared.getEvents(completion: { events in
+            self.events = events
+        })
     }
     
     func eventsCount() -> Int {
