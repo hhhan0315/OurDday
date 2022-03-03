@@ -136,6 +136,10 @@ extension FSCalendarView: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         delegate?.fsCalendarChoose(date)
     }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        headerLabel.text = calendar.currentPage.toCalendarHeaderLabel()
+    }
 }
 
 // MARK: - FSCalendarDataSource

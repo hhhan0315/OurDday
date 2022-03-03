@@ -14,6 +14,8 @@ final class CalendarController: UIViewController {
     private lazy var calendarView: FSCalendarView = {
         let calendarView = FSCalendarView()
         calendarView.delegate = self
+        calendarView.layer.cornerRadius = 15
+        calendarView.backgroundColor = .white
         return calendarView
     }()
     
@@ -22,6 +24,7 @@ final class CalendarController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
+        tableView.separatorInset.right = tableView.separatorInset.left
         return tableView
     }()
     
@@ -41,6 +44,8 @@ final class CalendarController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
+        view.backgroundColor = .systemGray6
+        
         navigationItem.title = "달력"
         navigationItem.backButtonTitle = ""
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(touchEditButton(_:)))
@@ -53,9 +58,9 @@ final class CalendarController: UIViewController {
         todoTableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0),
+            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20.0),
+            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0),
             calendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             
             todoTableView.topAnchor.constraint(equalTo: calendarView.bottomAnchor),
@@ -68,7 +73,6 @@ final class CalendarController: UIViewController {
     private func updateSelectedCalendarEvents() {
         selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
         todoTableView.reloadData()
-//        updateCalendarView()
     }
     
     private func updateCalendarView() {

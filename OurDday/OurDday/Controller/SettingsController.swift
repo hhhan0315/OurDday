@@ -19,7 +19,7 @@ final class SettingsController: UIViewController {
         tableView.delegate = self
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.separatorInset.right = tableView.separatorInset.left
-        tableView.rowHeight = 64.0
+        tableView.rowHeight = 80.0
         tableView.isScrollEnabled = false
         tableView.tableFooterView = UIView(frame: .zero)
         return tableView

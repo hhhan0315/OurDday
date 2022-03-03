@@ -1,18 +1,16 @@
 //
-//  AddDatePickerCell.swift
+//  AddDatePickerView.swift
 //  OurDday
 //
-//  Created by rae on 2022/02/23.
+//  Created by rae on 2022/03/03.
 //
 
 import UIKit
 
-final class AddDatePickerCell: UITableViewCell {
+class AddDatePickerView: UIView {
 
     // MARK: - Properties
-    
-    static let identifier = "AddDatePickerCell"
-    
+        
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -26,8 +24,8 @@ final class AddDatePickerCell: UITableViewCell {
     
     // MARK: - Life cycle
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         configureUI()
     }
@@ -52,4 +50,5 @@ final class AddDatePickerCell: UITableViewCell {
     func configure(date: Date) {
         datePicker.setDate(date, animated: false)
     }
+
 }

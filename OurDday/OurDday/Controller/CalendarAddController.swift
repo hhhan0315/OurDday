@@ -21,15 +21,19 @@ final class CalendarAddController: UIViewController {
     var titleText: String = ""
     var calendarDate = Date()
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.isScrollEnabled = false
-        tableView.register(AddTextFieldCell.self, forCellReuseIdentifier: AddTextFieldCell.identifier)
-        tableView.register(AddDatePickerCell.self, forCellReuseIdentifier: AddDatePickerCell.identifier)
-        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchTableView(_:))))
-        return tableView
+    private lazy var addTextFieldView: AddTextFieldView = {
+        let view = AddTextFieldView()
+        view.delegate = self
+        view.layer.cornerRadius = 15
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let addDatePickerView: AddDatePickerView = {
+        let view = AddDatePickerView()
+        view.layer.cornerRadius = 15
+        view.backgroundColor = .white
+        return view
     }()
     
     // MARK: - Life cycle
@@ -38,27 +42,40 @@ final class CalendarAddController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
+        
+        addDatePickerView.configure(date: calendarDate)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
         
         navigationItem.title = "새로운 일정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(touchCancelButton(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(touchAddButton(_:)))
         navigationItem.rightBarButtonItem?.isEnabled = false
         
-        view.addSubview(tableView)
+        view.addSubview(addTextFieldView)
+        view.addSubview(addDatePickerView)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        addTextFieldView.translatesAutoresizingMaskIntoConstraints = false
+        addDatePickerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            addTextFieldView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0),
+            addTextFieldView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20.0),
+            addTextFieldView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0),
+            addTextFieldView.heightAnchor.constraint(equalToConstant: 64.0),
+            
+            addDatePickerView.topAnchor.constraint(equalTo: addTextFieldView.bottomAnchor, constant: 20.0),
+            addDatePickerView.leadingAnchor.constraint(equalTo: addTextFieldView.leadingAnchor),
+            addDatePickerView.trailingAnchor.constraint(equalTo: addTextFieldView.trailingAnchor),
+            addDatePickerView.heightAnchor.constraint(equalToConstant: 250.0),
         ])
     }
     
@@ -75,63 +92,7 @@ final class CalendarAddController: UIViewController {
         
         delegate?.calendarAddControllerDidSave(self, calendarEvent)
     }
-    
-    @objc func touchTableView(_ sender: UITableView) {
-        view.endEditing(true)
-    }
 
-}
-
-// MARK: - UITableViewDataSource
-
-extension CalendarAddController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTextFieldCell.identifier, for: indexPath) as? AddTextFieldCell else {
-                return UITableViewCell()
-            }
-            
-            cell.selectionStyle = .none
-            cell.delegate = self
-
-            return cell
-        } else if indexPath.section == 1 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddDatePickerCell.identifier, for: indexPath) as? AddDatePickerCell else {
-                return UITableViewCell()
-            }
-            
-            cell.selectionStyle = .none
-            cell.configure(date: self.calendarDate)
-            
-            return cell
-        } else {
-            return UITableViewCell()
-        }
-    }
-    
-}
-
-// MARK: - UITableViewDelegate
-
-extension CalendarAddController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 55.0
-        } else if indexPath.section == 1 {
-            return 255.0
-        } else {
-            return 0
-        }
-    }
 }
 
 // MARK: - AddTextFieldCellDelegate

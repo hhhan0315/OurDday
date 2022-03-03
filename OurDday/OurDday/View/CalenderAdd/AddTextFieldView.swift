@@ -1,8 +1,8 @@
 //
-//  AddTextFieldCell.swift
+//  AddTextFieldView.swift
 //  OurDday
 //
-//  Created by rae on 2022/02/23.
+//  Created by rae on 2022/03/03.
 //
 
 import UIKit
@@ -11,14 +11,12 @@ protocol AddTextFieldCellDelegate: AnyObject {
     func addTextFieldChange(_ text: String)
 }
 
-final class AddTextFieldCell: UITableViewCell {
+class AddTextFieldView: UIView {
 
     // MARK: - Properties
     
     weak var delegate: AddTextFieldCellDelegate?
-    
-    static let identifier = "AddTextFieldCell"
-    
+        
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.delegate = self
@@ -31,8 +29,8 @@ final class AddTextFieldCell: UITableViewCell {
 
     // MARK: - Life cycle
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         configureUI()
     }
@@ -65,7 +63,7 @@ final class AddTextFieldCell: UITableViewCell {
 
 // MARK: - UITextFieldDelegate
 
-extension AddTextFieldCell: UITextFieldDelegate {
+extension AddTextFieldView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
     }
