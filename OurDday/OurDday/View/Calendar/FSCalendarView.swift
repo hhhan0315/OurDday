@@ -1,27 +1,28 @@
 //
-//  FSCalendarCell.swift
+//  FSCalendarView.swift
 //  OurDday
 //
-//  Created by rae on 2022/02/26.
+//  Created by rae on 2022/03/02.
 //
 
 import UIKit
 import FSCalendar
 
-protocol FSCalendarCellDelegate: AnyObject {
+protocol FSCalendarViewDelegate: AnyObject {
     func fsCalendarChoose(_ date: Date)
 }
 
-final class FSCalendarCell: UITableViewCell {
-
+class FSCalendarView: UIView {
+    
     // MARK: - Properties
-    
-    static let identifier = "FSCalendarCell"
-    
-    weak var delegate: FSCalendarCellDelegate?
-    
-    private let calendarEvents = RealmManager.shared.readCalendarEvent()
-        
+
+    weak var delegate: FSCalendarViewDelegate?
+    var calendarEvents: [CalendarEvent]? {
+        didSet {
+            calendar.reloadData()
+        }
+    }
+
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.delegate = self
@@ -67,8 +68,8 @@ final class FSCalendarCell: UITableViewCell {
     
     // MARK: - Life cycle
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         configureUI()
     }
@@ -87,15 +88,15 @@ final class FSCalendarCell: UITableViewCell {
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headerStackView.topAnchor.constraint(equalTo: topAnchor),
-            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
-            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            headerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20.0),
+            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40.0),
+            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40.0),
             headerStackView.heightAnchor.constraint(equalToConstant: 44.0),
             
             calendar.topAnchor.constraint(equalTo: headerStackView.bottomAnchor),
-            calendar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            calendar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            calendar.bottomAnchor.constraint(equalTo: bottomAnchor),
+            calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
+            calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            calendar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.0),
         ])
     }
 
@@ -106,6 +107,10 @@ final class FSCalendarCell: UITableViewCell {
     }
     
     private func calendarEventsHaveDate(date: Date) -> Bool {
+        guard let calendarEvents = calendarEvents else {
+            return false
+        }
+        
         let dateEvents = calendarEvents.map { $0.dateString }
         if dateEvents.contains(date.toCalendarDateString()) {
             return true
@@ -127,7 +132,7 @@ final class FSCalendarCell: UITableViewCell {
 
 // MARK: - FSCalendarDelegate
 
-extension FSCalendarCell: FSCalendarDelegate {
+extension FSCalendarView: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         delegate?.fsCalendarChoose(date)
     }
@@ -135,7 +140,7 @@ extension FSCalendarCell: FSCalendarDelegate {
 
 // MARK: - FSCalendarDataSource
 
-extension FSCalendarCell: FSCalendarDataSource {
+extension FSCalendarView: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         return calendarEventsHaveDate(date: date) ? 1 : 0
     }
@@ -143,7 +148,7 @@ extension FSCalendarCell: FSCalendarDataSource {
 
 // MARK: - FSCalendarDelegateAppearance
 
-extension FSCalendarCell: FSCalendarDelegateAppearance {
+extension FSCalendarView: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
         return calendarEventsHaveDate(date: date) ? [UIColor.customColor(.mainColor)] : nil
     }

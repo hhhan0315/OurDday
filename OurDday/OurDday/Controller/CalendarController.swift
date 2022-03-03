@@ -11,13 +11,10 @@ final class CalendarController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var calendarTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(FSCalendarCell.self, forCellReuseIdentifier: FSCalendarCell.identifier)
-        tableView.isScrollEnabled = false
-        return tableView
+    private lazy var calendarView: FSCalendarView = {
+        let calendarView = FSCalendarView()
+        calendarView.delegate = self
+        return calendarView
     }()
     
     private lazy var todoTableView: UITableView = {
@@ -25,7 +22,6 @@ final class CalendarController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
         return tableView
     }()
     
@@ -46,21 +42,22 @@ final class CalendarController: UIViewController {
     private func configureUI() {
         navigationItem.title = "달력"
         navigationItem.backButtonTitle = ""
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(touchEditButton(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchAddButton(_:)))
         
-        view.addSubview(calendarTableView)
+        view.addSubview(calendarView)
         view.addSubview(todoTableView)
         
-        calendarTableView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
         todoTableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            calendarTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            calendarTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            calendarTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendarTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2),
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            calendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             
-            todoTableView.topAnchor.constraint(equalTo: calendarTableView.bottomAnchor),
+            todoTableView.topAnchor.constraint(equalTo: calendarView.bottomAnchor),
             todoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             todoTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -69,11 +66,25 @@ final class CalendarController: UIViewController {
     
     private func updateSelectedCalendarEvents() {
         selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
-        calendarTableView.reloadData()
         todoTableView.reloadData()
+        updateCalendarView()
+    }
+    
+    private func updateCalendarView() {
+        calendarView.calendarEvents = RealmManager.shared.readCalendarEvent()
     }
     
     // MARK: - Actions
+    
+    @objc func touchEditButton(_ sender: UIBarButtonItem) {
+        if todoTableView.isEditing {
+            todoTableView.setEditing(false, animated: true)
+            sender.title = "편집"
+        } else {
+            todoTableView.setEditing(true, animated: true)
+            sender.title = "완료"
+        }
+    }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarAddController = CalendarAddController()
@@ -88,61 +99,55 @@ final class CalendarController: UIViewController {
 
 extension CalendarController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == calendarTableView {
-            return 1
-        } else {
-            return selectCalendarEvents.count
-        }
+        return selectCalendarEvents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if tableView == calendarTableView {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: FSCalendarCell.identifier, for: indexPath) as? FSCalendarCell else {
-                return UITableViewCell()
-            }
-            
-            cell.selectionStyle = .none
-            cell.delegate = self
-
-            return cell
-        } else if tableView == todoTableView {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTodoCell.identifier, for: indexPath) as? CalendarTodoCell else {
-                return UITableViewCell()
-            }
-            
-            cell.selectionStyle = .none
-            cell.titleLabel.text = selectCalendarEvents[indexPath.row].title
-
-            return cell
-        } else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTodoCell.identifier, for: indexPath) as? CalendarTodoCell else {
             return UITableViewCell()
         }
         
+        cell.selectionStyle = .none
+        
+        if #available(iOS 14.0, *) {
+            var content = cell.defaultContentConfiguration()
+            content.text = selectCalendarEvents[indexPath.row].title
+            cell.contentConfiguration = content
+        } else {
+            cell.textLabel?.text = selectCalendarEvents[indexPath.row].title
+            cell.textLabel?.numberOfLines = 0
+        }
+
+        return cell
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if tableView == todoTableView {
-//            if editingStyle == .delete {
-//                let event = selectCalendarEvents[indexPath.row]
-//                print(event)
-//            }
-//        }
-//
-//    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let event = selectCalendarEvents[indexPath.row]
+            let alert = UIAlertController(title: "zz", message: "zzz", preferredStyle: .alert)
+//            alert.title = "일정 삭제"
+//            alert.message = "\(event.title)를 삭제하시겠습니까?"
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                RealmManager.shared.delete(calendarEvent: event)
+                self.updateCalendarView()
+                self.selectCalendarEvents.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
 
 extension CalendarController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == calendarTableView {
-            return view.frame.height * 1/2 - 60
-        } else if tableView == todoTableView {
-            return 64.0
-        } else {
-            return 0
-        }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
 }
 
@@ -162,7 +167,7 @@ extension CalendarController: CalendarAddControllerDelegate {
 
 // MARK: - FSCalendarCellDelegate
 
-extension CalendarController: FSCalendarCellDelegate {
+extension CalendarController: FSCalendarViewDelegate {
     func fsCalendarChoose(_ date: Date) {
         calendarDate = date
         updateSelectedCalendarEvents()

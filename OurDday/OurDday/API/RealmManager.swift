@@ -27,7 +27,7 @@ final class RealmManager {
     }
     
     func insert(calendarEvent: CalendarEvent) {
-        let newId = realm.objects(CalendarEvent.self).count + 1
+        let newId = Date().timeIntervalSince1970
         calendarEvent.id = newId
         try! realm.write({
             realm.add(calendarEvent)
@@ -37,6 +37,12 @@ final class RealmManager {
     private func deleteAll() {
         try! realm.write {
             realm.deleteAll()
+        }
+    }
+    
+    func delete(calendarEvent: CalendarEvent) {
+        try! realm.write {
+            realm.delete(calendarEvent)
         }
     }
     
