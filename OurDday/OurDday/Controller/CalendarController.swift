@@ -35,6 +35,7 @@ final class CalendarController: UIViewController {
 
         configureUI()
         updateSelectedCalendarEvents()
+        updateCalendarView()
     }
 
     // MARK: - Helpers
@@ -67,7 +68,7 @@ final class CalendarController: UIViewController {
     private func updateSelectedCalendarEvents() {
         selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
         todoTableView.reloadData()
-        updateCalendarView()
+//        updateCalendarView()
     }
     
     private func updateCalendarView() {
@@ -157,6 +158,7 @@ extension CalendarController: CalendarAddControllerDelegate {
     func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
         RealmManager.shared.insert(calendarEvent: calendarEvent)
         updateSelectedCalendarEvents()
+        updateCalendarView()
         controller.dismiss(animated: true, completion: nil)
     }
     

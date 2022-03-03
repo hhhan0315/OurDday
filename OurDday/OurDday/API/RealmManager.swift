@@ -46,11 +46,16 @@ final class RealmManager {
         }
     }
     
-    func update(date: Date) {
+    func update(date: Date, completion: @escaping(Bool) -> Void) {
         if let firstDay = realm.objects(FirstDay.self).first {
-            try! realm.write({
-                firstDay.date = date
-            })
+            do {
+                try realm.write {
+                    firstDay.date = date
+                    completion(true)
+                }
+            } catch {
+                completion(false)
+            }
         }
     }
     

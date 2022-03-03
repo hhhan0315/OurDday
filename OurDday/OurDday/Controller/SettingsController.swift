@@ -14,13 +14,14 @@ final class SettingsController: UIViewController {
     private let viewModel = SettingsViewModel()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.separatorInset.right = tableView.separatorInset.left
-        tableView.rowHeight = 80
+        tableView.rowHeight = 64.0
         tableView.isScrollEnabled = false
+        tableView.tableFooterView = UIView(frame: .zero)
         return tableView
     }()
 
@@ -77,22 +78,7 @@ extension SettingsController: UITableViewDelegate {
         
         if indexPath.row == 0 {
             let settingsDayController = SettingsDayController()
-            settingsDayController.delegate = self
-            let nav = SettingsController.configureTemplateNavigationController(rootViewController: settingsDayController)
-            present(nav, animated: true, completion: nil)
+            navigationController?.pushViewController(settingsDayController, animated: true)
         }
-    }
-}
-
-// MARK: - SettingsDayControllerDelegate
-
-extension SettingsController: SettingsDayControllerDelegate {
-    func settingsDayControllerDidSave(_ controller: SettingsDayController, _ date: Date) {
-        RealmManager.shared.update(date: date)
-        controller.dismiss(animated: true, completion: nil)
-    }
-    
-    func settingsDayControllerDidCancel(_ controller: SettingsDayController) {
-        controller.dismiss(animated: true, completion: nil)
     }
 }

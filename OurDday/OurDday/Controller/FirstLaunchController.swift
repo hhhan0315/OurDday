@@ -105,8 +105,12 @@ final class FirstLaunchController: UIViewController {
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            RealmManager.shared.update(date: datePicker.date)
-            self.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
+            RealmManager.shared.update(date: datePicker.date) { check in
+                if check {
+                    self.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
+                }
+            }
+            
         }))
         alert.setValue(contentView, forKey: "contentViewController")
         
