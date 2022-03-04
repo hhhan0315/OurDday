@@ -25,6 +25,7 @@ final class CalendarController: UIViewController {
         tableView.delegate = self
         tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
         tableView.separatorInset.right = tableView.separatorInset.left
+        tableView.rowHeight = 64
         return tableView
     }()
     
@@ -56,7 +57,6 @@ final class CalendarController: UIViewController {
         
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         todoTableView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         let anchorSpace = CGFloat.customSize(.anchorSpace)
         NSLayoutConstraint.activate([
@@ -113,9 +113,7 @@ extension CalendarController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTodoCell.identifier, for: indexPath) as? CalendarTodoCell else {
             return UITableViewCell()
         }
-        
-        cell.selectionStyle = .none
-        
+                
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = selectCalendarEvents[indexPath.row].title
@@ -148,6 +146,7 @@ extension CalendarController: UITableViewDataSource {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
 }
 
 // MARK: - UITableViewDelegate
@@ -155,6 +154,10 @@ extension CalendarController: UITableViewDataSource {
 extension CalendarController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

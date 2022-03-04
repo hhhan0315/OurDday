@@ -8,5 +8,6 @@ target 'OurDday' do
   # Pods for OurDday
   pod 'RealmSwift'
   pod 'FSCalendar'
+  pod 'IQKeyboardManagerSwift'
 
 end

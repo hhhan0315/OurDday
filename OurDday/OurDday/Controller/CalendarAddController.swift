@@ -90,7 +90,7 @@ final class CalendarAddController: UIViewController {
             addTextView.topAnchor.constraint(equalTo: addDatePickerView.bottomAnchor, constant: anchorSpace),
             addTextView.leadingAnchor.constraint(equalTo: addDatePickerView.leadingAnchor),
             addTextView.trailingAnchor.constraint(equalTo: addDatePickerView.trailingAnchor),
-            addTextView.heightAnchor.constraint(equalToConstant: 150.0),
+            addTextView.heightAnchor.constraint(equalToConstant: 200.0),
         ])
     }
     
