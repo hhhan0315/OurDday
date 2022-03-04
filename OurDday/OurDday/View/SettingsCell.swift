@@ -54,10 +54,10 @@ final class SettingsCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
+            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
             
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 20.0),
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: .customSize(.anchorSpace)),
         ])
     }
     

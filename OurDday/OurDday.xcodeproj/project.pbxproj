@@ -35,6 +35,8 @@
 		018CA5C827CF9B650093E9DD /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5C727CF9B650093E9DD /* FSCalendarView.swift */; };
 		018CA5CA27D0D84D0093E9DD /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */; };
 		018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */; };
+		018CA5CE27D1B4300093E9DD /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CD27D1B4300093E9DD /* AddTextView.swift */; };
+		018CA5D027D1B6A40093E9DD /* CGFloatUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CF27D1B6A40093E9DD /* CGFloatUtils.swift */; };
 		01C80CA127C36D9700E2845B /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA027C36D9700E2845B /* ColorUtils.swift */; };
 		01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */; };
 		01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA827C47A9000E2845B /* FontUtils.swift */; };
@@ -76,6 +78,8 @@
 		018CA5C727CF9B650093E9DD /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
 		018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDatePickerView.swift; sourceTree = "<group>"; };
+		018CA5CD27D1B4300093E9DD /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
+		018CA5CF27D1B6A40093E9DD /* CGFloatUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatUtils.swift; sourceTree = "<group>"; };
 		01C80CA027C36D9700E2845B /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		01C80CA827C47A9000E2845B /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 				01C80CA827C47A9000E2845B /* FontUtils.swift */,
 				01C80CAA27C5048700E2845B /* CalendarUtils.swift */,
 				01FE724B27C6241E009B5425 /* ViewControllerUtils.swift */,
+				018CA5CF27D1B6A40093E9DD /* CGFloatUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 			children = (
 				018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */,
 				018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */,
+				018CA5CD27D1B4300093E9DD /* AddTextView.swift */,
 			);
 			path = CalenderAdd;
 			sourceTree = "<group>";
@@ -403,7 +409,9 @@
 				01FE724C27C6241E009B5425 /* ViewControllerUtils.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
+				018CA5CE27D1B4300093E9DD /* AddTextView.swift in Sources */,
 				01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */,
+				018CA5D027D1B6A40093E9DD /* CGFloatUtils.swift in Sources */,
 				01434BF827C6058E005241DB /* CalendarTodoCell.swift in Sources */,
 				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
 				018CA5CA27D0D84D0093E9DD /* AddTextFieldView.swift in Sources */,

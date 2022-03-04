@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol AddDatePickerViewDlegate: AnyObject {
+    func addDatePickerDateChange(_ date: Date)
+}
+
 class AddDatePickerView: UIView {
 
     // MARK: - Properties
-        
+
+    weak var delegate: AddDatePickerViewDlegate?
+    
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -19,6 +25,7 @@ class AddDatePickerView: UIView {
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }
+        datePicker.addTarget(self, action: #selector(datePickerValueChagnge(_:)), for: .valueChanged)
         return datePicker
     }()
     
@@ -51,4 +58,9 @@ class AddDatePickerView: UIView {
         datePicker.setDate(date, animated: false)
     }
 
+    // MARK: - Actions
+    
+    @objc func datePickerValueChagnge(_ sender: UIDatePicker) {
+        delegate?.addDatePickerDateChange(sender.date)
+    }
 }

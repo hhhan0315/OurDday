@@ -18,20 +18,28 @@ final class CalendarAddController: UIViewController {
     
     weak var delegate: CalendarAddControllerDelegate?
     
-    var titleText: String = ""
-    var calendarDate = Date()
+    private var calendarEvent = CalendarEvent()
     
     private lazy var addTextFieldView: AddTextFieldView = {
         let view = AddTextFieldView()
         view.delegate = self
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
         return view
     }()
     
-    private let addDatePickerView: AddDatePickerView = {
+    private lazy var addDatePickerView: AddDatePickerView = {
         let view = AddDatePickerView()
-        view.layer.cornerRadius = 15
+        view.delegate = self
+        view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private lazy var addTextView: AddTextView = {
+        let view = AddTextView()
+        view.delegate = self
+        view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
         return view
     }()
@@ -42,8 +50,6 @@ final class CalendarAddController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
-        
-        addDatePickerView.configure(date: calendarDate)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,21 +68,35 @@ final class CalendarAddController: UIViewController {
         
         view.addSubview(addTextFieldView)
         view.addSubview(addDatePickerView)
+        view.addSubview(addTextView)
         
         addTextFieldView.translatesAutoresizingMaskIntoConstraints = false
         addDatePickerView.translatesAutoresizingMaskIntoConstraints = false
+        addTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let anchorSpace = CGFloat.customSize(.anchorSpace)
         
         NSLayoutConstraint.activate([
-            addTextFieldView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0),
-            addTextFieldView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20.0),
-            addTextFieldView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0),
+            addTextFieldView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: anchorSpace),
+            addTextFieldView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: anchorSpace),
+            addTextFieldView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -anchorSpace),
             addTextFieldView.heightAnchor.constraint(equalToConstant: 64.0),
             
-            addDatePickerView.topAnchor.constraint(equalTo: addTextFieldView.bottomAnchor, constant: 20.0),
+            addDatePickerView.topAnchor.constraint(equalTo: addTextFieldView.bottomAnchor, constant: anchorSpace),
             addDatePickerView.leadingAnchor.constraint(equalTo: addTextFieldView.leadingAnchor),
             addDatePickerView.trailingAnchor.constraint(equalTo: addTextFieldView.trailingAnchor),
-            addDatePickerView.heightAnchor.constraint(equalToConstant: 250.0),
+            addDatePickerView.heightAnchor.constraint(equalToConstant: 200.0),
+            
+            addTextView.topAnchor.constraint(equalTo: addDatePickerView.bottomAnchor, constant: anchorSpace),
+            addTextView.leadingAnchor.constraint(equalTo: addDatePickerView.leadingAnchor),
+            addTextView.trailingAnchor.constraint(equalTo: addDatePickerView.trailingAnchor),
+            addTextView.heightAnchor.constraint(equalToConstant: 150.0),
         ])
+    }
+    
+    func configureDatePickerDate(date: Date) {
+        addDatePickerView.configure(date: date)
+        calendarEvent.dateString = date.toCalendarDateString()
     }
     
     // MARK: - Actions
@@ -86,20 +106,30 @@ final class CalendarAddController: UIViewController {
     }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
-        let calendarEvent = CalendarEvent()
-        calendarEvent.title = titleText
-        calendarEvent.dateString = calendarDate.toCalendarDateString()
-        
         delegate?.calendarAddControllerDidSave(self, calendarEvent)
     }
 
 }
 
-// MARK: - AddTextFieldCellDelegate
+// MARK: - AddTextFieldViewDelegate
 
-extension CalendarAddController: AddTextFieldCellDelegate {
+extension CalendarAddController: AddTextFieldViewDelegate {
     func addTextFieldChange(_ text: String) {
         navigationItem.rightBarButtonItem?.isEnabled = !text.isEmpty
-        titleText = text
+        calendarEvent.title = text
+    }
+}
+
+// MARK: - AddTextViewDelegate
+
+extension CalendarAddController: AddTextViewDelegate {
+    func addTextViewChange(_ text: String) {
+        calendarEvent.memo = text
+    }
+}
+
+extension CalendarAddController: AddDatePickerViewDlegate {
+    func addDatePickerDateChange(_ date: Date) {
+        calendarEvent.dateString = date.toCalendarDateString()
     }
 }

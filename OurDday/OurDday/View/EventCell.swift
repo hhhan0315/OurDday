@@ -21,7 +21,7 @@ final class EventCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.middleBold)
+        label.font = UIFont.customFontSize(.middleSemiBold)
         return label
     }()
     
@@ -33,7 +33,7 @@ final class EventCell: UITableViewCell {
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.middleBold)
+        label.font = UIFont.customFontSize(.middleSemiBold)
         return label
     }()
     
@@ -62,13 +62,13 @@ final class EventCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10.0),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
             
             dateTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10.0),
             dateTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
         ])
     }
     

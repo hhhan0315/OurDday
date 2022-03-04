@@ -14,7 +14,7 @@ final class CalendarController: UIViewController {
     private lazy var calendarView: FSCalendarView = {
         let calendarView = FSCalendarView()
         calendarView.delegate = self
-        calendarView.layer.cornerRadius = 15
+        calendarView.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         calendarView.backgroundColor = .white
         return calendarView
     }()
@@ -57,10 +57,12 @@ final class CalendarController: UIViewController {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         todoTableView.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        let anchorSpace = CGFloat.customSize(.anchorSpace)
         NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0),
-            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20.0),
-            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20.0),
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: anchorSpace),
+            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: anchorSpace),
+            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -anchorSpace),
             calendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             
             todoTableView.topAnchor.constraint(equalTo: calendarView.bottomAnchor),
@@ -93,7 +95,7 @@ final class CalendarController: UIViewController {
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
         let calendarAddController = CalendarAddController()
-        calendarAddController.calendarDate = self.calendarDate
+        calendarAddController.configureDatePickerDate(date: calendarDate)
         calendarAddController.delegate = self
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
         present(nav, animated: true, completion: nil)

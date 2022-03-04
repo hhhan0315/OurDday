@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol AddTextFieldCellDelegate: AnyObject {
+protocol AddTextFieldViewDelegate: AnyObject {
     func addTextFieldChange(_ text: String)
 }
 
@@ -15,7 +15,7 @@ class AddTextFieldView: UIView {
 
     // MARK: - Properties
     
-    weak var delegate: AddTextFieldCellDelegate?
+    weak var delegate: AddTextFieldViewDelegate?
         
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -24,6 +24,7 @@ class AddTextFieldView: UIView {
         textField.clearButtonMode = .always
         textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.font = UIFont.customFontSize(.middleSystem)
         return textField
     }()
 
@@ -44,10 +45,12 @@ class AddTextFieldView: UIView {
     private func configureUI() {
         addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        let anchorSpace = CGFloat.customSize(.anchorSpace)
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: topAnchor),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: anchorSpace),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -anchorSpace),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }

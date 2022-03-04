@@ -54,7 +54,7 @@ class FSCalendarView: UIView {
     
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.middleBold)
+        label.font = UIFont.customFontSize(.middleSemiBold)
         label.text = calendar.currentPage.toCalendarHeaderLabel()
         return label
     }()
@@ -88,15 +88,15 @@ class FSCalendarView: UIView {
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20.0),
-            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40.0),
-            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40.0),
+            headerStackView.topAnchor.constraint(equalTo: topAnchor, constant: .customSize(.anchorSpace)),
+            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace) * 2),
+            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace) * 2),
             headerStackView.heightAnchor.constraint(equalToConstant: 44.0),
             
             calendar.topAnchor.constraint(equalTo: headerStackView.bottomAnchor),
-            calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
-            calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
-            calendar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.0),
+            calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
+            calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
+            calendar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.customSize(.anchorSpace)),
         ])
     }
 
