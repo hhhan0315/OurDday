@@ -11,6 +11,12 @@ final class HomeController: UIViewController {
     
     // MARK: - Properties
     
+    private var todayCount: Int? {
+        didSet {
+            configureLabel()
+        }
+    }
+    
     private let countLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.customColor(.mainColor)
@@ -27,19 +33,21 @@ final class HomeController: UIViewController {
 
     // MARK: - Life cycle
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let saveDate = RealmManager.shared.readFirstDayDate()
-        
-        countLabel.text = "\(abs(Calendar.countDaysFromNow(fromDate: saveDate)) + 1)일"
-        dateLabel.text = saveDate.toButtonStringKST()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureUI()
+        todayCount = EventManager.shared.getTodayCount()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let newTodayCount = EventManager.shared.getTodayCount()
+        
+        if todayCount != newTodayCount {
+            todayCount = newTodayCount
+        }
     }
     
     // MARK: - Helpers
@@ -60,6 +68,13 @@ final class HomeController: UIViewController {
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             dateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
         ])
+    }
+    
+    private func configureLabel() {
+        guard let todayCount = todayCount else { return }
+
+        countLabel.text = "\(todayCount + 1)일"
+        dateLabel.text = RealmManager.shared.readFirstDayDate().toButtonStringKST()
     }
     
 }
