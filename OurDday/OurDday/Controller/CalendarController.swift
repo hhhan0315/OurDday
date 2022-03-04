@@ -26,6 +26,7 @@ final class CalendarController: UIViewController {
         tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
         tableView.separatorInset.right = tableView.separatorInset.left
         tableView.rowHeight = 64
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
         return tableView
     }()
     
@@ -105,6 +106,22 @@ final class CalendarController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension CalendarController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let count = Calendar.countDaysFromNow(fromDate: calendarDate)
+        
+        if count == 0 {
+            return "오늘"
+        } else if count > 0 {
+            return nil
+        } else {
+            return "D\(count)"
+        }
+    }
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectCalendarEvents.count
     }
