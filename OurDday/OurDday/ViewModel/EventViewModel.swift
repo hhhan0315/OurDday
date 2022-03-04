@@ -9,8 +9,13 @@ import Foundation
 
 final class EventViewModel {
     private var events = [Event]()
+    var todayCount: Int? {
+        didSet {
+            update()
+        }
+    }
     
-    func update() {
+    private func update() {
         EventManager.shared.getEvents(completion: { events in
             self.events = events
         })

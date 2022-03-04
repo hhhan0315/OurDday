@@ -19,13 +19,18 @@ final class EventController: UITableViewController {
         super.viewDidLoad()
 
         configureUI()
+        viewModel.todayCount = EventManager.shared.getTodayCount()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.update()
-        tableView.reloadData()
+        let newTodayCount = EventManager.shared.getTodayCount()
+        
+        if viewModel.todayCount != newTodayCount {
+            viewModel.todayCount = newTodayCount
+            tableView.reloadData()
+        }
     }
     
     // MARK: - Helpers
