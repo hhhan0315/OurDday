@@ -19,7 +19,7 @@ final class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         configureUI()
-        delegate = self
+//        delegate = self
     }
     
     // MARK: - Helpers
@@ -44,13 +44,13 @@ final class MainTabController: UITabBarController {
 
 // MARK: - UITabBarControllerDelegate
 
-extension MainTabController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if let navigationController = viewController as? UINavigationController {
-            if navigationController.viewControllers.count <= 1,
-               let handler = navigationController.viewControllers.first as? TabBarReselctHandling {
-                handler.handleReselect()
-            }
-        }
-    }
-}
+//extension MainTabController: UITabBarControllerDelegate {
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        if let navigationController = viewController as? UINavigationController {
+//            if navigationController.viewControllers.count <= 1,
+//               let handler = navigationController.viewControllers.first as? TabBarReselctHandling {
+//                handler.handleReselect()
+//            }
+//        }
+//    }
+//}

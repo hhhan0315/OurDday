@@ -99,6 +99,8 @@ final class CalendarController: UIViewController {
         calendarAddController.configureDatePickerDate(date: calendarDate)
         calendarAddController.delegate = self
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
+//        nav.modalPresentationStyle = .fullScreen
+//        navigationController?.pushViewController(calendarAddController, animated: true)
         present(nav, animated: true, completion: nil)
     }
 }
@@ -116,7 +118,7 @@ extension CalendarController: UITableViewDataSource {
         if count == 0 {
             return "오늘"
         } else if count > 0 {
-            return nil
+            return "D+\(abs(count))"
         } else {
             return "D\(count)"
         }
