@@ -49,10 +49,7 @@ struct EventCellViewModel {
     }
     
     var dateTitle: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd(EEE)"
-        formatter.locale = Locale(identifier: "ko_kr")
-        return formatter.string(from: date)
+        return date.toStringWithDayOfTheWeek()
     }
     
 }

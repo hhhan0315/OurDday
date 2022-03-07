@@ -96,7 +96,7 @@ final class CalendarAddController: UIViewController {
     
     func configureDatePickerDate(date: Date) {
         addDatePickerView.configure(date: date)
-        calendarEvent.dateString = date.toCalendarDateString()
+        calendarEvent.date = date
     }
     
     // MARK: - Actions
@@ -130,6 +130,6 @@ extension CalendarAddController: AddTextViewDelegate {
 
 extension CalendarAddController: AddDatePickerViewDlegate {
     func addDatePickerDateChange(_ date: Date) {
-        calendarEvent.dateString = date.toCalendarDateString()
+        calendarEvent.date = date
     }
 }

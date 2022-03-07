@@ -28,4 +28,11 @@ extension Date {
         dateFormatter.dateFormat = "yyyy.MM"
         return dateFormatter.string(from: self)
     }
+    
+    func toStringWithDayOfTheWeek() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.dateFormat = "yyyy.MM.dd(EEE)"
+        return formatter.string(from: self)
+    }
 }

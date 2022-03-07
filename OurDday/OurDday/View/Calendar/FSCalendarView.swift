@@ -111,7 +111,7 @@ class FSCalendarView: UIView {
             return false
         }
         
-        let dateEvents = calendarEvents.map { $0.dateString }
+        let dateEvents = calendarEvents.map { $0.date.toCalendarDateString() }
         if dateEvents.contains(date.toCalendarDateString()) {
             return true
         } else {

@@ -74,7 +74,7 @@ final class CalendarController: UIViewController {
     }
     
     private func updateSelectedCalendarEvents() {
-        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.dateString == calendarDate.toCalendarDateString()}
+        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.date.toCalendarDateString() == calendarDate.toCalendarDateString()}
         todoTableView.reloadData()
     }
     
@@ -99,8 +99,6 @@ final class CalendarController: UIViewController {
         calendarAddController.configureDatePickerDate(date: calendarDate)
         calendarAddController.delegate = self
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
-//        nav.modalPresentationStyle = .fullScreen
-//        navigationController?.pushViewController(calendarAddController, animated: true)
         present(nav, animated: true, completion: nil)
     }
 }
@@ -177,6 +175,12 @@ extension CalendarController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let calendarEvent = selectCalendarEvents[indexPath.row]
+        let todoController = TodoController()
+        todoController.calendarEvent = calendarEvent
+        todoController.delegate = self
+        navigationController?.pushViewController(todoController, animated: true)
     }
 }
 
@@ -201,5 +205,16 @@ extension CalendarController: FSCalendarViewDelegate {
     func fsCalendarChoose(_ date: Date) {
         calendarDate = date
         updateSelectedCalendarEvents()
+    }
+}
+
+// MARK: - TodoControllerDelegate
+
+extension CalendarController: TodoControllerDelegate {
+    func todoControllerDidTrash(_ controller: TodoController, _ calendarEvent: CalendarEvent) {
+        RealmManager.shared.delete(calendarEvent: calendarEvent)
+        self.updateCalendarView()
+        self.updateSelectedCalendarEvents()
+        controller.navigationController?.popViewController(animated: true)
     }
 }

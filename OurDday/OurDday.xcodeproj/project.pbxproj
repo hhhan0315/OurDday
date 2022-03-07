@@ -32,6 +32,9 @@
 		0153C70E27CE0B8600C6F9BC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */; };
 		0153C71027CE0D1300C6F9BC /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */; };
 		0153C71227CE0D6700C6F9BC /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C71127CE0D6700C6F9BC /* Setting.swift */; };
+		018A49BB27D5D52D003E18B2 /* TodoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BA27D5D52D003E18B2 /* TodoController.swift */; };
+		018A49BE27D62362003E18B2 /* TodoTitleDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */; };
+		018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BF27D62810003E18B2 /* TodoMemoView.swift */; };
 		018CA5C827CF9B650093E9DD /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5C727CF9B650093E9DD /* FSCalendarView.swift */; };
 		018CA5CA27D0D84D0093E9DD /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */; };
 		018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */; };
@@ -75,6 +78,9 @@
 		0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
 		0153C71127CE0D6700C6F9BC /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		018A49BA27D5D52D003E18B2 /* TodoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoController.swift; sourceTree = "<group>"; };
+		018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTitleDateView.swift; sourceTree = "<group>"; };
+		018A49BF27D62810003E18B2 /* TodoMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMemoView.swift; sourceTree = "<group>"; };
 		018CA5C727CF9B650093E9DD /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
 		018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDatePickerView.swift; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 				0134D18627BDE2AF00552FE0 /* EventController.swift */,
 				0134D18527BDE2AF00552FE0 /* CalendarController.swift */,
 				01434BF527C600D1005241DB /* CalendarAddController.swift */,
+				018A49BA27D5D52D003E18B2 /* TodoController.swift */,
 				0134D18727BDE2AF00552FE0 /* SettingsController.swift */,
 				0134D18227BDE2AF00552FE0 /* SettingsDayController.swift */,
 			);
@@ -194,6 +201,7 @@
 				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
 				013822C127C9D64B003949DF /* Calendar */,
 				01FE724D27C630F0009B5425 /* CalenderAdd */,
+				018A49BC27D62345003E18B2 /* Todo */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -232,6 +240,15 @@
 				0153C71127CE0D6700C6F9BC /* Setting.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		018A49BC27D62345003E18B2 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */,
+				018A49BF27D62810003E18B2 /* TodoMemoView.swift */,
+			);
+			path = Todo;
 			sourceTree = "<group>";
 		};
 		01FE724D27C630F0009B5425 /* CalenderAdd */ = {
@@ -394,6 +411,7 @@
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
 				0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */,
 				0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */,
+				018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */,
 				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
 				018CA5C827CF9B650093E9DD /* FSCalendarView.swift in Sources */,
 				0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */,
@@ -417,8 +435,10 @@
 				018CA5CA27D0D84D0093E9DD /* AddTextFieldView.swift in Sources */,
 				01C80CAB27C5048700E2845B /* CalendarUtils.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
+				018A49BE27D62362003E18B2 /* TodoTitleDateView.swift in Sources */,
 				0153C71027CE0D1300C6F9BC /* SettingsCellViewModel.swift in Sources */,
 				0153C71227CE0D6700C6F9BC /* Setting.swift in Sources */,
+				018A49BB27D5D52D003E18B2 /* TodoController.swift in Sources */,
 				018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */,
 				01C80CA127C36D9700E2845B /* ColorUtils.swift in Sources */,
 			);
