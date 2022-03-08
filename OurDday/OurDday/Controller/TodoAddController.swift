@@ -65,9 +65,11 @@ final class TodoAddController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemGray6
         
-        navigationItem.title = "새로운 일정"
+        guard let calendarEvent = calendarEvent else { return }
+        
+        navigationItem.title = calendarEvent.title.isEmpty ? "새로운 일정" : "일정 수정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(touchCancelButton(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(touchSaveButton(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: calendarEvent.title.isEmpty ? "추가" : "완료", style: .plain, target: self, action: #selector(touchSaveButton(_:)))
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         view.addSubview(addTextFieldView)

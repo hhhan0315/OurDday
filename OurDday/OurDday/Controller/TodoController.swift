@@ -9,6 +9,7 @@ import UIKit
 
 protocol TodoControllerDelegate: AnyObject {
     func todoControllerDidTrash(_ controller: TodoController, _ calendarEvent: CalendarEvent)
+    func todoControllerDidBack(_ controller: TodoController)
 }
 
 class TodoController: UIViewController {
@@ -71,6 +72,12 @@ class TodoController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        delegate?.todoControllerDidBack(self)
     }
 
     // MARK: - Helpers

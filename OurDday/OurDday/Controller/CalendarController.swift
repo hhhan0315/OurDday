@@ -229,4 +229,9 @@ extension CalendarController: TodoControllerDelegate {
         updateCalendarView()
         controller.navigationController?.popViewController(animated: true)
     }
+    
+    func todoControllerDidBack(_ controller: TodoController) {
+        updateSelectedCalendarEvents()
+        updateCalendarView()
+    }
 }
