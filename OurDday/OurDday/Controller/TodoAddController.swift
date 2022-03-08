@@ -7,18 +7,22 @@
 
 import UIKit
 
-protocol CalendarAddControllerDelegate: AnyObject {
-    func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent)
-    func calendarAddControllerDidCancel(_ controller: CalendarAddController)
+protocol TodoAddControllerDelegate: AnyObject {
+    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEvent: CalendarEvent)
+    func todoAddControllerDidCancel(_ controller: TodoAddController)
 }
 
-final class CalendarAddController: UIViewController {
+final class TodoAddController: UIViewController {
     
     // MARK: - Properties
     
-    weak var delegate: CalendarAddControllerDelegate?
+    weak var delegate: TodoAddControllerDelegate?
     
-    private var calendarEvent = CalendarEvent()
+    var calendarEvent: CalendarEvent? {
+        didSet {
+            configureCalendarEvent()
+        }
+    }
     
     private lazy var addTextFieldView: AddTextFieldView = {
         let view = AddTextFieldView()
@@ -63,7 +67,7 @@ final class CalendarAddController: UIViewController {
         
         navigationItem.title = "새로운 일정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(touchCancelButton(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(touchAddButton(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(touchSaveButton(_:)))
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         view.addSubview(addTextFieldView)
@@ -94,42 +98,51 @@ final class CalendarAddController: UIViewController {
         ])
     }
     
-    func configureDatePickerDate(date: Date) {
-        addDatePickerView.configure(date: date)
-        calendarEvent.date = date
+    private func configureCalendarEvent() {
+        guard let calendarEvent = calendarEvent else { return }
+
+        addTextFieldView.textFieldText = calendarEvent.title
+        addDatePickerView.datePickerDate = calendarEvent.date
+        addTextView.textViewText = calendarEvent.memo
     }
     
     // MARK: - Actions
         
     @objc func touchCancelButton(_ sender: UIBarButtonItem) {
-        delegate?.calendarAddControllerDidCancel(self)
+        delegate?.todoAddControllerDidCancel(self)
     }
     
-    @objc func touchAddButton(_ sender: UIBarButtonItem) {
-        delegate?.calendarAddControllerDidSave(self, calendarEvent)
+    @objc func touchSaveButton(_ sender: UIBarButtonItem) {
+        guard let calendarEvent = calendarEvent else { return }
+        delegate?.todoAddControllerDidSave(self, calendarEvent)
     }
 
 }
 
 // MARK: - AddTextFieldViewDelegate
 
-extension CalendarAddController: AddTextFieldViewDelegate {
+extension TodoAddController: AddTextFieldViewDelegate {
     func addTextFieldChange(_ text: String) {
+        guard let calendarEvent = calendarEvent else { return }
         navigationItem.rightBarButtonItem?.isEnabled = !text.isEmpty
         calendarEvent.title = text
     }
 }
 
-// MARK: - AddTextViewDelegate
+// MARK: - AddDatePickerViewDlegate
 
-extension CalendarAddController: AddTextViewDelegate {
-    func addTextViewChange(_ text: String) {
-        calendarEvent.memo = text
+extension TodoAddController: AddDatePickerViewDlegate {
+    func addDatePickerDateChange(_ date: Date) {
+        guard let calendarEvent = calendarEvent else { return }
+        calendarEvent.date = date
     }
 }
 
-extension CalendarAddController: AddDatePickerViewDlegate {
-    func addDatePickerDateChange(_ date: Date) {
-        calendarEvent.date = date
+// MARK: - AddTextViewDelegate
+
+extension TodoAddController: AddTextViewDelegate {
+    func addTextViewChange(_ text: String) {
+        guard let calendarEvent = calendarEvent else { return }
+        calendarEvent.memo = text
     }
 }

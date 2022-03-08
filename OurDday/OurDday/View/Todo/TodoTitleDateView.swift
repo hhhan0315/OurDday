@@ -11,6 +11,12 @@ class TodoTitleDateView: UIView {
 
     // MARK: - Properties
     
+    var labelContent: String? {
+        didSet {
+            label.text = labelContent
+        }
+    }
+    
     private let label: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleSystem)
@@ -45,10 +51,6 @@ class TodoTitleDateView: UIView {
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -anchorSpace),
             label.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-    }
-    
-    func configureLabel(content: String) {
-        label.text = content
     }
 
 }

@@ -17,6 +17,7 @@ class FSCalendarView: UIView {
     // MARK: - Properties
 
     weak var delegate: FSCalendarViewDelegate?
+    
     var calendarEvents: [CalendarEvent]? {
         didSet {
             calendar.reloadData()
@@ -106,17 +107,9 @@ class FSCalendarView: UIView {
         headerLabel.text = calendar.currentPage.toCalendarHeaderLabel()
     }
     
-    private func calendarEventsHaveDate(date: Date) -> Bool {
-        guard let calendarEvents = calendarEvents else {
-            return false
-        }
-        
-        let dateEvents = calendarEvents.map { $0.date.toCalendarDateString() }
-        if dateEvents.contains(date.toCalendarDateString()) {
-            return true
-        } else {
-            return false
-        }
+    private func filterSelectCalendarEvents(date: Date) -> [CalendarEvent] {
+        guard let calendarEvents = calendarEvents else { return [] }
+        return calendarEvents.filter { $0.date.toCalendarDateString() == date.toCalendarDateString() }
     }
     
     // MARK: - Actions
@@ -146,7 +139,7 @@ extension FSCalendarView: FSCalendarDelegate {
 
 extension FSCalendarView: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return calendarEventsHaveDate(date: date) ? 1 : 0
+        return filterSelectCalendarEvents(date: date).isEmpty ? 0 : 1
     }
 }
 
@@ -154,10 +147,10 @@ extension FSCalendarView: FSCalendarDataSource {
 
 extension FSCalendarView: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return calendarEventsHaveDate(date: date) ? [UIColor.customColor(.mainColor)] : nil
+        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.customColor(.mainColor)]
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return calendarEventsHaveDate(date: date) ? [UIColor.customColor(.mainColor)] : nil
+        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.customColor(.mainColor)]
     }
 }

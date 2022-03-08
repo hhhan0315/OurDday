@@ -17,6 +17,15 @@ class AddTextView: UIView {
     
     weak var delegate: AddTextViewDelegate?
     
+    var textViewText: String? {
+        didSet {
+            guard let textViewText = textViewText else { return }
+
+            textView.text = textViewText.isEmpty ? textViewPlaceholder : textViewText
+            textView.textColor = textViewText.isEmpty ? .systemGray3 : .black
+        }
+    }
+    
     private let textViewPlaceholder = "메모"
     
     private lazy var textView: UITextView = {

@@ -11,6 +11,12 @@ class TodoMemoView: UIView {
 
     // MARK: - Properties
     
+    var textContent: String? {
+        didSet {
+            textView.text = textContent
+        }
+    }
+    
     private let textView: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
@@ -43,10 +49,6 @@ class TodoMemoView: UIView {
             textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -anchorSpace),
             textView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-    }
-    
-    func configureTextView(content: String) {
-        textView.text = content
     }
 
 }

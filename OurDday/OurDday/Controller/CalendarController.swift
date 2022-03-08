@@ -30,7 +30,7 @@ final class CalendarController: UIViewController {
         return tableView
     }()
     
-    private var calendarDate = Date()
+    private var selectDate = Date()
     private var selectCalendarEvents = [CalendarEvent]()
     
     // MARK: - Life cycle
@@ -39,6 +39,7 @@ final class CalendarController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
+        
         updateSelectedCalendarEvents()
         updateCalendarView()
     }
@@ -74,7 +75,7 @@ final class CalendarController: UIViewController {
     }
     
     private func updateSelectedCalendarEvents() {
-        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.date.toCalendarDateString() == calendarDate.toCalendarDateString()}
+        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.date.toCalendarDateString() == selectDate.toCalendarDateString()}
         todoTableView.reloadData()
     }
     
@@ -95,10 +96,14 @@ final class CalendarController: UIViewController {
     }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
-        let calendarAddController = CalendarAddController()
-        calendarAddController.configureDatePickerDate(date: calendarDate)
-        calendarAddController.delegate = self
-        let nav = CalendarController.configureTemplateNavigationController(rootViewController: calendarAddController)
+        let calendarEvent = CalendarEvent()
+        calendarEvent.date = selectDate
+        
+        let todoAddController = TodoAddController()
+        todoAddController.calendarEvent = calendarEvent
+        todoAddController.delegate = self
+        
+        let nav = CalendarController.configureTemplateNavigationController(rootViewController: todoAddController)
         present(nav, animated: true, completion: nil)
     }
 }
@@ -111,7 +116,7 @@ extension CalendarController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let count = Calendar.countDaysFromNow(fromDate: calendarDate)
+        let count = Calendar.countDaysFromNow(fromDate: selectDate)
         
         if count == 0 {
             return "오늘"
@@ -176,7 +181,14 @@ extension CalendarController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let calendarEvent = selectCalendarEvents[indexPath.row]
+        let selectCalendarEvent = selectCalendarEvents[indexPath.row]
+        
+        let calendarEvent = CalendarEvent()
+        calendarEvent.id = selectCalendarEvent.id
+        calendarEvent.title = selectCalendarEvent.title
+        calendarEvent.date = selectCalendarEvent.date
+        calendarEvent.memo = selectCalendarEvent.memo
+        
         let todoController = TodoController()
         todoController.calendarEvent = calendarEvent
         todoController.delegate = self
@@ -184,26 +196,26 @@ extension CalendarController: UITableViewDelegate {
     }
 }
 
-// MARK: - CalendarAddControllerDelegate
+// MARK: - TodoAddControllerDelegate
 
-extension CalendarController: CalendarAddControllerDelegate {
-    func calendarAddControllerDidSave(_ controller: CalendarAddController, _ calendarEvent: CalendarEvent) {
+extension CalendarController: TodoAddControllerDelegate {
+    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEvent: CalendarEvent) {
         RealmManager.shared.insert(calendarEvent: calendarEvent)
         updateSelectedCalendarEvents()
         updateCalendarView()
         controller.dismiss(animated: true, completion: nil)
     }
     
-    func calendarAddControllerDidCancel(_ controller: CalendarAddController) {
+    func todoAddControllerDidCancel(_ controller: TodoAddController) {
         controller.dismiss(animated: true, completion: nil)
     }
 }
 
-// MARK: - FSCalendarCellDelegate
+// MARK: - FSCalendarViewDelegate
 
 extension CalendarController: FSCalendarViewDelegate {
     func fsCalendarChoose(_ date: Date) {
-        calendarDate = date
+        self.selectDate = date
         updateSelectedCalendarEvents()
     }
 }
@@ -213,8 +225,8 @@ extension CalendarController: FSCalendarViewDelegate {
 extension CalendarController: TodoControllerDelegate {
     func todoControllerDidTrash(_ controller: TodoController, _ calendarEvent: CalendarEvent) {
         RealmManager.shared.delete(calendarEvent: calendarEvent)
-        self.updateCalendarView()
-        self.updateSelectedCalendarEvents()
+        updateSelectedCalendarEvents()
+        updateCalendarView()
         controller.navigationController?.popViewController(animated: true)
     }
 }

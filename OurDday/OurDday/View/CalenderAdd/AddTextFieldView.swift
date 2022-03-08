@@ -16,6 +16,12 @@ class AddTextFieldView: UIView {
     // MARK: - Properties
     
     weak var delegate: AddTextFieldViewDelegate?
+    
+    var textFieldText: String? {
+        didSet {
+            textField.text = textFieldText
+        }
+    }
         
     private lazy var textField: UITextField = {
         let textField = UITextField()

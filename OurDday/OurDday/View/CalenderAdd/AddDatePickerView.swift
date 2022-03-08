@@ -12,12 +12,20 @@ protocol AddDatePickerViewDlegate: AnyObject {
 }
 
 class AddDatePickerView: UIView {
-
+    
     // MARK: - Properties
-
+    
     weak var delegate: AddDatePickerViewDlegate?
     
-    private let datePicker: UIDatePicker = {
+    var datePickerDate: Date? {
+        didSet {
+            guard let datePickerDate = datePickerDate else { return }
+            
+            datePicker.setDate(datePickerDate, animated: false)
+        }
+    }
+    
+    private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko_kr")
@@ -53,11 +61,7 @@ class AddDatePickerView: UIView {
             datePicker.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
-
-    func configure(date: Date) {
-        datePicker.setDate(date, animated: false)
-    }
-
+    
     // MARK: - Actions
     
     @objc func datePickerValueChagnge(_ sender: UIDatePicker) {

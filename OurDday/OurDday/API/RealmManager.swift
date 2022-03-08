@@ -27,7 +27,7 @@ final class RealmManager {
     }
     
     func insert(calendarEvent: CalendarEvent) {
-        let newId = Date().timeIntervalSince1970
+        let newId = "\(Date().timeIntervalSince1970)"
         calendarEvent.id = newId
         try! realm.write({
             realm.add(calendarEvent)
@@ -40,9 +40,15 @@ final class RealmManager {
         }
     }
     
+    func selectById(calendarEventId: String) -> CalendarEvent? {
+        return realm.objects(CalendarEvent.self).filter {$0.id == calendarEventId}.first
+    }
+    
     func delete(calendarEvent: CalendarEvent) {
         try! realm.write {
-            realm.delete(calendarEvent)
+            if let entity = selectById(calendarEventId: calendarEvent.id) {
+                realm.delete(entity)
+            }
         }
     }
     
@@ -56,6 +62,17 @@ final class RealmManager {
             } catch {
                 completion(false)
             }
+        }
+    }
+    
+    func update(calendarEvent: CalendarEvent, completion: @escaping(Bool) -> Void) {
+        do {
+            try realm.write({
+                realm.add(calendarEvent, update: .modified)
+                completion(true)
+            })
+        } catch {
+            completion(false)
         }
     }
     

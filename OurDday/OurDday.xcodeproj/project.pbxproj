@@ -27,7 +27,7 @@
 		013822C027C9CA98003949DF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BF27C9CA98003949DF /* EventManager.swift */; };
 		0138EB0827BE6938003E99B1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* Event.swift */; };
 		0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* EventCell.swift */; };
-		01434BF627C600D1005241DB /* CalendarAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF527C600D1005241DB /* CalendarAddController.swift */; };
+		01434BF627C600D1005241DB /* TodoAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF527C600D1005241DB /* TodoAddController.swift */; };
 		01434BF827C6058E005241DB /* CalendarTodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01434BF727C6058E005241DB /* CalendarTodoCell.swift */; };
 		0153C70E27CE0B8600C6F9BC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */; };
 		0153C71027CE0D1300C6F9BC /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */; };
@@ -73,7 +73,7 @@
 		013822BF27C9CA98003949DF /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		0138EB0727BE6938003E99B1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0138EB0927BF44CE003E99B1 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
-		01434BF527C600D1005241DB /* CalendarAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAddController.swift; sourceTree = "<group>"; };
+		01434BF527C600D1005241DB /* TodoAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddController.swift; sourceTree = "<group>"; };
 		01434BF727C6058E005241DB /* CalendarTodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTodoCell.swift; sourceTree = "<group>"; };
 		0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
@@ -164,8 +164,8 @@
 				0134D18327BDE2AF00552FE0 /* HomeController.swift */,
 				0134D18627BDE2AF00552FE0 /* EventController.swift */,
 				0134D18527BDE2AF00552FE0 /* CalendarController.swift */,
-				01434BF527C600D1005241DB /* CalendarAddController.swift */,
 				018A49BA27D5D52D003E18B2 /* TodoController.swift */,
+				01434BF527C600D1005241DB /* TodoAddController.swift */,
 				0134D18727BDE2AF00552FE0 /* SettingsController.swift */,
 				0134D18227BDE2AF00552FE0 /* SettingsDayController.swift */,
 			);
@@ -405,7 +405,7 @@
 			files = (
 				0134D19127BDE30000552FE0 /* DateUtils.swift in Sources */,
 				0134D18027BDE14200552FE0 /* LocalStorage.swift in Sources */,
-				01434BF627C600D1005241DB /* CalendarAddController.swift in Sources */,
+				01434BF627C600D1005241DB /* TodoAddController.swift in Sources */,
 				013822C027C9CA98003949DF /* EventManager.swift in Sources */,
 				01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */,
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,

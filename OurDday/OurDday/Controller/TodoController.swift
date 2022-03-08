@@ -9,7 +9,6 @@ import UIKit
 
 protocol TodoControllerDelegate: AnyObject {
     func todoControllerDidTrash(_ controller: TodoController, _ calendarEvent: CalendarEvent)
-//    func todoControllerDidCancel(_ controller: CalendarAddController)
 }
 
 class TodoController: UIViewController {
@@ -138,23 +137,19 @@ class TodoController: UIViewController {
     }
     
     private func configureCalendarEvent() {
-        guard let calendarEvent = calendarEvent else {
-            return
-        }
+        guard let calendarEvent = calendarEvent else { return }
         
-        titleView.configureLabel(content: calendarEvent.title)
-        dateView.configureLabel(content: calendarEvent.date.toStringWithDayOfTheWeek())
-        memoView.configureTextView(content: calendarEvent.memo)
+        titleView.labelContent = calendarEvent.title
+        dateView.labelContent = calendarEvent.date.toStringWithDayOfTheWeek()
+        memoView.textContent = calendarEvent.memo
     }
     
     // MARK: - Actions
     
     @objc func touchTrashButton(_ sender: UIBarButtonItem) {
-        guard let calendarEvent = calendarEvent else {
-            return
-        }
+        guard let calendarEvent = calendarEvent else { return }
         
-        let alertController = UIAlertController(title: "z", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
 //        alertController.title = "일정 삭제"
 //        alertController.message = "일정을 삭제하시겠습니까?"
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
@@ -166,6 +161,27 @@ class TodoController: UIViewController {
     }
     
     @objc func touchEditButton(_ sender: UIBarButtonItem) {
-        print("편집")
+        guard let calendarEvent = calendarEvent else { return }
+        
+        let todoAddController = TodoAddController()
+        todoAddController.calendarEvent = calendarEvent
+        todoAddController.delegate = self
+        let nav = TodoController.configureTemplateNavigationController(rootViewController: todoAddController)
+        present(nav, animated: true, completion: nil)
+    }
+}
+
+extension TodoController: TodoAddControllerDelegate {
+    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEvent: CalendarEvent) {
+        RealmManager.shared.update(calendarEvent: calendarEvent, completion: { check in
+            if check {
+                self.calendarEvent = calendarEvent
+                controller.dismiss(animated: true, completion: nil)
+            }
+        })
+    }
+    
+    func todoAddControllerDidCancel(_ controller: TodoAddController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
