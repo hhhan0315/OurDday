@@ -19,7 +19,6 @@ final class SettingsController: UIViewController {
         tableView.delegate = self
         tableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.identifier)
         tableView.separatorInset.right = tableView.separatorInset.left
-        tableView.rowHeight = 80.0
         tableView.isScrollEnabled = false
         tableView.tableFooterView = UIView(frame: .zero)
         return tableView
@@ -73,6 +72,10 @@ extension SettingsController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SettingsController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.height / 10
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

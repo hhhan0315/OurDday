@@ -18,13 +18,13 @@ extension UIFont {
     static func customFontSize(_ name: CustomFontSize) -> UIFont {
         switch name {
         case .bigBold:
-            return UIFont.boldSystemFont(ofSize: 32.0)
+            return UIFont.boldSystemFont(ofSize: 34.0)
         case .middleSemiBold:
-            return UIFont.systemFont(ofSize: 18.0, weight: .semibold)
+            return UIFont.systemFont(ofSize: 17.0, weight: .semibold)
         case .middleSystem:
-            return UIFont.systemFont(ofSize: 18.0)
+            return UIFont.systemFont(ofSize: 17.0)
         case .smallSystem:
-            return UIFont.systemFont(ofSize: 14.0)
+            return UIFont.systemFont(ofSize: 13.0)
         }
     }
 }

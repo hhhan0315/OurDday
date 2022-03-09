@@ -39,7 +39,6 @@ final class EventController: UITableViewController {
         navigationItem.title = "기념일"
         
         tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.identifier)
-        tableView.rowHeight = 80
         tableView.separatorInset.right = tableView.separatorInset.left
     }
 
@@ -65,6 +64,12 @@ extension EventController {
         cell.selectionStyle = .none
         
         return cell
+    }
+}
+
+extension EventController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.height / 10
     }
 }
 

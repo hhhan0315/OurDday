@@ -74,8 +74,8 @@ class TodoController: UIViewController {
         configureUI()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         delegate?.todoControllerDidBack(self)
     }
@@ -107,36 +107,35 @@ class TodoController: UIViewController {
         memoView.translatesAutoresizingMaskIntoConstraints = false
         
         let anchorSpace = CGFloat.customSize(.anchorSpace)
-        let halfAnchorSpace = CGFloat.customSize(.anchorSpace) / 2
         let doubleAnchorSpace = CGFloat.customSize(.anchorSpace) * 2
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: halfAnchorSpace),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: doubleAnchorSpace),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -doubleAnchorSpace),
             titleLabel.heightAnchor.constraint(equalToConstant: 44.0),
             
-            titleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: halfAnchorSpace),
+            titleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             titleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: anchorSpace),
             titleView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -anchorSpace),
             titleView.heightAnchor.constraint(equalToConstant: 44.0),
             
-            dateLabel.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: halfAnchorSpace),
+            dateLabel.topAnchor.constraint(equalTo: titleView.bottomAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             dateLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor),
             
-            dateView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: halfAnchorSpace),
+            dateView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor),
             dateView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
             dateView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
             dateView.heightAnchor.constraint(equalToConstant: 44.0),
             
-            memoLabel.topAnchor.constraint(equalTo: dateView.bottomAnchor, constant: halfAnchorSpace),
+            memoLabel.topAnchor.constraint(equalTo: dateView.bottomAnchor),
             memoLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             memoLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             memoLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor),
             
-            memoView.topAnchor.constraint(equalTo: memoLabel.bottomAnchor, constant: halfAnchorSpace),
+            memoView.topAnchor.constraint(equalTo: memoLabel.bottomAnchor),
             memoView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
             memoView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
             memoView.heightAnchor.constraint(equalToConstant: 255.0),

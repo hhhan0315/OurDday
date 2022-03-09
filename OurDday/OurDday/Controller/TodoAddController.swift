@@ -70,7 +70,7 @@ final class TodoAddController: UIViewController {
         navigationItem.title = calendarEvent.title.isEmpty ? "새로운 일정" : "일정 수정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(touchCancelButton(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: calendarEvent.title.isEmpty ? "추가" : "완료", style: .plain, target: self, action: #selector(touchSaveButton(_:)))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = !calendarEvent.title.isEmpty
         
         view.addSubview(addTextFieldView)
         view.addSubview(addDatePickerView)

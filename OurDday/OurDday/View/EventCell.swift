@@ -62,13 +62,13 @@ final class EventCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10.0),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace) * 2),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
             
             dateTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10.0),
             dateTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace) * 2),
+            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
         ])
     }
     
