@@ -19,9 +19,14 @@ final class RealmManager {
     
     func insert(firstDay: FirstDay) {
         deleteAll()
-        try! realm.write({
-            realm.add(firstDay)
-        })
+        
+        do {
+            try realm.write({
+                realm.add(firstDay)
+            })
+        } catch {
+            print("\(error)")
+        }
         
 //        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
@@ -29,14 +34,23 @@ final class RealmManager {
     func insert(calendarEvent: CalendarEvent) {
         let newId = "\(Date().timeIntervalSince1970)"
         calendarEvent.id = newId
-        try! realm.write({
-            realm.add(calendarEvent)
-        })        
+        
+        do {
+            try realm.write({
+                realm.add(calendarEvent)
+            })
+        } catch {
+            print("\(error)")
+        }
     }
     
     private func deleteAll() {
-        try! realm.write {
-            realm.deleteAll()
+        do {
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch {
+            print("\(error)")
         }
     }
     
@@ -45,10 +59,14 @@ final class RealmManager {
     }
     
     func delete(calendarEvent: CalendarEvent) {
-        try! realm.write {
-            if let entity = selectById(calendarEventId: calendarEvent.id) {
-                realm.delete(entity)
+        do {
+            try realm.write {
+                if let entity = selectById(calendarEventId: calendarEvent.id) {
+                    realm.delete(entity)
+                }
             }
+        } catch {
+            print("\(error)")
         }
     }
     

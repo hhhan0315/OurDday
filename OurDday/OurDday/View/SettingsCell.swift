@@ -19,13 +19,14 @@ final class SettingsCell: UITableViewCell {
         }
     }
     
-    let iconImageView: UIImageView = {
+    private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleSystem)
         return label
@@ -53,8 +54,10 @@ final class SettingsCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
+            iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: .customSize(.anchorSpace)),
+            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.customSize(.anchorSpace)),
+            iconImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25),
             
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: .customSize(.anchorSpace)),

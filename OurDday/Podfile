@@ -9,5 +9,6 @@ target 'OurDday' do
   pod 'RealmSwift'
   pod 'FSCalendar'
   pod 'IQKeyboardManagerSwift'
+  pod 'CropViewController'
 
 end

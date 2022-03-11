@@ -12,7 +12,7 @@ protocol TodoControllerDelegate: AnyObject {
     func todoControllerDidBack(_ controller: TodoController)
 }
 
-class TodoController: UIViewController {
+final class TodoController: UIViewController {
     
     // MARK: - Properties
     

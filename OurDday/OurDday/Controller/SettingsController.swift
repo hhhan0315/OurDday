@@ -79,9 +79,13 @@ extension SettingsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             let settingsDayController = SettingsDayController()
             navigationController?.pushViewController(settingsDayController, animated: true)
+        default:
+            break
         }
+
     }
 }

@@ -1,4 +1,5 @@
 PODS:
+  - CropViewController (2.6.1)
   - FSCalendar (2.8.2)
   - IQKeyboardManagerSwift (6.5.9)
   - Realm (10.22.0):
@@ -8,23 +9,26 @@ PODS:
     - Realm (= 10.22.0)
 
 DEPENDENCIES:
+  - CropViewController
   - FSCalendar
   - IQKeyboardManagerSwift
   - RealmSwift
 
 SPEC REPOS:
   trunk:
+    - CropViewController
     - FSCalendar
     - IQKeyboardManagerSwift
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
+  CropViewController: 58fb440f30dac788b129d2a1f24cffdcb102669c
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Realm: d9e4e5877095a6722145811f56fe89a531c9659d
   RealmSwift: e4191b4b957fcfcbed23751ec65eec98f8173ab5
 
-PODFILE CHECKSUM: 7398296ea96088de0b7f68b2b243afc9a48f3df1
+PODFILE CHECKSUM: cbb8f6845fda685f2110a03c55a50d857c19b2ad
 
 COCOAPODS: 1.11.2
