@@ -13,6 +13,8 @@ final class HomeController: UIViewController {
     
     // MARK: - Properties
     
+    private let imageKeyName = "homeBackGroundImage"
+    
     private var todayCount: Int? {
         didSet {
             configureLabel()
@@ -35,6 +37,7 @@ final class HomeController: UIViewController {
     
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchBackgroundView(_:))))
         return imageView
@@ -47,8 +50,7 @@ final class HomeController: UIViewController {
 
         configureUI()
         todayCount = EventManager.shared.getTodayCount()
-        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: "hello")
-        // 없다면 기본 이미지 설정
+        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName) ?? UIImage(named: "initialBackground")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +86,7 @@ final class HomeController: UIViewController {
             backgroundImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50.0),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50.0),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25.0),
         ])
     }
     
@@ -139,7 +141,7 @@ extension HomeController: UIImagePickerControllerDelegate, UINavigationControlle
 
 extension HomeController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        PhotoManager.shared.saveImageToDocumentDirectory(imageName: "hello", image: image)
+        PhotoManager.shared.saveImageToDocumentDirectory(imageName: imageKeyName, image: image)
         backgroundImageView.image = image
         cropViewController.dismiss(animated: true, completion: nil)
     }

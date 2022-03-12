@@ -36,7 +36,6 @@
 		018A49BE27D62362003E18B2 /* TodoTitleDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */; };
 		018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BF27D62810003E18B2 /* TodoMemoView.swift */; };
 		018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49C627D9D331003E18B2 /* PhotoManager.swift */; };
-		018A49C927DA161B003E18B2 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49C827DA161B003E18B2 /* Photo.swift */; };
 		018CA5C827CF9B650093E9DD /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5C727CF9B650093E9DD /* FSCalendarView.swift */; };
 		018CA5CA27D0D84D0093E9DD /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */; };
 		018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */; };
@@ -84,7 +83,6 @@
 		018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTitleDateView.swift; sourceTree = "<group>"; };
 		018A49BF27D62810003E18B2 /* TodoMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMemoView.swift; sourceTree = "<group>"; };
 		018A49C627D9D331003E18B2 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
-		018A49C827DA161B003E18B2 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		018CA5C727CF9B650093E9DD /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
 		018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDatePickerView.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 			children = (
 				0134D19627BDE81700552FE0 /* FirstDay.swift */,
 				01FE725227C76185009B5425 /* CalendarEvent.swift */,
-				018A49C827DA161B003E18B2 /* Photo.swift */,
 			);
 			path = RealmModel;
 			sourceTree = "<group>";
@@ -433,7 +430,6 @@
 				01FE725327C76185009B5425 /* CalendarEvent.swift in Sources */,
 				01FE724C27C6241E009B5425 /* ViewControllerUtils.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
-				018A49C927DA161B003E18B2 /* Photo.swift in Sources */,
 				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
 				018CA5CE27D1B4300093E9DD /* AddTextView.swift in Sources */,
 				01C80CA927C47A9000E2845B /* FontUtils.swift in Sources */,
