@@ -21,6 +21,7 @@ class FSCalendarView: UIView {
     var calendarEvents: [CalendarEvent]? {
         didSet {
             calendar.reloadData()
+            calendar.today = Date()
         }
     }
 

@@ -43,6 +43,17 @@ final class CalendarController: UIViewController {
         updateSelectedCalendarEvents()
         updateCalendarView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let selectDateString = selectDate.toCalendarDateString()
+        let nowDateString = Date().toCalendarDateString()
+        
+        if selectDateString != nowDateString {
+            updateCalendarView()
+        }
+    }
 
     // MARK: - Helpers
     
