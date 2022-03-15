@@ -51,6 +51,7 @@ final class CalendarController: UIViewController {
         let nowDateString = Date().toCalendarDateString()
         
         if selectDateString != nowDateString {
+            updateSelectedCalendarEvents()
             updateCalendarView()
         }
     }
