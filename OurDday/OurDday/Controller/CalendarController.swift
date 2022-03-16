@@ -104,11 +104,10 @@ final class CalendarController: UIViewController {
     }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
-        let calendarEvent = CalendarEvent()
-        calendarEvent.date = selectDate
+        let calendarEventStruct = CalendarEventStruct(date: selectDate)
         
         let todoAddController = TodoAddController()
-        todoAddController.calendarEvent = calendarEvent
+        todoAddController.calendarEventStruct = calendarEventStruct
         todoAddController.delegate = self
         
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: todoAddController)
@@ -190,15 +189,10 @@ extension CalendarController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectCalendarEvent = selectCalendarEvents[indexPath.row]
-        
-        let calendarEvent = CalendarEvent()
-        calendarEvent.id = selectCalendarEvent.id
-        calendarEvent.title = selectCalendarEvent.title
-        calendarEvent.date = selectCalendarEvent.date
-        calendarEvent.memo = selectCalendarEvent.memo
+        let calendarEventstruct = CalendarEventStruct(calendarEvent: selectCalendarEvent)
         
         let todoController = TodoController()
-        todoController.calendarEvent = calendarEvent
+        todoController.calendarEventStruct = calendarEventstruct
         todoController.delegate = self
         navigationController?.pushViewController(todoController, animated: true)
     }
@@ -207,8 +201,11 @@ extension CalendarController: UITableViewDelegate {
 // MARK: - TodoAddControllerDelegate
 
 extension CalendarController: TodoAddControllerDelegate {
-    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEvent: CalendarEvent) {
+    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEventStruct: CalendarEventStruct) {
+        let calendarEvent = CalendarEvent(calendarEventStruct: calendarEventStruct)
+        
         RealmManager.shared.insert(calendarEvent: calendarEvent)
+        
         updateSelectedCalendarEvents()
         updateCalendarView()
         controller.dismiss(animated: true, completion: nil)
@@ -231,7 +228,9 @@ extension CalendarController: FSCalendarViewDelegate {
 // MARK: - TodoControllerDelegate
 
 extension CalendarController: TodoControllerDelegate {
-    func todoControllerDidTrash(_ controller: TodoController, _ calendarEvent: CalendarEvent) {
+    func todoControllerDidTrash(_ controller: TodoController, _ calendarEventStruct: CalendarEventStruct) {
+        let calendarEvent = CalendarEvent(calendarEventStruct: calendarEventStruct)
+        
         RealmManager.shared.delete(calendarEvent: calendarEvent)
         updateSelectedCalendarEvents()
         updateCalendarView()

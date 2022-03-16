@@ -15,6 +15,8 @@ final class RealmManager {
     
     private init() {
         realm = try! Realm()
+        
+//        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     func insert(firstDay: FirstDay) {
@@ -27,8 +29,6 @@ final class RealmManager {
         } catch {
             print("\(error)")
         }
-        
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     func insert(calendarEvent: CalendarEvent) {

@@ -18,7 +18,7 @@ extension CGFloat {
         case .anchorSpace:
             return 16.0
         case .cornerRadius:
-            return 15.0
+            return 7.0
         }
     }
 }

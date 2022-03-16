@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TodoAddControllerDelegate: AnyObject {
-    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEvent: CalendarEvent)
+    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEventStruct: CalendarEventStruct)
     func todoAddControllerDidCancel(_ controller: TodoAddController)
 }
 
@@ -18,7 +18,7 @@ final class TodoAddController: UIViewController {
     
     weak var delegate: TodoAddControllerDelegate?
     
-    var calendarEvent: CalendarEvent? {
+    var calendarEventStruct: CalendarEventStruct? {
         didSet {
             configureCalendarEvent()
         }
@@ -28,7 +28,8 @@ final class TodoAddController: UIViewController {
         let view = AddTextFieldView()
         view.delegate = self
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
-        view.backgroundColor = .white
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
     
@@ -36,7 +37,8 @@ final class TodoAddController: UIViewController {
         let view = AddDatePickerView()
         view.delegate = self
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
-        view.backgroundColor = .white
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
     
@@ -44,7 +46,8 @@ final class TodoAddController: UIViewController {
         let view = AddTextView()
         view.delegate = self
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
-        view.backgroundColor = .white
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
     
@@ -63,14 +66,14 @@ final class TodoAddController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .backgroundColor
         
-        guard let calendarEvent = calendarEvent else { return }
+        guard let calendarEventStruct = calendarEventStruct else { return }
         
-        navigationItem.title = calendarEvent.title.isEmpty ? "새로운 일정" : "일정 수정"
+        navigationItem.title = calendarEventStruct.title.isEmpty ? "새로운 일정" : "일정 수정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(touchCancelButton(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: calendarEvent.title.isEmpty ? "추가" : "완료", style: .plain, target: self, action: #selector(touchSaveButton(_:)))
-        navigationItem.rightBarButtonItem?.isEnabled = !calendarEvent.title.isEmpty
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: calendarEventStruct.title.isEmpty ? "추가" : "완료", style: .plain, target: self, action: #selector(touchSaveButton(_:)))
+        navigationItem.rightBarButtonItem?.isEnabled = !calendarEventStruct.title.isEmpty
         
         view.addSubview(addTextFieldView)
         view.addSubview(addDatePickerView)
@@ -101,11 +104,11 @@ final class TodoAddController: UIViewController {
     }
     
     private func configureCalendarEvent() {
-        guard let calendarEvent = calendarEvent else { return }
+        guard let calendarEventStruct = calendarEventStruct else { return }
 
-        addTextFieldView.textFieldText = calendarEvent.title
-        addDatePickerView.datePickerDate = calendarEvent.date
-        addTextView.textViewText = calendarEvent.memo
+        addTextFieldView.textFieldText = calendarEventStruct.title
+        addDatePickerView.datePickerDate = calendarEventStruct.date
+        addTextView.textViewText = calendarEventStruct.memo
     }
     
     // MARK: - Actions
@@ -115,8 +118,8 @@ final class TodoAddController: UIViewController {
     }
     
     @objc func touchSaveButton(_ sender: UIBarButtonItem) {
-        guard let calendarEvent = calendarEvent else { return }
-        delegate?.todoAddControllerDidSave(self, calendarEvent)
+        guard let calendarEventStruct = calendarEventStruct else { return }
+        delegate?.todoAddControllerDidSave(self, calendarEventStruct)
     }
 
 }
@@ -125,9 +128,8 @@ final class TodoAddController: UIViewController {
 
 extension TodoAddController: AddTextFieldViewDelegate {
     func addTextFieldChange(_ text: String) {
-        guard let calendarEvent = calendarEvent else { return }
         navigationItem.rightBarButtonItem?.isEnabled = !text.isEmpty
-        calendarEvent.title = text
+        calendarEventStruct?.title = text
     }
 }
 
@@ -135,8 +137,7 @@ extension TodoAddController: AddTextFieldViewDelegate {
 
 extension TodoAddController: AddDatePickerViewDlegate {
     func addDatePickerDateChange(_ date: Date) {
-        guard let calendarEvent = calendarEvent else { return }
-        calendarEvent.date = date
+        calendarEventStruct?.date = date
     }
 }
 
@@ -144,7 +145,6 @@ extension TodoAddController: AddDatePickerViewDlegate {
 
 extension TodoAddController: AddTextViewDelegate {
     func addTextViewChange(_ text: String) {
-        guard let calendarEvent = calendarEvent else { return }
-        calendarEvent.memo = text
+        calendarEventStruct?.memo = text
     }
 }

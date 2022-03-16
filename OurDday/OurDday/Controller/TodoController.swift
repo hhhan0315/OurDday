@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TodoControllerDelegate: AnyObject {
-    func todoControllerDidTrash(_ controller: TodoController, _ calendarEvent: CalendarEvent)
+    func todoControllerDidTrash(_ controller: TodoController, _ calendarEventStruct: CalendarEventStruct)
     func todoControllerDidBack(_ controller: TodoController)
 }
 
@@ -18,12 +18,12 @@ final class TodoController: UIViewController {
     
     weak var delegate: TodoControllerDelegate?
     
-    var calendarEvent: CalendarEvent? {
+    var calendarEventStruct: CalendarEventStruct? {
         didSet {
             configureCalendarEvent()
         }
     }
-    
+        
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "제목"
@@ -49,8 +49,8 @@ final class TodoController: UIViewController {
         let view = TodoTitleDateView()
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
-        view.layer.borderWidth = 1.0
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
     
@@ -58,8 +58,8 @@ final class TodoController: UIViewController {
         let view = TodoTitleDateView()
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
-        view.layer.borderWidth = 1.0
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
     
@@ -67,8 +67,8 @@ final class TodoController: UIViewController {
         let view = TodoMemoView()
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
-        view.layer.borderWidth = 1.0
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
         return view
     }()
 
@@ -124,7 +124,7 @@ final class TodoController: UIViewController {
             titleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             titleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: anchorSpace),
             titleView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -anchorSpace),
-            titleView.heightAnchor.constraint(equalToConstant: 44.0),
+            titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44.0),
             
             dateLabel.topAnchor.constraint(equalTo: titleView.bottomAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -144,39 +144,39 @@ final class TodoController: UIViewController {
             memoView.topAnchor.constraint(equalTo: memoLabel.bottomAnchor),
             memoView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
             memoView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            memoView.heightAnchor.constraint(equalToConstant: 255.0),
+            memoView.heightAnchor.constraint(equalToConstant: 220.0),
         ])
     }
     
     private func configureCalendarEvent() {
-        guard let calendarEvent = calendarEvent else { return }
+        guard let calendarEventStruct = calendarEventStruct else { return }
         
-        titleView.labelContent = calendarEvent.title
-        dateView.labelContent = calendarEvent.date.toStringWithDayOfTheWeek()
-        memoView.textContent = calendarEvent.memo
+        titleView.labelContent = calendarEventStruct.title
+        dateView.labelContent = calendarEventStruct.date.toStringWithDayOfTheWeek()
+        memoView.textContent = calendarEventStruct.memo
     }
     
     // MARK: - Actions
     
     @objc func touchTrashButton(_ sender: UIBarButtonItem) {
-        guard let calendarEvent = calendarEvent else { return }
+        guard let calendarEventStruct = calendarEventStruct else { return }
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
 //        alertController.title = "일정 삭제"
 //        alertController.message = "일정을 삭제하시겠습니까?"
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            self.delegate?.todoControllerDidTrash(self, calendarEvent)
+            self.delegate?.todoControllerDidTrash(self, calendarEventStruct)
         }))
         
         present(alertController, animated: true, completion: nil)
     }
     
     @objc func touchEditButton(_ sender: UIBarButtonItem) {
-        guard let calendarEvent = calendarEvent else { return }
-        
+        guard let calendarEventStruct = calendarEventStruct else { return }
+
         let todoAddController = TodoAddController()
-        todoAddController.calendarEvent = calendarEvent
+        todoAddController.calendarEventStruct = calendarEventStruct
         todoAddController.delegate = self
         let nav = TodoController.configureTemplateNavigationController(rootViewController: todoAddController)
         present(nav, animated: true, completion: nil)
@@ -184,10 +184,12 @@ final class TodoController: UIViewController {
 }
 
 extension TodoController: TodoAddControllerDelegate {
-    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEvent: CalendarEvent) {
+    func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEventStruct: CalendarEventStruct) {
+        let calendarEvent = CalendarEvent(calendarEventStruct: calendarEventStruct)
+        
         RealmManager.shared.update(calendarEvent: calendarEvent, completion: { check in
             if check {
-                self.calendarEvent = calendarEvent
+                self.calendarEventStruct = calendarEventStruct
                 controller.dismiss(animated: true, completion: nil)
             }
         })
