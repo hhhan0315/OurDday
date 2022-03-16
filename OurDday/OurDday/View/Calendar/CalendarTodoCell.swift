@@ -17,6 +17,9 @@ final class CalendarTodoCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        layer.borderWidth = 0.33
+        layer.borderColor = UIColor.lightGray.cgColor
     }
     
     required init?(coder: NSCoder) {

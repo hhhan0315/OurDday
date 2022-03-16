@@ -72,11 +72,3 @@ extension EventController {
         return view.frame.height / 10
     }
 }
-
-// MARK: - TabBarReselctHandling
-
-//extension EventController: TabBarReselctHandling {
-//    func handleReselect() {
-//        tableView.setContentOffset(CGPoint(x: 0, y: -88.0), animated: true)
-//    }
-//}

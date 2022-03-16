@@ -31,8 +31,9 @@ class FSCalendarView: UIView {
         calendar.dataSource = self
         calendar.locale = Locale(identifier: "ko_kr")
         calendar.appearance.weekdayTextColor = .darkGray
+        calendar.appearance.titleDefaultColor = UIColor.textColor
         calendar.appearance.titleWeekendColor = .red
-        calendar.appearance.todayColor = .customColor(.mainColor)
+        calendar.appearance.todayColor = UIColor.mainColor
         calendar.appearance.selectionColor = .darkGray
         calendar.headerHeight = 0
         return calendar
@@ -98,7 +99,7 @@ class FSCalendarView: UIView {
             calendar.topAnchor.constraint(equalTo: headerStackView.bottomAnchor),
             calendar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
             calendar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
-            calendar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.customSize(.anchorSpace)),
+            calendar.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 
@@ -148,10 +149,10 @@ extension FSCalendarView: FSCalendarDataSource {
 
 extension FSCalendarView: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.customColor(.mainColor)]
+        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.mainColor]
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.customColor(.mainColor)]
+        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.mainColor]
     }
 }

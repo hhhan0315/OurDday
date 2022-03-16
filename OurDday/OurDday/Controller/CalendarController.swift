@@ -14,8 +14,6 @@ final class CalendarController: UIViewController {
     private lazy var calendarView: FSCalendarView = {
         let calendarView = FSCalendarView()
         calendarView.delegate = self
-        calendarView.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
-        calendarView.backgroundColor = .white
         return calendarView
     }()
     
@@ -24,9 +22,10 @@ final class CalendarController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CalendarTodoCell.self, forCellReuseIdentifier: CalendarTodoCell.identifier)
-        tableView.separatorInset.right = tableView.separatorInset.left
+        tableView.separatorInset.left = .zero
         tableView.rowHeight = 64
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
+        tableView.backgroundColor = UIColor.backgroundColor
+        tableView.separatorColor = UIColor.backgroundColor
         return tableView
     }()
     
@@ -59,8 +58,6 @@ final class CalendarController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .systemGray6
-        
         navigationItem.title = "달력"
         navigationItem.backButtonTitle = ""
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(touchEditButton(_:)))
@@ -72,11 +69,10 @@ final class CalendarController: UIViewController {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         todoTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        let anchorSpace = CGFloat.customSize(.anchorSpace)
         NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: anchorSpace),
-            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: anchorSpace),
-            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -anchorSpace),
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             calendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             
             todoTableView.topAnchor.constraint(equalTo: calendarView.bottomAnchor),

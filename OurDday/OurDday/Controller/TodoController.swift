@@ -49,6 +49,8 @@ final class TodoController: UIViewController {
         let view = TodoTitleDateView()
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.black.cgColor
         return view
     }()
     
@@ -56,6 +58,8 @@ final class TodoController: UIViewController {
         let view = TodoTitleDateView()
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.black.cgColor
         return view
     }()
     
@@ -63,6 +67,8 @@ final class TodoController: UIViewController {
         let view = TodoMemoView()
         view.layer.cornerRadius = CGFloat.customSize(.cornerRadius)
         view.backgroundColor = .white
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.black.cgColor
         return view
     }()
 
@@ -76,14 +82,14 @@ final class TodoController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+
         delegate?.todoControllerDidBack(self)
     }
 
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor.backgroundColor
         
         navigationItem.title = "일정 세부사항"
         

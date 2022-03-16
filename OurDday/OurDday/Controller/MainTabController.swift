@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol TabBarReselctHandling {
-    func handleReselect()
-}
-
 final class MainTabController: UITabBarController {
     
     // MARK: - Life cycle
@@ -19,13 +15,11 @@ final class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         configureUI()
-//        delegate = self
     }
     
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .white
         
         let home = MainTabController.configureTemplateNavigationController(unselectedImage: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"), rootViewController: HomeController())
         
@@ -37,20 +31,7 @@ final class MainTabController: UITabBarController {
         
         viewControllers = [home, day, calendar, settings]
         
-        tabBar.tintColor = UIColor.customColor(.mainColor)
+        tabBar.tintColor = UIColor.mainColor
     }
     
 }
-
-// MARK: - UITabBarControllerDelegate
-
-//extension MainTabController: UITabBarControllerDelegate {
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        if let navigationController = viewController as? UINavigationController {
-//            if navigationController.viewControllers.count <= 1,
-//               let handler = navigationController.viewControllers.first as? TabBarReselctHandling {
-//                handler.handleReselect()
-//            }
-//        }
-//    }
-//}

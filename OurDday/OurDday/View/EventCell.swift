@@ -78,13 +78,13 @@ final class EventCell: UITableViewCell {
         }
         
         titleLabel.text = viewModel.title
-        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.black
+        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor
         
         countLabel.text = viewModel.countTitle
-        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.customColor(.mainColor)
+        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.mainColor
         
         dateTitleLabel.text = viewModel.dateTitle
-        dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.darkGray
+        dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor
     }
     
 }

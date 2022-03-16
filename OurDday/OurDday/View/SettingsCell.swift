@@ -21,13 +21,14 @@ final class SettingsCell: UITableViewCell {
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = .black
+        imageView.tintColor = UIColor.textColor
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = UIColor.textColor
         label.font = UIFont.customFontSize(.middleSystem)
         return label
     }()

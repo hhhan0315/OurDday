@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 15.0, *) {
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.configureWithDefaultBackground()
-            navigationBarAppearance.backgroundColor = UIColor.customColor(.mainColor)
-            navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.customColor(.textColor)]
+            navigationBarAppearance.backgroundColor = UIColor.mainColor
+            navigationBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
             UINavigationBar.appearance().standardAppearance = navigationBarAppearance
             UINavigationBar.appearance().compactAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance

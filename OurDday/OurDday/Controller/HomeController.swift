@@ -23,15 +23,15 @@ final class HomeController: UIViewController {
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.customColor(.mainColor)
+        label.textColor = UIColor.mainColor
         label.font = UIFont.customFontSize(.bigBold)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.customFontSize(.middleSystem)
+        label.textColor = UIColor.darkGrayColor
+        label.font = UIFont.customFontSize(.middleSemiBold)
         return label
     }()
     

@@ -22,7 +22,7 @@ final class FirstLaunchController: UIViewController {
         let label = UILabel()
         label.text = "날짜를 선택해주세요"
         label.font = UIFont.customFontSize(.middleSystem)
-        label.textColor = .darkGray
+        label.textColor = UIColor.darkGrayColor
         return label
     }()
     
@@ -30,7 +30,7 @@ final class FirstLaunchController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(Date().toButtonStringKST(), for: .normal)
         button.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
-        button.setTitleColor(UIColor.customColor(.mainColor), for: .normal)
+        button.setTitleColor(.mainColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         return button
     }()
@@ -49,12 +49,12 @@ final class FirstLaunchController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.backgroundColor
         
         navigationItem.title = "우리만의 디데이"
-        navigationController?.navigationBar.tintColor = UIColor.customColor(.textColor)
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.customColor(.textColor)]
-        navigationController?.navigationBar.barTintColor = UIColor.customColor(.mainColor)
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.barTintColor = UIColor.mainColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
         
         view.addSubview(titleLabel)
@@ -67,7 +67,7 @@ final class FirstLaunchController: UIViewController {
         
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -125),
             
             infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
@@ -76,7 +76,6 @@ final class FirstLaunchController: UIViewController {
             dateButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
             dateButton.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
-        
     }
     
     private func configureFirstDay() {
