@@ -56,11 +56,19 @@ final class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let newTodayCount = EventManager.shared.getTodayCount()
+        checkTodayCount()
         
-        if todayCount != newTodayCount {
-            todayCount = newTodayCount
+        if #available(iOS 13.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIScene.willEnterForegroundNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIApplication.willEnterForegroundNotification, object: nil)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Helpers
@@ -117,6 +125,13 @@ final class HomeController: UIViewController {
         }
     }
     
+    @objc func checkTodayCount() {
+        let newTodayCount = EventManager.shared.getTodayCount()
+        
+        if todayCount != newTodayCount {
+            todayCount = newTodayCount
+        }
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate

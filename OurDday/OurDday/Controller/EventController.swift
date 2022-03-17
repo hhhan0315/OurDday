@@ -25,12 +25,19 @@ final class EventController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let newTodayCount = EventManager.shared.getTodayCount()
+        checkTodayCount()
         
-        if viewModel.todayCount != newTodayCount {
-            viewModel.todayCount = newTodayCount
-            tableView.reloadData()
+        if #available(iOS 13.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIScene.willEnterForegroundNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIApplication.willEnterForegroundNotification, object: nil)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Helpers
@@ -40,6 +47,17 @@ final class EventController: UITableViewController {
         
         tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.identifier)
         tableView.separatorInset.right = tableView.separatorInset.left
+    }
+    
+    // MARK: - Actions
+    
+    @objc func checkTodayCount() {
+        let newTodayCount = EventManager.shared.getTodayCount()
+        
+        if viewModel.todayCount != newTodayCount {
+            viewModel.todayCount = newTodayCount
+            tableView.reloadData()
+        }
     }
 
 }

@@ -17,4 +17,12 @@ class CalendarEvent: Object {
     override class func primaryKey() -> String? {
         return "id"
     }
+    
+    convenience init(calendarEventStruct: CalendarEventStruct) {
+        self.init()
+        self.id = calendarEventStruct.id
+        self.title = calendarEventStruct.title
+        self.date = calendarEventStruct.date
+        self.memo = calendarEventStruct.memo
+    }
 }

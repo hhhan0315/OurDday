@@ -45,14 +45,20 @@ final class CalendarController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        let selectDateString = selectDate.toCalendarDateString()
-        let nowDateString = Date().toCalendarDateString()
         
-        if selectDateString != nowDateString {
-            updateSelectedCalendarEvents()
-            updateCalendarView()
+        checkDateString()
+        
+        if #available(iOS 13.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIScene.willEnterForegroundNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIApplication.willEnterForegroundNotification, object: nil)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Helpers
@@ -112,6 +118,16 @@ final class CalendarController: UIViewController {
         
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: todoAddController)
         present(nav, animated: true, completion: nil)
+    }
+    
+    @objc func checkDateString() {
+        let selectDateString = selectDate.toCalendarDateString()
+        let nowDateString = Date().toCalendarDateString()
+        
+        if selectDateString != nowDateString {
+            updateSelectedCalendarEvents()
+            updateCalendarView()
+        }
     }
 }
 
