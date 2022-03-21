@@ -48,6 +48,7 @@ final class SettingsDayController: UIViewController {
     @objc func touchOkButton(_ sender: UIBarButtonItem) {
         RealmManager.shared.update(date: datePicker.date, completion: { check in
             if check {
+                LocalStorage().setFirstDate(date: self.datePicker.date)
                 self.navigationController?.popViewController(animated: true)
             }
         })

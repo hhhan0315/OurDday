@@ -8,15 +8,14 @@
 import Foundation
 
 struct LocalStorage {
-    private let defaults: UserDefaults
-    private let key = "isFirstLaunch"
+    private let defaults: UserDefaults?
     
-    init(with defaults: UserDefaults = UserDefaults.standard) {
+    init(with defaults: UserDefaults? = UserDefaults.shared) {
         self.defaults = defaults
     }
     
     func isFirstLaunch() -> Bool {
-        if defaults.object(forKey: key) == nil {
+        if defaults?.object(forKey: "isFirstLaunch") == nil {
             return true
         } else {
             return false
@@ -24,6 +23,21 @@ struct LocalStorage {
     }
     
     func setFirstTime() {
-        defaults.set("No", forKey: key)
+        defaults?.set("No", forKey: "isFirstLaunch")
+    }
+    
+    func setImageUrl(url: URL) {
+        defaults?.set(url, forKey: "imageUrl")
+    }
+    
+    func setFirstDate(date: Date) {
+        defaults?.set(date, forKey: "date")
+    }
+}
+
+extension UserDefaults {
+    static var shared: UserDefaults? {
+        let appGroupID = "group.OurDday"
+        return UserDefaults(suiteName: appGroupID)
     }
 }

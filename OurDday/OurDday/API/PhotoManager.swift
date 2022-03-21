@@ -12,9 +12,9 @@ final class PhotoManager {
     static let shared = PhotoManager()
     
     func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else { return }
         
-        let imageUrl = documentDirectory.appendingPathComponent(imageName)
+        let imageUrl = containerURL.appendingPathComponent(imageName)
         
         guard let data = image.pngData() else {
             print("압축 실패")
@@ -32,6 +32,7 @@ final class PhotoManager {
         
         do {
             try data.write(to: imageUrl)
+            LocalStorage().setImageUrl(url: imageUrl)
             print("이미지 저장 완료")
         } catch {
             print("이미지 저장 실패")
@@ -39,13 +40,13 @@ final class PhotoManager {
     }
     
     func loadImageFromDocumentDirectory(imageName: String) -> UIImage? {
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let path = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else {
+            return nil
+        }
+        let imageUrl = containerURL.appendingPathComponent(imageName)
         
-        if let directoryPath = path.first {
-            let imageUrl = URL(fileURLWithPath: directoryPath).appendingPathComponent(imageName)
-            return UIImage(contentsOfFile: imageUrl.path)
+        if let image = UIImage(contentsOfFile: imageUrl.path) {
+            return image
         }
         
         return nil

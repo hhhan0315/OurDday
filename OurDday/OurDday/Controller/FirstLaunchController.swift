@@ -106,6 +106,7 @@ final class FirstLaunchController: UIViewController {
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             RealmManager.shared.update(date: datePicker.date) { check in
                 if check {
+                    LocalStorage().setFirstDate(date: datePicker.date)
                     self.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
                 }
             }
