@@ -8,6 +8,7 @@
 import UIKit
 import CropViewController
 import PhotosUI
+import WidgetKit
 
 final class HomeController: UIViewController {
     
@@ -158,6 +159,11 @@ extension HomeController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         PhotoManager.shared.saveImageToDocumentDirectory(imageName: imageKeyName, image: image)
         backgroundImageView.image = image
+            
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+        
         cropViewController.dismiss(animated: true, completion: nil)
     }
 }
