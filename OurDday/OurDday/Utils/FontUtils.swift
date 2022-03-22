@@ -8,6 +8,7 @@
 import UIKit
 
 enum CustomFontSize {
+    case bigHomeBold
     case bigBold
     case middleSemiBold
     case middleSystem
@@ -17,6 +18,8 @@ enum CustomFontSize {
 extension UIFont {
     static func customFontSize(_ name: CustomFontSize) -> UIFont {
         switch name {
+        case .bigHomeBold:
+            return UIFont.boldSystemFont(ofSize: 48.0)
         case .bigBold:
             return UIFont.boldSystemFont(ofSize: 34.0)
         case .middleSemiBold:

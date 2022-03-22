@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import CropViewController
-import PhotosUI
 import WidgetKit
 
 final class HomeController: UIViewController {
@@ -25,7 +23,7 @@ final class HomeController: UIViewController {
     private let countLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.mainColor
-        label.font = UIFont.customFontSize(.bigBold)
+        label.font = UIFont.customFontSize(.bigHomeBold)
         return label
     }()
     
@@ -39,8 +37,6 @@ final class HomeController: UIViewController {
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchBackgroundView(_:))))
         return imageView
     }()
 
@@ -51,7 +47,7 @@ final class HomeController: UIViewController {
 
         configureUI()
         todayCount = EventManager.shared.getTodayCount()
-        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName) ?? UIImage(named: "initialBackground")
+        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,16 +82,16 @@ final class HomeController: UIViewController {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50.0),
             countLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            countLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
             dateLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 15.0),
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            backgroundImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 50.0),
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25.0),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -108,24 +104,6 @@ final class HomeController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func touchBackgroundView(_ sender: UITapGestureRecognizer) {
-        
-        if #available(iOS 14, *) {
-            var configuration = PHPickerConfiguration()
-            configuration.selectionLimit = 1
-            configuration.filter = .images
-            
-            let picker = PHPickerViewController(configuration: configuration)
-            picker.delegate = self
-            present(picker, animated: true, completion: nil)
-        } else {
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.sourceType = .photoLibrary
-            present(picker, animated: true, completion: nil)
-        }
-    }
-    
     @objc func checkTodayCount() {
         let newTodayCount = EventManager.shared.getTodayCount()
         
@@ -135,62 +113,13 @@ final class HomeController: UIViewController {
     }
 }
 
-// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+// MARK: - SettingsControllerDelegate
 
-extension HomeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        dismiss(animated: true, completion: nil)
-        
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let cropViewController = CropViewController(image: image)
-            cropViewController.delegate = self
-            cropViewController.customAspectRatio = CGSize(width: self.backgroundImageView.frame.width, height: self.backgroundImageView.frame.height)
-            cropViewController.resetAspectRatioEnabled = false
-            cropViewController.aspectRatioPickerButtonHidden = true
-            present(cropViewController, animated: true, completion: nil)
-        }
-    }
-}
-
-// MARK: - CropViewControllerDelegate
-
-extension HomeController: CropViewControllerDelegate {
-    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        PhotoManager.shared.saveImageToDocumentDirectory(imageName: imageKeyName, image: image)
-        backgroundImageView.image = image
-            
+extension HomeController: SettingsControllerDelegate {
+    func settingsControllerImageSave(_ controller: SettingsController) {
+        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
-        }
-        
-        cropViewController.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - PHPickerViewControllerDelegate
-
-extension HomeController: PHPickerViewControllerDelegate {
-    @available(iOS 14, *)
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true, completion: nil)
-
-        let itemProvider = results.first?.itemProvider
-
-        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-                guard let image = image as? UIImage else { return }
-                
-                DispatchQueue.main.async {
-                    let cropViewController = CropViewController(image: image)
-                    cropViewController.delegate = self
-                    cropViewController.customAspectRatio = CGSize(width: self.backgroundImageView.frame.width, height: self.backgroundImageView.frame.height)
-                    cropViewController.resetAspectRatioEnabled = false
-                    cropViewController.aspectRatioPickerButtonHidden = true
-                    self.present(cropViewController, animated: true, completion: nil)
-                }
-                
-            }
         }
     }
 }

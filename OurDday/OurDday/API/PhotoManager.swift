@@ -51,4 +51,20 @@ final class PhotoManager {
         
         return nil
     }
+    
+    func removeImageFromDocumentDirectory(imageName: String) {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else {
+            return
+        }
+        let imageUrl = containerURL.appendingPathComponent(imageName)
+        
+        if FileManager.default.fileExists(atPath: imageUrl.path) {
+            do {
+                try FileManager.default.removeItem(at: imageUrl)
+                print("이미지 삭제 완료")
+            } catch {
+                print("이미지 삭제 실패")
+            }
+        }
+    }
 }
