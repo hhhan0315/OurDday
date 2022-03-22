@@ -161,9 +161,7 @@ final class TodoController: UIViewController {
     @objc func touchTrashButton(_ sender: UIBarButtonItem) {
         guard let calendarEventStruct = calendarEventStruct else { return }
         
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-//        alertController.title = "일정 삭제"
-//        alertController.message = "일정을 삭제하시겠습니까?"
+        let alertController = UIAlertController(title: "일정 삭제", message: "\(calendarEventStruct.title) 삭제하시겠습니까?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             self.delegate?.todoControllerDidTrash(self, calendarEventStruct)

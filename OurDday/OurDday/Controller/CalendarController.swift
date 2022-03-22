@@ -179,9 +179,7 @@ extension CalendarController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let event = selectCalendarEvents[indexPath.row]
-            let alert = UIAlertController(title: "zz", message: "zzz", preferredStyle: .alert)
-//            alert.title = "일정 삭제"
-//            alert.message = "\(event.title)를 삭제하시겠습니까?"
+            let alert = UIAlertController(title: "일정 삭제", message: "\(event.title) 삭제하시겠습니까?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 RealmManager.shared.delete(calendarEvent: event)
