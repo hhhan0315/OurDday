@@ -29,13 +29,25 @@ struct Provider: TimelineProvider {
 //            entries.append(entry)
 //        }
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
-        var entry = SimpleEntry(date: Date(), backgroundImage: nil)
+        var entry = SimpleEntry(date: Date(), backgroundImage: nil, todayCount: nil)
         
         if let url = userDefaults?.url(forKey: "imageUrl"),
            let image = UIImage(contentsOfFile: url.path){
             entry.backgroundImage = image
         }
-
+        
+        if let date = userDefaults?.object(forKey: "date") as? Date {
+            let calendar = Calendar.current
+            
+            let from = calendar.startOfDay(for: date)
+            let to = calendar.startOfDay(for: Date())
+            
+            let components = calendar.dateComponents([.day], from: from, to: to)
+            let dayCount = components.day ?? 0
+            
+            entry.todayCount = dayCount
+        }
+        
 //        let timeline = Timeline(entries: entries, policy: .never)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
@@ -45,22 +57,34 @@ struct Provider: TimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     var backgroundImage: UIImage?
+    var todayCount: Int?
 }
 
 struct OurDdayWidgetEntryView : View {
     var entry: Provider.Entry
     
     var body: some View {
-//        let userDefaults = UserDefaults(suiteName: "group.OurDday")
-//
-//        if let url = userDefaults?.url(forKey: "imageUrl"),
-//           let image = UIImage(contentsOfFile: url.path) {
-//            Image(uiImage: image).resizable().scaledToFill()
-//        }
         if let backgroundImage = entry.backgroundImage {
-            Image(uiImage: backgroundImage)
-                .resizable()
-                .scaledToFill()
+            ZStack {
+                Image(uiImage: backgroundImage)
+                    .resizable()
+                    .scaledToFill()
+                
+                if let todayCount = entry.todayCount {
+                    Text("\(todayCount + 1)일")
+                        .foregroundColor(.white)
+                        .font(.system(size: 32.0, weight: .semibold, design: .default))
+                }
+            }
+        } else {
+            ZStack {
+                if let todayCount = entry.todayCount {
+                    let color = Color(UIColor(red: 0.910, green: 0.478, blue: 0.643, alpha: 1.0))
+                    Text("\(todayCount + 1)일")
+                        .foregroundColor(color)
+                        .font(.system(size: 32.0, weight: .semibold, design: .default))
+                }
+            }
         }
     }
 }
