@@ -22,19 +22,17 @@ final class HomeController: UIViewController {
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.mainColor
         label.font = UIFont.customFontSize(.bigHomeBold)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.darkGrayColor
-        label.font = UIFont.customFontSize(.middleSemiBold)
+        label.font = UIFont.customFontSize(.dateSemiBold)
         return label
     }()
     
-    private lazy var backgroundImageView: UIImageView = {
+    private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -47,7 +45,7 @@ final class HomeController: UIViewController {
 
         configureUI()
         todayCount = EventManager.shared.getTodayCount()
-        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
+        updateUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +74,8 @@ final class HomeController: UIViewController {
         view.addSubview(countLabel)
         view.addSubview(dateLabel)
         view.addSubview(backgroundImageView)
+        view.bringSubviewToFront(countLabel)
+        view.bringSubviewToFront(dateLabel)
         
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -102,6 +102,12 @@ final class HomeController: UIViewController {
         dateLabel.text = RealmManager.shared.readFirstDayDate().toButtonStringKST()
     }
     
+    private func updateUI() {
+        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
+        countLabel.textColor = backgroundImageView.image == nil ? UIColor.mainColor : UIColor.white
+        dateLabel.textColor = backgroundImageView.image == nil ? UIColor.darkGrayColor : UIColor.white
+    }
+    
     // MARK: - Actions
     
     @objc func checkTodayCount() {
@@ -117,7 +123,7 @@ final class HomeController: UIViewController {
 
 extension HomeController: SettingsControllerDelegate {
     func settingsControllerImageSave(_ controller: SettingsController) {
-        backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
+        updateUI()
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
         }
