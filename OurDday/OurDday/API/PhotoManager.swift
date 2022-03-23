@@ -16,7 +16,7 @@ final class PhotoManager {
         
         let imageUrl = containerURL.appendingPathComponent(imageName)
         
-        guard let data = image.pngData() else {
+        guard let data = image.jpegData(compressionQuality: 1) else {
             print("압축 실패")
             return
         }
