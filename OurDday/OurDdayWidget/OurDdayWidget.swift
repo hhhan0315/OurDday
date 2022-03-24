@@ -33,6 +33,10 @@ struct Provider: TimelineProvider {
 
             entry.todayCount = dayCount
         }
+        
+        if let phrases = userDefaults?.string(forKey: "phrases") {
+            entry.phrases = phrases
+        }
 
         completion(entry)
     }
@@ -43,7 +47,7 @@ struct Provider: TimelineProvider {
         let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
         
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
-        var entry = SimpleEntry(date: startOfDay, backgroundImage: nil, todayCount: nil)
+        var entry = SimpleEntry(date: startOfDay, backgroundImage: nil, todayCount: nil, phrases: nil)
         
         if let url = userDefaults?.url(forKey: "imageUrl"),
            let image = UIImage(contentsOfFile: url.path){
@@ -62,6 +66,10 @@ struct Provider: TimelineProvider {
             entry.todayCount = dayCount
         }
         
+        if let phrases = userDefaults?.string(forKey: "phrases") {
+            entry.phrases = phrases
+        }
+        
         let timeline = Timeline(entries: [entry], policy: .after(endOfDay))
         completion(timeline)
     }
@@ -71,6 +79,7 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     var backgroundImage: UIImage?
     var todayCount: Int?
+    var phrases: String?
 }
 
 struct OurDdayWidgetEntryView : View {
@@ -79,7 +88,8 @@ struct OurDdayWidgetEntryView : View {
     
     var body: some View {
         let size = widgetHeight(forFamily: family)
-        let fontSize = widgetFontSize(forFamily: family)
+        let dayCountFontSize = widgetDayCountFontSize(forFamily: family)
+        let phrasesFontSize = widgetPhrasesFontSize(forFamily: family)
         
         if let backgroundImage = entry.backgroundImage {
             ZStack {
@@ -90,8 +100,15 @@ struct OurDdayWidgetEntryView : View {
                 if let todayCount = entry.todayCount {
                     Text("\(todayCount + 1)일")
                         .foregroundColor(.white)
-                        .font(.system(size: fontSize, weight: .semibold, design: .default))
+                        .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
                         .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
+                }
+                
+                if let phrases = entry.phrases {
+                    Text(phrases)
+                        .foregroundColor(.white)
+                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
+                        .frame(width: size.width - 20, height: size.height - 20, alignment: .topLeading)
                 }
             }
         } else {
@@ -100,8 +117,15 @@ struct OurDdayWidgetEntryView : View {
                     let color = Color(UIColor(red: 0.910, green: 0.478, blue: 0.643, alpha: 1.0))
                     Text("\(todayCount + 1)일")
                         .foregroundColor(color)
-                        .font(.system(size: fontSize, weight: .semibold, design: .default))
+                        .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
                         .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
+                }
+                
+                if let phrases = entry.phrases {
+                    Text(phrases)
+                        .foregroundColor(.black)
+                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
+                        .frame(width: size.width - 20, height: size.height - 20, alignment: .topLeading)
                 }
             }
         }
@@ -167,7 +191,7 @@ func widgetHeight(forFamily family:WidgetFamily) -> CGSize {
     }
 }
 
-func widgetFontSize(forFamily family: WidgetFamily) -> CGFloat {
+func widgetDayCountFontSize(forFamily family: WidgetFamily) -> CGFloat {
     switch family {
     case .systemSmall: return CGFloat(32.0)
     case .systemMedium: return CGFloat(32.0)
@@ -175,6 +199,17 @@ func widgetFontSize(forFamily family: WidgetFamily) -> CGFloat {
     default: return CGFloat(48.0)
     }
 }
+
+func widgetPhrasesFontSize(forFamily family: WidgetFamily) -> CGFloat {
+    switch family {
+    case .systemSmall: return CGFloat(24.0)
+    case .systemMedium: return CGFloat(24.0)
+    case .systemLarge: return CGFloat(32.0)
+    default: return CGFloat(32.0)
+    }
+}
+
+
 
 //struct OurDdayWidget_Previews: PreviewProvider {
 //    static var previews: some View {
