@@ -33,22 +33,17 @@ struct Provider: TimelineProvider {
 
             entry.todayCount = dayCount
         }
-//        let entry = SimpleEntry(date: Date())
+
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        //        var entries: [SimpleEntry] = []
+        let currentDate = Date()
+        let startOfDay = Calendar.current.startOfDay(for: currentDate)
+        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
         
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        //        let currentDate = Date()
-        //        for hourOffset in 0 ..< 5 {
-        //            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-        //            let entry = SimpleEntry(date: entryDate)
-        //            entries.append(entry)
-        //        }
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
-        var entry = SimpleEntry(date: Date(), backgroundImage: nil, todayCount: nil)
+        var entry = SimpleEntry(date: startOfDay, backgroundImage: nil, todayCount: nil)
         
         if let url = userDefaults?.url(forKey: "imageUrl"),
            let image = UIImage(contentsOfFile: url.path){
@@ -67,8 +62,7 @@ struct Provider: TimelineProvider {
             entry.todayCount = dayCount
         }
         
-        //        let timeline = Timeline(entries: entries, policy: .never)
-        let timeline = Timeline(entries: [entry], policy: .never)
+        let timeline = Timeline(entries: [entry], policy: .after(endOfDay))
         completion(timeline)
     }
 }
