@@ -11,6 +11,7 @@ struct SettingsViewModel {
     private let settings: [Setting] = [
         Setting(iconName: "calendar", title: "기념일 설정"),
         Setting(iconName: "photo", title: "배경화면 설정"),
+        Setting(iconName: "text.bubble", title: "문구 수정"),
     ]
     
     func settingsCount() -> Int {

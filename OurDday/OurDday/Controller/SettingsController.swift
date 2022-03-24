@@ -10,7 +10,8 @@ import CropViewController
 import PhotosUI
 
 protocol SettingsControllerDelegate: AnyObject {
-    func settingsControllerImageSave(_ controller: SettingsController)
+    func settingsControllerImageSave()
+    func settingsControllerPhrasesSave()
 }
 
 final class SettingsController: UIViewController {
@@ -116,11 +117,25 @@ extension SettingsController: UITableViewDelegate {
                 removeAlertController.addAction(UIAlertAction(title: "취소", style: .cancel))
                 removeAlertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                     PhotoManager.shared.removeImageFromDocumentDirectory(imageName: self.imageKeyName)
-                    self.delegate?.settingsControllerImageSave(self)
+                    self.delegate?.settingsControllerImageSave()
                 }))
                 self.present(removeAlertController, animated: true)
             }))
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
+            present(alertController, animated: true)
+        case 2:
+            let alertController = UIAlertController(title: "문구 수정", message: nil, preferredStyle: .alert)
+            alertController.addTextField { textField in
+                guard let text = UserDefaults.shared?.string(forKey: "phrases") else { return }
+                textField.text = text
+                textField.clearButtonMode = .whileEditing
+            }
+            alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
+            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                guard let text = alertController.textFields?[0].text else { return }
+                LocalStorage().setPhrases(phrases: text)
+                self.delegate?.settingsControllerPhrasesSave()
+            }))
             present(alertController, animated: true)
         default:
             break
@@ -152,7 +167,7 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
 extension SettingsController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         PhotoManager.shared.saveImageToDocumentDirectory(imageName: imageKeyName, image: image)
-        delegate?.settingsControllerImageSave(self)
+        delegate?.settingsControllerImageSave()
         
         cropViewController.dismiss(animated: true, completion: nil)
     }

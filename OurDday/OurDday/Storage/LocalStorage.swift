@@ -33,6 +33,10 @@ struct LocalStorage {
     func setFirstDate(date: Date) {
         defaults?.set(date, forKey: "date")
     }
+    
+    func setPhrases(phrases: String) {
+        defaults?.set(phrases, forKey: "phrases")
+    }
 }
 
 extension UserDefaults {
