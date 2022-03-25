@@ -202,10 +202,10 @@ func widgetDayCountFontSize(forFamily family: WidgetFamily) -> CGFloat {
 
 func widgetPhrasesFontSize(forFamily family: WidgetFamily) -> CGFloat {
     switch family {
-    case .systemSmall: return CGFloat(24.0)
-    case .systemMedium: return CGFloat(24.0)
-    case .systemLarge: return CGFloat(32.0)
-    default: return CGFloat(32.0)
+    case .systemSmall: return CGFloat(18.0)
+    case .systemMedium: return CGFloat(18.0)
+    case .systemLarge: return CGFloat(28.0)
+    default: return CGFloat(28.0)
     }
 }
 

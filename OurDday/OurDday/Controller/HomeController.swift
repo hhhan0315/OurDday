@@ -20,6 +20,14 @@ final class HomeController: UIViewController {
         }
     }
     
+    private let phrasesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.customFontSize(.wordRegular)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
     private let countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.bigHomeBold)
@@ -28,7 +36,7 @@ final class HomeController: UIViewController {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.dateSemiBold)
+        label.font = UIFont.customFontSize(.dateRegular)
         return label
     }()
     
@@ -45,7 +53,7 @@ final class HomeController: UIViewController {
 
         configureUI()
         todayCount = EventManager.shared.getTodayCount()
-        updateUI()
+        updateImageAndColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,42 +78,64 @@ final class HomeController: UIViewController {
     
     private func configureUI() {
         navigationItem.title = "디데이"
-                
-        view.addSubview(countLabel)
-        view.addSubview(dateLabel)
-        view.addSubview(backgroundImageView)
-        view.bringSubviewToFront(countLabel)
-        view.bringSubviewToFront(dateLabel)
         
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(phrasesLabel)
+        view.addSubview(dateLabel)
+        view.addSubview(countLabel)
+        view.addSubview(backgroundImageView)
+        
+        view.bringSubviewToFront(phrasesLabel)
+        view.bringSubviewToFront(dateLabel)
+        view.bringSubviewToFront(countLabel)
+        
+        phrasesLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             countLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             countLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
-            dateLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 15.0),
+            
+            dateLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 16.0),
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            phrasesLabel.bottomAnchor.constraint(equalTo: countLabel.topAnchor, constant: -16.0),
+            phrasesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            phrasesLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            phrasesLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
             backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
     private func configureLabel() {
+        updatePhrasesLabel()
         guard let todayCount = todayCount else { return }
-
         countLabel.text = "\(todayCount + 1)일"
         dateLabel.text = RealmManager.shared.readFirstDayDate().toButtonStringKST()
     }
     
-    private func updateUI() {
+    private func updateImageAndColor() {
         backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
-        countLabel.textColor = backgroundImageView.image == nil ? UIColor.mainColor : UIColor.white
-        dateLabel.textColor = backgroundImageView.image == nil ? UIColor.darkGrayColor : UIColor.white
+        
+        if backgroundImageView.image == nil {
+            phrasesLabel.textColor = UIColor.black
+            countLabel.textColor = UIColor.mainColor
+            dateLabel.textColor = UIColor.darkGrayColor
+        } else {
+            phrasesLabel.textColor = UIColor.white
+            countLabel.textColor = UIColor.white
+            dateLabel.textColor = UIColor.white
+        }
+    }
+    
+    private func updatePhrasesLabel() {
+        let phrasesText = UserDefaults.shared?.string(forKey: "phrases") ?? ""
+        phrasesLabel.text = phrasesText
     }
     
     // MARK: - Actions
@@ -122,8 +152,15 @@ final class HomeController: UIViewController {
 // MARK: - SettingsControllerDelegate
 
 extension HomeController: SettingsControllerDelegate {
-    func settingsControllerImageSave(_ controller: SettingsController) {
-        updateUI()
+    func settingsControllerImageSave() {
+        updateImageAndColor()
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+    
+    func settingsControllerPhrasesSave() {
+        updatePhrasesLabel()
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
         }
