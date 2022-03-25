@@ -154,7 +154,7 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let cropViewController = CropViewController(image: image)
             cropViewController.delegate = self
-            cropViewController.customAspectRatio = CGSize(width: tableView.frame.width, height: tableView.frame.height - 5)
+            cropViewController.customAspectRatio = CGSize(width: tableView.frame.width, height: tableView.frame.height)
             cropViewController.resetAspectRatioEnabled = false
             cropViewController.aspectRatioPickerButtonHidden = true
             present(cropViewController, animated: true, completion: nil)
@@ -189,7 +189,7 @@ extension SettingsController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     let cropViewController = CropViewController(image: image)
                     cropViewController.delegate = self
-                    cropViewController.customAspectRatio = CGSize(width: self.tableView.frame.width, height: self.tableView.frame.height - 5)
+                    cropViewController.customAspectRatio = CGSize(width: self.tableView.frame.width, height: self.tableView.frame.height)
                     cropViewController.resetAspectRatioEnabled = false
                     cropViewController.aspectRatioPickerButtonHidden = true
                     self.present(cropViewController, animated: true, completion: nil)

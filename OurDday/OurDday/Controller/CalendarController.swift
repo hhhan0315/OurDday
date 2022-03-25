@@ -47,7 +47,7 @@ final class CalendarController: UIViewController {
         super.viewDidAppear(animated)
         
         checkDateString()
-        
+                
         if #available(iOS 13.0, *) {
             NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIScene.willEnterForegroundNotification, object: nil)
         } else {
@@ -125,7 +125,6 @@ final class CalendarController: UIViewController {
         let nowDateString = Date().toCalendarDateString()
         
         if selectDateString != nowDateString {
-            selectDate = Date()
             updateSelectedCalendarEvents()
             updateCalendarView()
         }
