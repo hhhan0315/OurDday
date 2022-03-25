@@ -10,7 +10,8 @@ import UIKit
 enum CustomFontSize {
     case bigHomeBold
     case bigBold
-    case dateSemiBold
+    case wordSemiBold
+    case dateRegular
     case middleSemiBold
     case middleSystem
     case smallSystem
@@ -23,7 +24,9 @@ extension UIFont {
             return UIFont.boldSystemFont(ofSize: 48.0)
         case .bigBold:
             return UIFont.boldSystemFont(ofSize: 34.0)
-        case .dateSemiBold:
+        case .wordSemiBold:
+            return UIFont.systemFont(ofSize: 28.0, weight: .semibold)
+        case .dateRegular:
             return UIFont.systemFont(ofSize: 22.0)
         case .middleSemiBold:
             return UIFont.systemFont(ofSize: 17.0, weight: .semibold)
