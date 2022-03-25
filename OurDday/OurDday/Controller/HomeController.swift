@@ -31,12 +31,14 @@ final class HomeController: UIViewController {
     private let countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.bigHomeBold)
+        label.textAlignment = .center
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.dateRegular)
+        label.textAlignment = .center
         return label
     }()
     
