@@ -21,8 +21,10 @@ class AddTextView: UIView {
         didSet {
             guard let textViewText = textViewText else { return }
 
-            textView.text = textViewText.isEmpty ? textViewPlaceholder : textViewText
-            textView.textColor = textViewText.isEmpty ? .systemGray3 : .black
+            if !textViewText.isEmpty {
+                textView.text = textViewText
+                textView.textColor = .black
+            }
         }
     }
     
