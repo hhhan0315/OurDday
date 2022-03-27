@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 final class SettingsDayController: UIViewController {
 
@@ -49,6 +50,9 @@ final class SettingsDayController: UIViewController {
         RealmManager.shared.update(date: datePicker.date, completion: { check in
             if check {
                 LocalStorage().setFirstDate(date: self.datePicker.date)
+                if #available(iOS 14.0, *) {
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
                 self.navigationController?.popViewController(animated: true)
             }
         })
