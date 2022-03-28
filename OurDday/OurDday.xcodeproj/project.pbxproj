@@ -32,7 +32,6 @@
 		0153C70E27CE0B8600C6F9BC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70D27CE0B8600C6F9BC /* SettingsViewModel.swift */; };
 		0153C71027CE0D1300C6F9BC /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C70F27CE0D1300C6F9BC /* SettingsCellViewModel.swift */; };
 		0153C71227CE0D6700C6F9BC /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153C71127CE0D6700C6F9BC /* Setting.swift */; };
-		01576D7C27EDE6FE00E6DD07 /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 		018A49BB27D5D52D003E18B2 /* TodoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BA27D5D52D003E18B2 /* TodoController.swift */; };
 		018A49BE27D62362003E18B2 /* TodoTitleDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */; };
 		018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49BF27D62810003E18B2 /* TodoMemoView.swift */; };
@@ -42,6 +41,7 @@
 		018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */; };
 		018CA5CE27D1B4300093E9DD /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CD27D1B4300093E9DD /* AddTextView.swift */; };
 		018CA5D027D1B6A40093E9DD /* CGFloatUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CA5CF27D1B6A40093E9DD /* CGFloatUtils.swift */; };
+		0197A89527F0375200017A5B /* Pods_OurDday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16D8EE346043F61E22D367A /* Pods_OurDday.framework */; };
 		01B1D86527E1B0F6001863C8 /* CalendarEventStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D86427E1B0F6001863C8 /* CalendarEventStruct.swift */; };
 		01B1D89827E36EE1001863C8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89727E36EE1001863C8 /* WidgetKit.framework */; };
 		01B1D89A27E36EE1001863C8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89927E36EE1001863C8 /* SwiftUI.framework */; };
@@ -144,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01576D7C27EDE6FE00E6DD07 /* Pods_OurDday.framework in Frameworks */,
+				0197A89527F0375200017A5B /* Pods_OurDday.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +612,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -673,6 +674,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -702,7 +704,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WB3J5J4ZWS;
-				EXCLUDED_ARCHS = x86_64;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OurDday/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -721,7 +723,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 armv7 armv7s x86_64 arm64e";
 			};
 			name = Debug;
 		};
@@ -736,7 +737,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WB3J5J4ZWS;
-				EXCLUDED_ARCHS = x86_64;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OurDday/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -755,7 +756,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 armv7 armv7s x86_64 arm64e";
 			};
 			name = Release;
 		};
