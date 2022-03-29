@@ -54,24 +54,14 @@ final class FirstLaunchController: UIViewController {
     }
     
     @objc func touchUpDateButton(_ sender: UIButton) {
-        let datePicker = CustomDatePicker()
+        let contentView = FirstLaunchContentViewController()
         
-        let contentView = UIViewController()
-        contentView.view.addSubview(datePicker)
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            datePicker.topAnchor.constraint(equalTo: contentView.view.topAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: contentView.view.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: contentView.view.trailingAnchor),
-            datePicker.bottomAnchor.constraint(equalTo: contentView.view.bottomAnchor),
-        ])
-
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            RealmManager.shared.update(date: datePicker.date) { check in
+            RealmManager.shared.update(date: contentView.datePicker.date) { check in
                 if check {
-                    self.storage.setFirstDate(date: datePicker.date)
-                    self.firstLaunchView.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
+                    self.storage.setFirstDate(date: contentView.datePicker.date)
+                    self.firstLaunchView.dateButton.setTitle(contentView.datePicker.date.toButtonStringKST(), for: .normal)
                 }
             }
         }))

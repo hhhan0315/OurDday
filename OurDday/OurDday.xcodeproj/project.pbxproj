@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		011E449C27F2F7A400EBFCC1 /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E449B27F2F7A400EBFCC1 /* FirstLaunchView.swift */; };
+		011E449E27F2FD7800EBFCC1 /* FirstLaunchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E449D27F2FD7800EBFCC1 /* FirstLaunchContentViewController.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		011E449B27F2F7A400EBFCC1 /* FirstLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchView.swift; sourceTree = "<group>"; };
+		011E449D27F2FD7800EBFCC1 /* FirstLaunchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchContentViewController.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */,
+				011E449D27F2FD7800EBFCC1 /* FirstLaunchContentViewController.swift */,
 				0134D18127BDE2AF00552FE0 /* MainTabController.swift */,
 				0134D18327BDE2AF00552FE0 /* HomeController.swift */,
 				0134D18627BDE2AF00552FE0 /* EventController.swift */,
@@ -253,9 +256,9 @@
 			isa = PBXGroup;
 			children = (
 				011E449B27F2F7A400EBFCC1 /* FirstLaunchView.swift */,
+				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
 				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
 				0134D19327BDE31600552FE0 /* SettingsCell.swift */,
-				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
 				013822C127C9D64B003949DF /* Calendar */,
 				01FE724D27C630F0009B5425 /* CalenderAdd */,
 				018A49BC27D62345003E18B2 /* Todo */,
@@ -529,6 +532,7 @@
 				01B1D86527E1B0F6001863C8 /* CalendarEventStruct.swift in Sources */,
 				011E449C27F2F7A400EBFCC1 /* FirstLaunchView.swift in Sources */,
 				01FE725327C76185009B5425 /* CalendarEvent.swift in Sources */,
+				011E449E27F2FD7800EBFCC1 /* FirstLaunchContentViewController.swift in Sources */,
 				01FE724C27C6241E009B5425 /* ViewControllerUtils.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
