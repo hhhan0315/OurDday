@@ -11,75 +11,39 @@ final class FirstLaunchController: UIViewController {
     
     // MARK: - Properties
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "우리 처음 만난 날"
-        label.font = UIFont.customFontSize(.bigBold)
-        return label
-    }()
-    
-    private let infoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "날짜를 선택해주세요"
-        label.font = UIFont.customFontSize(.middleSystem)
-        label.textColor = UIColor.darkGrayColor
-        return label
-    }()
-    
-    private let dateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(Date().toButtonStringKST(), for: .normal)
-        button.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
-        button.setTitleColor(.mainColor, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
-        return button
-    }()
-    
+    private let firstLaunchView = FirstLaunchView()
     private let storage = LocalStorage()
 
     // MARK: - Life cycle
     
+    override func loadView() {
+        view = firstLaunchView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI()
+        configureNav()
         configureFirstDay()
+        setupAddTarget()
     }
 
     // MARK: - Helpers
     
-    private func configureUI() {
-        view.backgroundColor = UIColor.backgroundColor
-        
+    private func configureNav() {
         navigationItem.title = "우리만의 디데이"
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = UIColor.mainColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
-        
-        view.addSubview(titleLabel)
-        view.addSubview(infoLabel)
-        view.addSubview(dateButton)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -125),
-            
-            infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            infoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
-            
-            dateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dateButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
-            dateButton.widthAnchor.constraint(equalTo: view.widthAnchor),
-        ])
     }
     
     private func configureFirstDay() {
         RealmManager.shared.insert(firstDay: FirstDay())
+    }
+    
+    private func setupAddTarget() {
+        firstLaunchView.dateButton.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
     }
     
     // MARK: - Actions
@@ -106,11 +70,10 @@ final class FirstLaunchController: UIViewController {
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             RealmManager.shared.update(date: datePicker.date) { check in
                 if check {
-                    LocalStorage().setFirstDate(date: datePicker.date)
-                    self.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
+                    self.storage.setFirstDate(date: datePicker.date)
+                    self.firstLaunchView.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
                 }
             }
-            
         }))
         alert.setValue(contentView, forKey: "contentViewController")
         
