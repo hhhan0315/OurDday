@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FirstLaunchView: UIView {
+final class FirstLaunchView: UIView {
         
     private let titleLabel: UILabel = {
         let label = UILabel()
