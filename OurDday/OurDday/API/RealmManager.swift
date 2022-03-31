@@ -19,18 +19,6 @@ final class RealmManager {
 //        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
-    func insert(firstDay: FirstDay) {
-        deleteAll()
-        
-        do {
-            try realm.write({
-                realm.add(firstDay)
-            })
-        } catch {
-            print("\(error)")
-        }
-    }
-    
     func insert(calendarEvent: CalendarEvent) {
         let newId = "\(Date().timeIntervalSince1970)"
         calendarEvent.id = newId
@@ -44,15 +32,15 @@ final class RealmManager {
         }
     }
     
-    private func deleteAll() {
-        do {
-            try realm.write {
-                realm.deleteAll()
-            }
-        } catch {
-            print("\(error)")
-        }
-    }
+//    private func deleteAll() {
+//        do {
+//            try realm.write {
+//                realm.deleteAll()
+//            }
+//        } catch {
+//            print("\(error)")
+//        }
+//    }
     
     func selectById(calendarEventId: String) -> CalendarEvent? {
         return realm.objects(CalendarEvent.self).filter {$0.id == calendarEventId}.first
@@ -70,19 +58,6 @@ final class RealmManager {
         }
     }
     
-    func update(date: Date, completion: @escaping(Bool) -> Void) {
-        if let firstDay = realm.objects(FirstDay.self).first {
-            do {
-                try realm.write {
-                    firstDay.date = date
-                    completion(true)
-                }
-            } catch {
-                completion(false)
-            }
-        }
-    }
-    
     func update(calendarEvent: CalendarEvent, completion: @escaping(Bool) -> Void) {
         do {
             try realm.write({
@@ -92,10 +67,6 @@ final class RealmManager {
         } catch {
             completion(false)
         }
-    }
-    
-    func readFirstDayDate() -> Date {
-        return realm.objects(FirstDay.self).first?.date ?? Date()
     }
     
     func readCalendarEvent() -> [CalendarEvent] {

@@ -16,7 +16,7 @@ final class CustomDatePicker: UIDatePicker {
         
         self.datePickerMode = .date
         self.locale = Locale(identifier: "ko_kr")
-        self.setDate(RealmManager.shared.readFirstDayDate(), animated: false)
+        self.setDate(LocalStorage().readFirstDate(), animated: false)
         self.minimumDate = Date(timeIntervalSinceNow: -60 * 60 * 24 * 365 * 200)
         self.maximumDate = Date()
         

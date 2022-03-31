@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeView: UIView {
+final class HomeView: UIView {
     
     let phrasesLabel: UILabel = {
         let label = UILabel()

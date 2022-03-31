@@ -23,7 +23,6 @@
 		0134D18E27BDE2AF00552FE0 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18727BDE2AF00552FE0 /* SettingsController.swift */; };
 		0134D19127BDE30000552FE0 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19027BDE30000552FE0 /* DateUtils.swift */; };
 		0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19327BDE31600552FE0 /* SettingsCell.swift */; };
-		0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19627BDE81700552FE0 /* FirstDay.swift */; };
 		0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D19927BDEAF900552FE0 /* RealmManager.swift */; };
 		013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BD27C9C8EF003949DF /* EventViewModel.swift */; };
 		013822C027C9CA98003949DF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BF27C9CA98003949DF /* EventManager.swift */; };
@@ -102,7 +101,6 @@
 		0134D18727BDE2AF00552FE0 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		0134D19027BDE30000552FE0 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		0134D19327BDE31600552FE0 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		0134D19627BDE81700552FE0 /* FirstDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDay.swift; sourceTree = "<group>"; };
 		0134D19927BDEAF900552FE0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		013822BD27C9C8EF003949DF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		013822BF27C9CA98003949DF /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
@@ -192,10 +190,10 @@
 				01B1D8A827E417D5001863C8 /* OurDday.entitlements */,
 				0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */,
 				0134D16827BDDE0400552FE0 /* AppDelegate.swift */,
+				0134D19227BDE30E00552FE0 /* views */,
 				0134D17D27BDE10C00552FE0 /* viewControllers */,
 				01FE725427C7ABEB009B5425 /* viewmodels */,
 				0138EB0627BE692D003E99B1 /* models */,
-				0134D19227BDE30E00552FE0 /* views */,
 				0134D17C27BDE05100552FE0 /* resources */,
 				0134D17E27BDE11600552FE0 /* Storage */,
 				0134D19827BDEAEF00552FE0 /* API */,
@@ -269,7 +267,6 @@
 		0134D19527BDE7DC00552FE0 /* RealmModel */ = {
 			isa = PBXGroup;
 			children = (
-				0134D19627BDE81700552FE0 /* FirstDay.swift */,
 				01FE725227C76185009B5425 /* CalendarEvent.swift */,
 			);
 			path = RealmModel;
@@ -515,7 +512,6 @@
 				01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */,
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
 				0134D19427BDE31600552FE0 /* SettingsCell.swift in Sources */,
-				0134D19727BDE81700552FE0 /* FirstDay.swift in Sources */,
 				018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */,
 				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
 				018CA5C827CF9B650093E9DD /* FSCalendarView.swift in Sources */,

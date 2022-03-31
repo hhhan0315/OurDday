@@ -37,6 +37,14 @@ struct LocalStorage {
     func setPhrases(phrases: String) {
         defaults?.set(phrases, forKey: "phrases")
     }
+    
+    func readFirstDate() -> Date {
+        if let date = defaults?.object(forKey: "date") as? Date {
+            return date
+        } else {
+            return Date()
+        }
+    }
 }
 
 extension UserDefaults {

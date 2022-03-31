@@ -15,7 +15,7 @@ struct EventCellViewModel {
     init(event: Event) {
         self.event = event
         self.calendar = Calendar.current
-        self.firstDayDate = RealmManager.shared.readFirstDayDate()
+        self.firstDayDate = LocalStorage().readFirstDate()
     }
     
     var title: String {

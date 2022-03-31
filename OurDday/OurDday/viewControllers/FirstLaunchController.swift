@@ -23,7 +23,7 @@ final class FirstLaunchController: UIViewController {
         super.viewDidLoad()
         
         configureNav()
-        configureFirstDay()
+        saveFirstDay()
         setupAddTarget()
     }
 
@@ -37,8 +37,8 @@ final class FirstLaunchController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
     }
     
-    private func configureFirstDay() {
-        RealmManager.shared.insert(firstDay: FirstDay())
+    private func saveFirstDay() {
+        LocalStorage().setFirstDate(date: Date())
     }
     
     private func setupAddTarget() {
@@ -69,12 +69,8 @@ final class FirstLaunchController: UIViewController {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            RealmManager.shared.update(date: datePicker.date) { check in
-                if check {
-                    LocalStorage().setFirstDate(date: datePicker.date)
-                    self.firstLaunchView.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
-                }
-            }
+            LocalStorage().setFirstDate(date: datePicker.date)
+            self.firstLaunchView.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
         }))
         alert.setValue(contentView, forKey: "contentViewController")
         

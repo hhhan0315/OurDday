@@ -11,14 +11,14 @@ final class EventManager {
     static let shared = EventManager()
     
     func getTodayCount() -> Int {
-        let firstDayDate = RealmManager.shared.readFirstDayDate()
+        let firstDayDate = LocalStorage().readFirstDate()
         let todayCount = Calendar.countDaysFromNow(fromDate: firstDayDate)
         return todayCount
     }
     
     func getEvents(completion: @escaping([Event]) -> Void) {
         var events = [Event]()
-        let firstDayDate = RealmManager.shared.readFirstDayDate()
+        let firstDayDate = LocalStorage().readFirstDate()
         
         let ten = Event(type: .hundred, day: 10)
         let fifty = Event(type: .hundred, day: 50)
