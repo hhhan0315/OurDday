@@ -45,6 +45,10 @@ struct LocalStorage {
             return Date()
         }
     }
+    
+    func readPhrases() -> String {
+        return defaults?.string(forKey: "phrases") ?? ""
+    }
 }
 
 extension UserDefaults {

@@ -12,6 +12,7 @@ final class FirstLaunchController: UIViewController {
     // MARK: - Properties
     
     private let firstLaunchView = FirstLaunchView()
+    private let localStorage = LocalStorage()
 
     // MARK: - Life cycle
     
@@ -38,7 +39,7 @@ final class FirstLaunchController: UIViewController {
     }
     
     private func saveFirstDay() {
-        LocalStorage().setFirstDate(date: Date())
+        localStorage.setFirstDate(date: Date())
     }
     
     private func setupAddTarget() {
@@ -48,31 +49,20 @@ final class FirstLaunchController: UIViewController {
     // MARK: - Actions
     
     @objc func touchUpOkButton(_ sender: UIBarButtonItem) {
-        LocalStorage().setFirstTime()
+        localStorage.setFirstTime()
+        localStorage.setPhrases(phrases: "우리 디데이")
         view.window?.rootViewController = MainTabController()
     }
     
     @objc func touchUpDateButton(_ sender: UIButton) {
-        let contentView = UIViewController()
-        let datePicker = CustomDatePicker()
-        contentView.view.addSubview(datePicker)
-        contentView.preferredContentSize.height = view.frame.height / 3
-        
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            datePicker.topAnchor.constraint(equalTo: contentView.view.topAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: contentView.view.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: contentView.view.trailingAnchor),
-            datePicker.bottomAnchor.constraint(equalTo: contentView.view.bottomAnchor),
-        ])
+        let contentController = ContentDatePickerController()
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            LocalStorage().setFirstDate(date: datePicker.date)
-            self.firstLaunchView.dateButton.setTitle(datePicker.date.toButtonStringKST(), for: .normal)
+            self.localStorage.setFirstDate(date: contentController.datePicker.date)
+            self.firstLaunchView.dateButton.setTitle(contentController.datePicker.date.toButtonStringKST(), for: .normal)
         }))
-        alert.setValue(contentView, forKey: "contentViewController")
+        alert.setValue(contentController, forKey: "contentViewController")
         
         present(alert, animated: true, completion: nil)
     }
