@@ -33,7 +33,7 @@ class FSCalendarView: UIView {
         calendar.appearance.weekdayTextColor = .darkGray
         calendar.appearance.titleDefaultColor = UIColor.textColor
         calendar.appearance.titleWeekendColor = .red
-//        calendar.appearance.todayColor = UIColor.mainColor
+        calendar.appearance.todayColor = UIColor.lightGray
 //        calendar.appearance.selectionColor = .darkGray
         calendar.headerHeight = 0
         return calendar
@@ -149,10 +149,10 @@ extension FSCalendarView: FSCalendarDataSource {
 
 extension FSCalendarView: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.mainColor]
+        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.sampleMainColor]
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.mainColor]
+        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.sampleMainColor]
     }
 }

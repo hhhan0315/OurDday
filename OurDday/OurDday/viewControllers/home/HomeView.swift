@@ -95,7 +95,8 @@ final class HomeView: UIView {
         } else {
             backgroundImageView.image = nil
             phrasesLabel.textColor = UIColor.black
-            countLabel.textColor = UIColor.mainColor
+//            countLabel.textColor = UIColor.mainColor
+            countLabel.textColor = UIColor.sampleMainColor
             dateLabel.textColor = UIColor.darkGrayColor
         }
     }

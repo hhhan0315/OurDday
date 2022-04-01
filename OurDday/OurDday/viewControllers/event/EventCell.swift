@@ -81,7 +81,7 @@ final class EventCell: UITableViewCell {
         titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor
         
         countLabel.text = viewModel.countTitle
-        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.mainColor
+        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.sampleMainColor
         
         dateTitleLabel.text = viewModel.dateTitle
         dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor
