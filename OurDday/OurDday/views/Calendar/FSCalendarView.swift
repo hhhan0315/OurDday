@@ -33,8 +33,8 @@ class FSCalendarView: UIView {
         calendar.appearance.weekdayTextColor = .darkGray
         calendar.appearance.titleDefaultColor = UIColor.textColor
         calendar.appearance.titleWeekendColor = .red
-        calendar.appearance.todayColor = UIColor.mainColor
-        calendar.appearance.selectionColor = .darkGray
+//        calendar.appearance.todayColor = UIColor.mainColor
+//        calendar.appearance.selectionColor = .darkGray
         calendar.headerHeight = 0
         return calendar
     }()

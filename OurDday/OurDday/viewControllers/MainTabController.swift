@@ -29,7 +29,7 @@ final class MainTabController: UITabBarController {
         
         viewControllers = [home, day, calendar]
         
-        tabBar.tintColor = UIColor.mainColor
+//        tabBar.tintColor = UIColor.mainColor
     }
     
 }

@@ -16,7 +16,7 @@ final class HomeController: UIViewController {
     
     private let homeView = HomeView()
     private let localStorage = LocalStorage()
-    private let imageKeyName = "homeBackGroundImage"
+    private let viewModel = HomeViewModel()
     
     private var todayCount: Int?
 
@@ -30,8 +30,9 @@ final class HomeController: UIViewController {
         super.viewDidLoad()
 
         configureNav()
-        updateLabelContents()
-        updateImageAndColor()
+        
+        viewModel.updateUser()
+        homeView.setUser(viewModel.user())
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -64,27 +65,15 @@ final class HomeController: UIViewController {
         }
     }
     
-    private func updateLabelContents() {
-        todayCount = EventManager.shared.getTodayCount()
-        guard let todayCount = todayCount else { return }
-        let phrasesText = localStorage.readPhrases()
-        
-        homeView.phrasesLabel.text = phrasesText
-        homeView.countLabel.text = "\(todayCount + 1)일"
-        homeView.dateLabel.text = LocalStorage().readFirstDate().toButtonStringKST()
-    }
-    
-    private func updateImageAndColor() {
-        homeView.backgroundImageView.image = PhotoManager.shared.loadImageFromDocumentDirectory(imageName: imageKeyName)
-        
-        if homeView.backgroundImageView.image == nil {
-            homeView.phrasesLabel.textColor = UIColor.black
-            homeView.countLabel.textColor = UIColor.mainColor
-            homeView.dateLabel.textColor = UIColor.darkGrayColor
-        } else {
-            homeView.phrasesLabel.textColor = UIColor.white
-            homeView.countLabel.textColor = UIColor.white
-            homeView.dateLabel.textColor = UIColor.white
+    private func updateAnimate() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            self.homeView.alpha = 0.5
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.viewModel.updateUser()
+                self.homeView.setUser(self.viewModel.user())
+                self.homeView.alpha = 1.0
+            }
         }
     }
     
@@ -120,14 +109,7 @@ final class HomeController: UIViewController {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
                 
-                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                    self.homeView.phrasesLabel.alpha = 0.5
-                } completion: { _ in
-                    UIView.animate(withDuration: 0.3, delay: 0) {
-                        self.updateLabelContents()
-                        self.homeView.phrasesLabel.alpha = 1.0
-                    }
-                }
+                self.updateAnimate()
             }))
             self.present(phrasesAlert, animated: true)
         }))
@@ -144,16 +126,7 @@ final class HomeController: UIViewController {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
                 
-                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                    self.homeView.countLabel.alpha = 0.5
-                    self.homeView.dateLabel.alpha = 0.5
-                } completion: { _ in
-                    UIView.animate(withDuration: 0.3, delay: 0) {
-                        self.updateLabelContents()
-                        self.homeView.countLabel.alpha = 1.0
-                        self.homeView.dateLabel.alpha = 1.0
-                    }
-                }
+                self.updateAnimate()
             }))
             dateAlert.setValue(contentController, forKey: "contentViewController")
             
@@ -183,26 +156,13 @@ final class HomeController: UIViewController {
                 let removeAlertController = UIAlertController(title: "배경화면 사용 안함", message: "배경화면을 사용하지 않겠습니까?", preferredStyle: .alert)
                 removeAlertController.addAction(UIAlertAction(title: "취소", style: .cancel))
                 removeAlertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                    PhotoManager.shared.removeImageFromDocumentDirectory(imageName: self.imageKeyName)
+                    PhotoManager.shared.removeImageFromDocumentDirectory()
                     
                     if #available(iOS 14.0, *) {
                         WidgetCenter.shared.reloadAllTimelines()
                     }
                     
-                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                        self.homeView.phrasesLabel.alpha = 0.5
-                        self.homeView.countLabel.alpha = 0.5
-                        self.homeView.dateLabel.alpha = 0.5
-                        self.homeView.backgroundImageView.alpha = 0.5
-                    } completion: { _ in
-                        UIView.animate(withDuration: 0.3, delay: 0) {
-                            self.updateImageAndColor()
-                            self.homeView.phrasesLabel.alpha = 1.0
-                            self.homeView.countLabel.alpha = 1.0
-                            self.homeView.dateLabel.alpha = 1.0
-                            self.homeView.backgroundImageView.alpha = 1.0
-                        }
-                    }
+                    self.updateAnimate()
                 }))
                 self.present(removeAlertController, animated: true)
             }))
@@ -264,26 +224,13 @@ extension HomeController: PHPickerViewControllerDelegate {
 
 extension HomeController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        PhotoManager.shared.saveImageToDocumentDirectory(imageName: imageKeyName, image: image)
+        PhotoManager.shared.saveImageToDocumentDirectory(image: image)
         
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
         }
 
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-            self.homeView.phrasesLabel.alpha = 0.5
-            self.homeView.countLabel.alpha = 0.5
-            self.homeView.dateLabel.alpha = 0.5
-            self.homeView.backgroundImageView.alpha = 0.5
-        } completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 0) {
-                self.updateImageAndColor()
-                self.homeView.phrasesLabel.alpha = 1.0
-                self.homeView.countLabel.alpha = 1.0
-                self.homeView.dateLabel.alpha = 1.0
-                self.homeView.backgroundImageView.alpha = 1.0
-            }
-        }
+        self.updateAnimate()
         
         cropViewController.dismiss(animated: true, completion: nil)
     }

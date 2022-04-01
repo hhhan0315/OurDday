@@ -38,6 +38,10 @@ struct LocalStorage {
         defaults?.set(phrases, forKey: "phrases")
     }
     
+    func readImageUrl() -> URL? {
+        return defaults?.url(forKey: "imageUrl")
+    }
+    
     func readFirstDate() -> Date {
         if let date = defaults?.object(forKey: "date") as? Date {
             return date
@@ -48,6 +52,14 @@ struct LocalStorage {
     
     func readPhrases() -> String {
         return defaults?.string(forKey: "phrases") ?? ""
+    }
+    
+    func updateUser(completion: @escaping (User) -> Void) {
+        var user = User.EMPTY
+        user.imageUrl = readImageUrl()
+        user.date = readFirstDate()
+        user.phrases = readPhrases()
+        completion(user)
     }
 }
 

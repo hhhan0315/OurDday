@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventCellViewModel {
+class EventCellViewModel: NSObject {
     let event: Event
     let calendar: Calendar
     let firstDayDate: Date

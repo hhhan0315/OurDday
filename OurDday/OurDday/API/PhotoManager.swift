@@ -11,7 +11,7 @@ import UIKit
 final class PhotoManager {
     static let shared = PhotoManager()
     
-    func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
+    func saveImageToDocumentDirectory(imageName: String = "homeBackGroundImage", image: UIImage) {
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else { return }
         
         let imageUrl = containerURL.appendingPathComponent(imageName)
@@ -39,20 +39,20 @@ final class PhotoManager {
         }
     }
     
-    func loadImageFromDocumentDirectory(imageName: String) -> UIImage? {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else {
-            return nil
-        }
-        let imageUrl = containerURL.appendingPathComponent(imageName)
-        
-        if let image = UIImage(contentsOfFile: imageUrl.path) {
-            return image
-        }
-        
-        return nil
-    }
+//    func loadImageFromDocumentDirectory(imageName: String = "homeBackGroundImage") -> UIImage? {
+//        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else {
+//            return nil
+//        }
+//        let imageUrl = containerURL.appendingPathComponent(imageName)
+//        
+//        if let image = UIImage(contentsOfFile: imageUrl.path) {
+//            return image
+//        }
+//        
+//        return nil
+//    }
     
-    func removeImageFromDocumentDirectory(imageName: String) {
+    func removeImageFromDocumentDirectory(imageName: String = "homeBackGroundImage") {
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.OurDday") else {
             return
         }

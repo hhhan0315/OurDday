@@ -7,8 +7,10 @@
 
 import Foundation
 
-final class EventViewModel {
+class EventViewModel: NSObject {
+    
     private var events = [Event]()
+    
     var todayCount: Int? {
         didSet {
             update()
