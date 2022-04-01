@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import WidgetKit
-import CropViewController
-import PhotosUI
-import SideMenu
+
+protocol HomeControllerDelegate: AnyObject {
+    func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat)
+}
 
 final class HomeController: UIViewController {
     
@@ -17,6 +17,8 @@ final class HomeController: UIViewController {
     
     private let homeView = HomeView()
     private let viewModel = HomeViewModel()
+    
+    weak var delegate: HomeControllerDelegate?
     
 //    private var todayCount: Int?
 
@@ -79,6 +81,9 @@ final class HomeController: UIViewController {
     @objc func touchLineButton() {
         let sideMenuController = SideMenuController()
         sideMenuController.delegate = self
+        delegate = sideMenuController
+        delegate?.homeControllerImageSize(homeView.backgroundImageView.frame.width, homeView.backgroundImageView.frame.height)
+        
         let sideMenuNavController = SideMenuNavController(rootViewController: sideMenuController)
         present(sideMenuNavController, animated: true)
     }

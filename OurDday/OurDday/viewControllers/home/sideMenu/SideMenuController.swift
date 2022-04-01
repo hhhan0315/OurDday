@@ -23,6 +23,8 @@ class SideMenuNavController: SideMenuNavigationController {
         self.leftSide = true
         self.presentDuration = 0.5
         self.dismissDuration = 0.5
+        self.presentationStyle = .menuSlideIn
+        self.presentationStyle.presentingEndAlpha = 0.6
     }
     
 }
@@ -31,6 +33,9 @@ class SideMenuController: UITableViewController {
     
     private let viewModel = SideMenuViewModel()
     private let localStorage = LocalStorage()
+    
+    private var imageWidth: CGFloat = 0
+    private var imageHeight: CGFloat = 0
     
     weak var delegate: SideMenuControllerDeleagte?
         
@@ -153,7 +158,7 @@ extension SideMenuController: UIImagePickerControllerDelegate, UINavigationContr
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let cropViewController = CropViewController(image: image)
             cropViewController.delegate = self
-            cropViewController.customAspectRatio = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+            cropViewController.customAspectRatio = CGSize(width: self.imageWidth, height: self.imageHeight)
             cropViewController.resetAspectRatioEnabled = false
             cropViewController.aspectRatioPickerButtonHidden = true
             present(cropViewController, animated: true, completion: nil)
@@ -177,7 +182,7 @@ extension SideMenuController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     let cropViewController = CropViewController(image: image)
                     cropViewController.delegate = self
-                    cropViewController.customAspectRatio = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+                    cropViewController.customAspectRatio = CGSize(width: self.imageWidth, height: self.imageHeight)
                     cropViewController.resetAspectRatioEnabled = false
                     cropViewController.aspectRatioPickerButtonHidden = true
                     self.present(cropViewController, animated: true, completion: nil)
@@ -197,5 +202,14 @@ extension SideMenuController: CropViewControllerDelegate {
         delegate?.sideMenuControllerDidSave()
         
         cropViewController.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - HomeControllerDelegate
+
+extension SideMenuController: HomeControllerDelegate {
+    func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat) {
+        imageWidth = width
+        imageHeight = height
     }
 }
