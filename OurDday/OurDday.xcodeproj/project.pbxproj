@@ -207,10 +207,10 @@
 				01FE725427C7ABEB009B5425 /* viewmodels */,
 				0138EB0627BE692D003E99B1 /* models */,
 				0134D17C27BDE05100552FE0 /* resources */,
-				0134D17E27BDE11600552FE0 /* Storage */,
-				0134D19827BDEAEF00552FE0 /* API */,
-				0134D19527BDE7DC00552FE0 /* RealmModel */,
-				0134D18F27BDE2EE00552FE0 /* Utils */,
+				0134D17E27BDE11600552FE0 /* storage */,
+				0134D19827BDEAEF00552FE0 /* managers */,
+				0134D19527BDE7DC00552FE0 /* realmModel */,
+				0134D18F27BDE2EE00552FE0 /* utils */,
 			);
 			path = OurDday;
 			sourceTree = "<group>";
@@ -239,15 +239,15 @@
 			path = viewControllers;
 			sourceTree = "<group>";
 		};
-		0134D17E27BDE11600552FE0 /* Storage */ = {
+		0134D17E27BDE11600552FE0 /* storage */ = {
 			isa = PBXGroup;
 			children = (
 				0134D17F27BDE14200552FE0 /* LocalStorage.swift */,
 			);
-			path = Storage;
+			path = storage;
 			sourceTree = "<group>";
 		};
-		0134D18F27BDE2EE00552FE0 /* Utils */ = {
+		0134D18F27BDE2EE00552FE0 /* utils */ = {
 			isa = PBXGroup;
 			children = (
 				0134D19027BDE30000552FE0 /* DateUtils.swift */,
@@ -257,7 +257,7 @@
 				01FE724B27C6241E009B5425 /* ViewControllerUtils.swift */,
 				018CA5CF27D1B6A40093E9DD /* CGFloatUtils.swift */,
 			);
-			path = Utils;
+			path = utils;
 			sourceTree = "<group>";
 		};
 		0134D19227BDE30E00552FE0 /* views */ = {
@@ -272,22 +272,22 @@
 			path = views;
 			sourceTree = "<group>";
 		};
-		0134D19527BDE7DC00552FE0 /* RealmModel */ = {
+		0134D19527BDE7DC00552FE0 /* realmModel */ = {
 			isa = PBXGroup;
 			children = (
 				01FE725227C76185009B5425 /* CalendarEvent.swift */,
 			);
-			path = RealmModel;
+			path = realmModel;
 			sourceTree = "<group>";
 		};
-		0134D19827BDEAEF00552FE0 /* API */ = {
+		0134D19827BDEAEF00552FE0 /* managers */ = {
 			isa = PBXGroup;
 			children = (
 				0134D19927BDEAF900552FE0 /* RealmManager.swift */,
 				013822BF27C9CA98003949DF /* EventManager.swift */,
 				018A49C627D9D331003E18B2 /* PhotoManager.swift */,
 			);
-			path = API;
+			path = managers;
 			sourceTree = "<group>";
 		};
 		013822C127C9D64B003949DF /* Calendar */ = {
