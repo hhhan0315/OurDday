@@ -9,16 +9,16 @@ import UIKit
 import WidgetKit
 import CropViewController
 import PhotosUI
+import SideMenu
 
 final class HomeController: UIViewController {
     
     // MARK: - Properties
     
     private let homeView = HomeView()
-    private let localStorage = LocalStorage()
     private let viewModel = HomeViewModel()
     
-    private var todayCount: Int?
+//    private var todayCount: Int?
 
     // MARK: - Life cycle
     
@@ -58,21 +58,22 @@ final class HomeController: UIViewController {
     private func configureNav() {
         navigationItem.title = "디데이"
         
-        if #available(iOS 14.0, *) {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(touchGearButton))
-        } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(touchGearButton))
-        }
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(touchLineButton))
+//        if #available(iOS 14.0, *) {
+//            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(touchGearButton))
+//        } else {
+//            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(touchGearButton))
+//        }
     }
     
     private func updateAnimate() {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
             self.homeView.alpha = 0.5
         } completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 0) {
+            UIView.animate(withDuration: 0.5, delay: 0.1) {
+                self.homeView.alpha = 1.0
                 self.viewModel.updateUser()
                 self.homeView.setUser(self.viewModel.user())
-                self.homeView.alpha = 1.0
             }
         }
     }
@@ -87,151 +88,16 @@ final class HomeController: UIViewController {
 //        }
 //    }
     
-    @objc func touchGearButton() {
-        let alertController = UIAlertController(title: "설정", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "취소", style: .cancel))
-        
-        alertController.addAction(UIAlertAction(title: "문구 설정", style: .default, handler: { _ in
-            let phrasesAlert = UIAlertController(title: "문구 설정", message: nil, preferredStyle: .alert)
-            phrasesAlert.addTextField { textField in
-                let phrases = self.localStorage.readPhrases()
-                textField.text = phrases
-                textField.clearButtonMode = .whileEditing
-                textField.heightAnchor.constraint(equalToConstant: 45.0).isActive = true
-                textField.font = UIFont.systemFont(ofSize: 17.0)
-            }
-            phrasesAlert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            phrasesAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                guard let phrases = phrasesAlert.textFields?[0].text else { return }
-                LocalStorage().setPhrases(phrases: phrases)
-                
-                if #available(iOS 14.0, *) {
-                    WidgetCenter.shared.reloadAllTimelines()
-                }
-                
-                self.updateAnimate()
-            }))
-            self.present(phrasesAlert, animated: true)
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "기념일 설정", style: .default, handler: { _ in
-            let contentController = ContentDatePickerController()
-            
-            let dateAlert = UIAlertController(title: "기념일 설정", message: nil, preferredStyle: .alert)
-            dateAlert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            dateAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                self.localStorage.setFirstDate(date: contentController.datePicker.date)
-                
-                if #available(iOS 14.0, *) {
-                    WidgetCenter.shared.reloadAllTimelines()
-                }
-                
-                self.updateAnimate()
-            }))
-            dateAlert.setValue(contentController, forKey: "contentViewController")
-            
-            self.present(dateAlert, animated: true, completion: nil)
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "배경화면 설정", style: .default, handler: { _ in
-            
-            let photoController = UIAlertController(title: "배경화면 설정", message: nil, preferredStyle: .actionSheet)
-            photoController.addAction(UIAlertAction(title: "앨범에서 선택", style: .default, handler: { _ in
-                if #available(iOS 14, *) {
-                    var configuration = PHPickerConfiguration()
-                    configuration.selectionLimit = 1
-                    configuration.filter = .images
-                    
-                    let picker = PHPickerViewController(configuration: configuration)
-                    picker.delegate = self
-                    self.present(picker, animated: true, completion: nil)
-                } else {
-                    let picker = UIImagePickerController()
-                    picker.delegate = self
-                    picker.sourceType = .photoLibrary
-                    self.present(picker, animated: true, completion: nil)
-                }
-            }))
-            photoController.addAction(UIAlertAction(title: "배경화면 사용 안함", style: .default, handler: { _ in
-                let removeAlertController = UIAlertController(title: "배경화면 사용 안함", message: "배경화면을 사용하지 않겠습니까?", preferredStyle: .alert)
-                removeAlertController.addAction(UIAlertAction(title: "취소", style: .cancel))
-                removeAlertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                    PhotoManager.shared.removeImageFromDocumentDirectory()
-                    
-                    if #available(iOS 14.0, *) {
-                        WidgetCenter.shared.reloadAllTimelines()
-                    }
-                    
-                    self.updateAnimate()
-                }))
-                self.present(removeAlertController, animated: true)
-            }))
-            photoController.addAction(UIAlertAction(title: "취소", style: .cancel))
-            self.present(photoController, animated: true)
-            
-        }))
-        
-        present(alertController, animated: true)
+    @objc func touchLineButton() {
+        let sideMenuNavController = SideMenuNavController(rootViewController: SideMenuController())
+        present(sideMenuNavController, animated: true)
     }
 }
 
-// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+// MARK: - SideMenuNavigationControllerDelegate
 
-extension HomeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        dismiss(animated: true, completion: nil)
-        
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let cropViewController = CropViewController(image: image)
-            cropViewController.delegate = self
-            cropViewController.customAspectRatio = CGSize(width: homeView.backgroundImageView.frame.width, height: homeView.backgroundImageView.frame.height)
-            cropViewController.resetAspectRatioEnabled = false
-            cropViewController.aspectRatioPickerButtonHidden = true
-            present(cropViewController, animated: true, completion: nil)
-        }
-    }
-}
-
-// MARK: - PHPickerViewControllerDelegate
-
-extension HomeController: PHPickerViewControllerDelegate {
-    @available(iOS 14, *)
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true, completion: nil)
-
-        let itemProvider = results.first?.itemProvider
-
-        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-                guard let image = image as? UIImage else { return }
-                
-                DispatchQueue.main.async {
-                    let cropViewController = CropViewController(image: image)
-                    cropViewController.delegate = self
-                    cropViewController.customAspectRatio = CGSize(width: self.homeView.backgroundImageView.frame.width, height: self.homeView.backgroundImageView.frame.height)
-                    cropViewController.resetAspectRatioEnabled = false
-                    cropViewController.aspectRatioPickerButtonHidden = true
-                    self.present(cropViewController, animated: true, completion: nil)
-                }
-                
-            }
-        }
-    }
-}
-
-// MARK: - CropViewControllerDelegate
-
-extension HomeController: CropViewControllerDelegate {
-    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        PhotoManager.shared.saveImageToDocumentDirectory(image: image)
-        
-        if #available(iOS 14.0, *) {
-            WidgetCenter.shared.reloadAllTimelines()
-        }
-
-        self.updateAnimate()
-        
-        cropViewController.dismiss(animated: true, completion: nil)
+extension HomeController: SideMenuNavigationControllerDelegate {
+    func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
+        updateAnimate()
     }
 }

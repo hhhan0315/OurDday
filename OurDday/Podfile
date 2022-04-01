@@ -10,5 +10,6 @@ target 'OurDday' do
   pod 'FSCalendar'
   pod 'IQKeyboardManagerSwift'
   pod 'CropViewController'
+  pod 'SideMenu'
 
 end

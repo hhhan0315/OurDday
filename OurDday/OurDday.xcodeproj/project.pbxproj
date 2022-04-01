@@ -12,6 +12,8 @@
 		011E44A227F5935200EBFCC1 /* ContentDatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A127F5935200EBFCC1 /* ContentDatePickerController.swift */; };
 		011E44A527F5F10400EBFCC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A427F5F10400EBFCC1 /* User.swift */; };
 		011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A727F6834000EBFCC1 /* HomeViewModel.swift */; };
+		011E44B927F6CFAB00EBFCC1 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44B827F6CFAB00EBFCC1 /* SideMenuController.swift */; };
+		011E44BC27F6D1F900EBFCC1 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
@@ -85,6 +87,8 @@
 		011E44A127F5935200EBFCC1 /* ContentDatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDatePickerController.swift; sourceTree = "<group>"; };
 		011E44A427F5F10400EBFCC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		011E44A727F6834000EBFCC1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		011E44B827F6CFAB00EBFCC1 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
+		011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 			children = (
 				0134D18327BDE2AF00552FE0 /* HomeController.swift */,
 				011E449F27F2FF2300EBFCC1 /* HomeView.swift */,
+				011E44BA27F6D15100EBFCC1 /* sideMenu */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -212,6 +217,14 @@
 				018CA5CD27D1B4300093E9DD /* AddTextView.swift */,
 			);
 			path = todoAdd;
+			sourceTree = "<group>";
+		};
+		011E44BA27F6D15100EBFCC1 /* sideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				011E44B827F6CFAB00EBFCC1 /* SideMenuController.swift */,
+			);
+			path = sideMenu;
 			sourceTree = "<group>";
 		};
 		0134D15C27BDDE0400552FE0 = {
@@ -342,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				011E44A727F6834000EBFCC1 /* HomeViewModel.swift */,
+				011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */,
 				013822BD27C9C8EF003949DF /* EventViewModel.swift */,
 				01FE725727C7AE85009B5425 /* EventCellViewModel.swift */,
 			);
@@ -520,6 +534,7 @@
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
 				018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */,
 				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
+				011E44BC27F6D1F900EBFCC1 /* SideMenuViewModel.swift in Sources */,
 				018CA5C827CF9B650093E9DD /* FSCalendarView.swift in Sources */,
 				0134D19A27BDEAF900552FE0 /* RealmManager.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
@@ -528,6 +543,7 @@
 				011E44A027F2FF2300EBFCC1 /* HomeView.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */,
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
+				011E44B927F6CFAB00EBFCC1 /* SideMenuController.swift in Sources */,
 				0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */,
 				01B1D86527E1B0F6001863C8 /* CalendarEventStruct.swift in Sources */,
 				011E449C27F2F7A400EBFCC1 /* FirstLaunchView.swift in Sources */,
