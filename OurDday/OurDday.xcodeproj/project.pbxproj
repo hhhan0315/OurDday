@@ -174,6 +174,46 @@
 			path = home;
 			sourceTree = "<group>";
 		};
+		011E44B427F69C0F00EBFCC1 /* calendar */ = {
+			isa = PBXGroup;
+			children = (
+				0134D18527BDE2AF00552FE0 /* CalendarController.swift */,
+				018CA5C727CF9B650093E9DD /* FSCalendarView.swift */,
+				01434BF727C6058E005241DB /* CalendarTodoCell.swift */,
+			);
+			path = calendar;
+			sourceTree = "<group>";
+		};
+		011E44B527F69C1E00EBFCC1 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				0134D18627BDE2AF00552FE0 /* EventController.swift */,
+				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		011E44B627F69C3300EBFCC1 /* todo */ = {
+			isa = PBXGroup;
+			children = (
+				018A49BA27D5D52D003E18B2 /* TodoController.swift */,
+				018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */,
+				018A49BF27D62810003E18B2 /* TodoMemoView.swift */,
+			);
+			path = todo;
+			sourceTree = "<group>";
+		};
+		011E44B727F69C3D00EBFCC1 /* todoAdd */ = {
+			isa = PBXGroup;
+			children = (
+				01434BF527C600D1005241DB /* TodoAddController.swift */,
+				018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */,
+				018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */,
+				018CA5CD27D1B4300093E9DD /* AddTextView.swift */,
+			);
+			path = todoAdd;
+			sourceTree = "<group>";
+		};
 		0134D15C27BDDE0400552FE0 = {
 			isa = PBXGroup;
 			children = (
@@ -202,7 +242,6 @@
 				01B1D8A827E417D5001863C8 /* OurDday.entitlements */,
 				0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */,
 				0134D16827BDDE0400552FE0 /* AppDelegate.swift */,
-				0134D19227BDE30E00552FE0 /* views */,
 				0134D17D27BDE10C00552FE0 /* viewControllers */,
 				01FE725427C7ABEB009B5425 /* viewmodels */,
 				0138EB0627BE692D003E99B1 /* models */,
@@ -227,14 +266,15 @@
 		0134D17D27BDE10C00552FE0 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
 				011E44A127F5935200EBFCC1 /* ContentDatePickerController.swift */,
 				0134D18127BDE2AF00552FE0 /* MainTabController.swift */,
 				011E44A327F5EE1800EBFCC1 /* firstLaunch */,
 				011E44A627F5F16200EBFCC1 /* home */,
-				0134D18627BDE2AF00552FE0 /* EventController.swift */,
-				0134D18527BDE2AF00552FE0 /* CalendarController.swift */,
-				018A49BA27D5D52D003E18B2 /* TodoController.swift */,
-				01434BF527C600D1005241DB /* TodoAddController.swift */,
+				011E44B527F69C1E00EBFCC1 /* event */,
+				011E44B427F69C0F00EBFCC1 /* calendar */,
+				011E44B627F69C3300EBFCC1 /* todo */,
+				011E44B727F69C3D00EBFCC1 /* todoAdd */,
 			);
 			path = viewControllers;
 			sourceTree = "<group>";
@@ -260,18 +300,6 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
-		0134D19227BDE30E00552FE0 /* views */ = {
-			isa = PBXGroup;
-			children = (
-				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
-				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
-				013822C127C9D64B003949DF /* Calendar */,
-				01FE724D27C630F0009B5425 /* CalenderAdd */,
-				018A49BC27D62345003E18B2 /* Todo */,
-			);
-			path = views;
-			sourceTree = "<group>";
-		};
 		0134D19527BDE7DC00552FE0 /* realmModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,15 +318,6 @@
 			path = managers;
 			sourceTree = "<group>";
 		};
-		013822C127C9D64B003949DF /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				018CA5C727CF9B650093E9DD /* FSCalendarView.swift */,
-				01434BF727C6058E005241DB /* CalendarTodoCell.swift */,
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
 		0138EB0627BE692D003E99B1 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,15 +328,6 @@
 			path = models;
 			sourceTree = "<group>";
 		};
-		018A49BC27D62345003E18B2 /* Todo */ = {
-			isa = PBXGroup;
-			children = (
-				018A49BD27D62362003E18B2 /* TodoTitleDateView.swift */,
-				018A49BF27D62810003E18B2 /* TodoMemoView.swift */,
-			);
-			path = Todo;
-			sourceTree = "<group>";
-		};
 		01B1D89B27E36EE1001863C8 /* OurDdayWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,16 +336,6 @@
 				01B1D8A027E36EE3001863C8 /* Info.plist */,
 			);
 			path = OurDdayWidget;
-			sourceTree = "<group>";
-		};
-		01FE724D27C630F0009B5425 /* CalenderAdd */ = {
-			isa = PBXGroup;
-			children = (
-				018CA5C927D0D84D0093E9DD /* AddTextFieldView.swift */,
-				018CA5CB27D0D8560093E9DD /* AddDatePickerView.swift */,
-				018CA5CD27D1B4300093E9DD /* AddTextView.swift */,
-			);
-			path = CalenderAdd;
 			sourceTree = "<group>";
 		};
 		01FE725427C7ABEB009B5425 /* viewmodels */ = {
