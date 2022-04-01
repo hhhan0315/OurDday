@@ -11,6 +11,10 @@ import WidgetKit
 import PhotosUI
 import CropViewController
 
+protocol SideMenuControllerDeleagte: AnyObject {
+    func sideMenuControllerDidSave()
+}
+
 class SideMenuNavController: SideMenuNavigationController {
 
     override func viewDidLoad() {
@@ -27,6 +31,8 @@ class SideMenuController: UITableViewController {
     
     private let viewModel = SideMenuViewModel()
     private let localStorage = LocalStorage()
+    
+    weak var delegate: SideMenuControllerDeleagte?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +82,7 @@ extension SideMenuController {
             dateAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 self.localStorage.setFirstDate(date: contentController.datePicker.date)
                 self.updateWidgetCenter()
+                self.delegate?.sideMenuControllerDidSave()
                 self.dismiss(animated: true)
             }))
             dateAlert.setValue(contentController, forKey: "contentViewController")
@@ -96,6 +103,7 @@ extension SideMenuController {
                 guard let phrases = phrasesAlert.textFields?[0].text else { return }
                 self.localStorage.setPhrases(phrases: phrases)
                 self.updateWidgetCenter()
+                self.delegate?.sideMenuControllerDidSave()
                 self.dismiss(animated: true)
             }))
             present(phrasesAlert, animated: true)
@@ -122,6 +130,7 @@ extension SideMenuController {
             removeAlertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 PhotoManager.shared.removeImageFromDocumentDirectory()
                 self.updateWidgetCenter()
+                self.delegate?.sideMenuControllerDidSave()
                 self.dismiss(animated: true)
             }))
             present(removeAlertController, animated: true)
@@ -139,12 +148,12 @@ extension SideMenuController {
 extension SideMenuController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let cropViewController = CropViewController(image: image)
             cropViewController.delegate = self
-            cropViewController.customAspectRatio = CGSize(width: tableView.frame.width, height: tableView.frame.height)
+            cropViewController.customAspectRatio = CGSize(width: self.view.frame.width, height: self.view.frame.height)
             cropViewController.resetAspectRatioEnabled = false
             cropViewController.aspectRatioPickerButtonHidden = true
             present(cropViewController, animated: true, completion: nil)
@@ -168,7 +177,7 @@ extension SideMenuController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     let cropViewController = CropViewController(image: image)
                     cropViewController.delegate = self
-                    cropViewController.customAspectRatio = CGSize(width: self.tableView.frame.width, height: self.tableView.frame.height)
+                    cropViewController.customAspectRatio = CGSize(width: self.view.frame.width, height: self.view.frame.height)
                     cropViewController.resetAspectRatioEnabled = false
                     cropViewController.aspectRatioPickerButtonHidden = true
                     self.present(cropViewController, animated: true, completion: nil)
@@ -185,6 +194,7 @@ extension SideMenuController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         PhotoManager.shared.saveImageToDocumentDirectory(image: image)
         updateWidgetCenter()
+        delegate?.sideMenuControllerDidSave()
         
         cropViewController.dismiss(animated: true, completion: nil)
     }

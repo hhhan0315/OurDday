@@ -59,23 +59,11 @@ final class HomeController: UIViewController {
         navigationItem.title = "디데이"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(touchLineButton))
-//        if #available(iOS 14.0, *) {
-//            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(touchGearButton))
-//        } else {
-//            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(touchGearButton))
-//        }
     }
     
     private func updateAnimate() {
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-            self.homeView.alpha = 0.5
-        } completion: { _ in
-            UIView.animate(withDuration: 0.5, delay: 0.1) {
-                self.homeView.alpha = 1.0
-                self.viewModel.updateUser()
-                self.homeView.setUser(self.viewModel.user())
-            }
-        }
+        self.viewModel.updateUser()
+        self.homeView.setUser(self.viewModel.user())
     }
     
     // MARK: - Actions
@@ -89,15 +77,17 @@ final class HomeController: UIViewController {
 //    }
     
     @objc func touchLineButton() {
-        let sideMenuNavController = SideMenuNavController(rootViewController: SideMenuController())
+        let sideMenuController = SideMenuController()
+        sideMenuController.delegate = self
+        let sideMenuNavController = SideMenuNavController(rootViewController: sideMenuController)
         present(sideMenuNavController, animated: true)
     }
 }
 
-// MARK: - SideMenuNavigationControllerDelegate
+// MARK: - SideMenuControllerDeleagte
 
-extension HomeController: SideMenuNavigationControllerDelegate {
-    func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
+extension HomeController: SideMenuControllerDeleagte {
+    func sideMenuControllerDidSave() {
         updateAnimate()
     }
 }
