@@ -27,7 +27,7 @@ final class FirstLaunchView: UIView {
     let dateButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(Date().toButtonStringKST(), for: .normal)
-        button.setTitleColor(.mainColor, for: .normal)
+        button.setTitleColor(UIColor.sampleMainColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         return button
     }()

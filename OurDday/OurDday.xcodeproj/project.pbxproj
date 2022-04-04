@@ -14,6 +14,8 @@
 		011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A727F6834000EBFCC1 /* HomeViewModel.swift */; };
 		011E44B927F6CFAB00EBFCC1 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44B827F6CFAB00EBFCC1 /* SideMenuController.swift */; };
 		011E44BC27F6D1F900EBFCC1 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */; };
+		0124F15E27FA907500D1723D /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F15D27FA907500D1723D /* CalendarViewModel.swift */; };
+		0124F16027FACAFE00D1723D /* FSCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
@@ -89,6 +91,8 @@
 		011E44A727F6834000EBFCC1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		011E44B827F6CFAB00EBFCC1 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
+		0124F15D27FA907500D1723D /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarViewModel.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -358,6 +362,8 @@
 				011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */,
 				013822BD27C9C8EF003949DF /* EventViewModel.swift */,
 				01FE725727C7AE85009B5425 /* EventCellViewModel.swift */,
+				0124F15D27FA907500D1723D /* CalendarViewModel.swift */,
+				0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */,
 			);
 			path = viewmodels;
 			sourceTree = "<group>";
@@ -532,6 +538,7 @@
 				013822C027C9CA98003949DF /* EventManager.swift in Sources */,
 				01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */,
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
+				0124F15E27FA907500D1723D /* CalendarViewModel.swift in Sources */,
 				018A49C027D62810003E18B2 /* TodoMemoView.swift in Sources */,
 				0134D18C27BDE2AF00552FE0 /* CalendarController.swift in Sources */,
 				011E44BC27F6D1F900EBFCC1 /* SideMenuViewModel.swift in Sources */,
@@ -562,6 +569,7 @@
 				018CA5CA27D0D84D0093E9DD /* AddTextFieldView.swift in Sources */,
 				01C80CAB27C5048700E2845B /* CalendarUtils.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
+				0124F16027FACAFE00D1723D /* FSCalendarViewModel.swift in Sources */,
 				018A49BE27D62362003E18B2 /* TodoTitleDateView.swift in Sources */,
 				018A49BB27D5D52D003E18B2 /* TodoController.swift in Sources */,
 				018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */,

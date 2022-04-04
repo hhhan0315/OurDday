@@ -29,8 +29,7 @@ final class CalendarController: UIViewController {
         return tableView
     }()
     
-    private var selectDate = Date()
-    private var selectCalendarEvents = [CalendarEvent]()
+    private let viewModel = CalendarViewModel()
     
     // MARK: - Life cycle
     
@@ -39,27 +38,27 @@ final class CalendarController: UIViewController {
 
         configureUI()
         
-        updateSelectedCalendarEvents()
-        updateCalendarView()
+        viewModel.updateSelectDate(date: Date())
+        viewModel.updateCalendarEvents()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        checkDateString()
-                
-        if #available(iOS 13.0, *) {
-            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIScene.willEnterForegroundNotification, object: nil)
-        } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIApplication.willEnterForegroundNotification, object: nil)
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        checkDateString()
+//
+//        if #available(iOS 13.0, *) {
+//            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIScene.willEnterForegroundNotification, object: nil)
+//        } else {
+//            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIApplication.willEnterForegroundNotification, object: nil)
+//        }
+//    }
+//
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//
+//        NotificationCenter.default.removeObserver(self)
+//    }
 
     // MARK: - Helpers
     
@@ -88,15 +87,6 @@ final class CalendarController: UIViewController {
         ])
     }
     
-    private func updateSelectedCalendarEvents() {
-        selectCalendarEvents = RealmManager.shared.readCalendarEvent().filter {$0.date.toCalendarDateString() == selectDate.toCalendarDateString()}
-        todoTableView.reloadData()
-    }
-    
-    private func updateCalendarView() {
-        calendarView.calendarEvents = RealmManager.shared.readCalendarEvent()
-    }
-    
     // MARK: - Actions
     
     @objc func touchEditButton(_ sender: UIBarButtonItem) {
@@ -110,61 +100,55 @@ final class CalendarController: UIViewController {
     }
     
     @objc func touchAddButton(_ sender: UIBarButtonItem) {
-        let calendarEventStruct = CalendarEventStruct(date: selectDate)
+        let calendarEventStruct = CalendarEventStruct(date: viewModel.calendarSelectDate())
         
         let todoAddController = TodoAddController()
         todoAddController.calendarEventStruct = calendarEventStruct
         todoAddController.delegate = self
-        
+
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: todoAddController)
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func checkDateString() {
-        let selectDateString = selectDate.toCalendarDateString()
-        let nowDateString = Date().toCalendarDateString()
-        
-        if selectDateString != nowDateString {
-            updateSelectedCalendarEvents()
-            updateCalendarView()
-        }
-    }
+//    @objc func checkDateString() {
+//        let selectDateString = selectDate.toCalendarDateString()
+//        let nowDateString = Date().toCalendarDateString()
+//
+//        if selectDateString != nowDateString {
+//            updateSelectedCalendarEvents()
+//            updateCalendarView()
+//        }
+//    }
 }
 
 // MARK: - UITableViewDataSource
 
 extension CalendarController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel.calendarNumberOfSections()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let count = Calendar.countDaysFromNow(fromDate: selectDate)
-        
-        if count == 0 {
-            return "오늘"
-        } else if count > 0 {
-            return "D+\(abs(count))"
-        } else {
-            return "D\(count)"
-        }
+        return viewModel.calendarTitleHeaderInSection()
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectCalendarEvents.count
+        return viewModel.calendarEventsCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CalendarTodoCell.identifier, for: indexPath) as? CalendarTodoCell else {
             return UITableViewCell()
         }
+        
+        let calendarEvent = viewModel.calendarEvent(at: indexPath.row)
                 
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
-            content.text = selectCalendarEvents[indexPath.row].title
+            content.text = calendarEvent.title
             cell.contentConfiguration = content
         } else {
-            cell.textLabel?.text = selectCalendarEvents[indexPath.row].title
+            cell.textLabel?.text = calendarEvent.title
             cell.textLabel?.numberOfLines = 0
         }
 
@@ -177,13 +161,14 @@ extension CalendarController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let event = selectCalendarEvents[indexPath.row]
-            let alert = UIAlertController(title: "일정 삭제", message: "\(event.title) 삭제하시겠습니까?", preferredStyle: .alert)
+            let calendarEvent = viewModel.calendarEvent(at: indexPath.row)
+            
+            let alert = UIAlertController(title: "일정 삭제", message: "\(calendarEvent.title) 삭제하시겠습니까?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                RealmManager.shared.delete(calendarEvent: event)
-                self.updateCalendarView()
-                self.selectCalendarEvents.remove(at: indexPath.row)
+                RealmManager.shared.delete(calendarEvent: calendarEvent)
+                self.viewModel.updateCalendarEvents()
+                self.calendarView.reload()
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }))
             self.present(alert, animated: true, completion: nil)
@@ -202,8 +187,8 @@ extension CalendarController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let selectCalendarEvent = selectCalendarEvents[indexPath.row]
-        let calendarEventstruct = CalendarEventStruct(calendarEvent: selectCalendarEvent)
+        let calendarEvent = viewModel.calendarEvent(at: indexPath.row)
+        let calendarEventstruct = CalendarEventStruct(calendarEvent: calendarEvent)
         
         let todoController = TodoController()
         todoController.calendarEventStruct = calendarEventstruct
@@ -217,11 +202,13 @@ extension CalendarController: UITableViewDelegate {
 extension CalendarController: TodoAddControllerDelegate {
     func todoAddControllerDidSave(_ controller: TodoAddController, _ calendarEventStruct: CalendarEventStruct) {
         let calendarEvent = CalendarEvent(calendarEventStruct: calendarEventStruct)
-        
+
         RealmManager.shared.insert(calendarEvent: calendarEvent)
+
+        viewModel.updateCalendarEvents()
+        calendarView.reload()
+        todoTableView.reloadData()
         
-        updateSelectedCalendarEvents()
-        updateCalendarView()
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -234,8 +221,9 @@ extension CalendarController: TodoAddControllerDelegate {
 
 extension CalendarController: FSCalendarViewDelegate {
     func fsCalendarChoose(_ date: Date) {
-        self.selectDate = date
-        updateSelectedCalendarEvents()
+        viewModel.updateSelectDate(date: date)
+        viewModel.updateCalendarEvents()
+        todoTableView.reloadData()
     }
 }
 
@@ -244,15 +232,17 @@ extension CalendarController: FSCalendarViewDelegate {
 extension CalendarController: TodoControllerDelegate {
     func todoControllerDidTrash(_ controller: TodoController, _ calendarEventStruct: CalendarEventStruct) {
         let calendarEvent = CalendarEvent(calendarEventStruct: calendarEventStruct)
-        
+
         RealmManager.shared.delete(calendarEvent: calendarEvent)
-        updateSelectedCalendarEvents()
-        updateCalendarView()
+        viewModel.updateCalendarEvents()
+        calendarView.reload()
+        todoTableView.reloadData()
         controller.navigationController?.popViewController(animated: true)
     }
     
     func todoControllerDidBack(_ controller: TodoController) {
-        updateSelectedCalendarEvents()
-        updateCalendarView()
+        viewModel.updateCalendarEvents()
+        calendarView.reload()
+        todoTableView.reloadData()
     }
 }

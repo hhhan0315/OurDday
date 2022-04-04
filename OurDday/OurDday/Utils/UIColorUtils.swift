@@ -27,4 +27,8 @@ extension UIColor {
     static var backgroundColor: UIColor {
         return UIColor.white
     }
+    
+    static var sampleMainColor: UIColor {
+        return UIColor(named: "sampleMainColor")!
+    }
 }

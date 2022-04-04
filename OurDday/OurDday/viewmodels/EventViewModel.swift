@@ -11,13 +11,7 @@ class EventViewModel: NSObject {
     
     private var events = [Event]()
     
-    var todayCount: Int? {
-        didSet {
-            update()
-        }
-    }
-    
-    private func update() {
+    func updateEvent() {
         EventManager.shared.getEvents(completion: { events in
             self.events = events
         })

@@ -10,11 +10,11 @@ import Foundation
 final class EventManager {
     static let shared = EventManager()
     
-    func getTodayCount() -> Int {
-        let firstDayDate = LocalStorage().readFirstDate()
-        let todayCount = Calendar.countDaysFromNow(fromDate: firstDayDate)
-        return todayCount
-    }
+//    func getTodayCount() -> Int {
+//        let firstDayDate = LocalStorage().readFirstDate()
+//        let todayCount = Calendar.countDaysFromNow(fromDate: firstDayDate)
+//        return todayCount
+//    }
     
     func getEvents(completion: @escaping([Event]) -> Void) {
         var events = [Event]()

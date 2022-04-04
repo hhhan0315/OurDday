@@ -25,6 +25,7 @@ class SideMenuNavController: SideMenuNavigationController {
         self.dismissDuration = 0.5
         self.presentationStyle = .menuSlideIn
         self.presentationStyle.presentingEndAlpha = 0.6
+        self.menuWidth = view.frame.width * 0.7
     }
     
 }

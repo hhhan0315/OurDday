@@ -17,17 +17,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconicon" translatesAutoresizingMaskIntoConstraints="NO" id="ADN-ZR-jHM">
-                                <rect key="frame" x="0.0" y="277.5" width="414" height="341"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="64" y="277.5" width="286" height="341"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ADN-ZR-jHM" secondAttribute="trailing" id="6ol-IA-THg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ADN-ZR-jHM" secondAttribute="trailing" constant="64" id="AHG-hC-3jV"/>
                             <constraint firstItem="ADN-ZR-jHM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="OTa-Ye-2wp"/>
+                            <constraint firstItem="ADN-ZR-jHM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64" id="YqB-KH-coC"/>
                             <constraint firstItem="ADN-ZR-jHM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="daF-mH-xWK"/>
-                            <constraint firstItem="ADN-ZR-jHM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lnQ-1I-Rtg"/>
                         </constraints>
                     </view>
                 </viewController>

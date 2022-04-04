@@ -18,12 +18,7 @@ class FSCalendarView: UIView {
 
     weak var delegate: FSCalendarViewDelegate?
     
-    var calendarEvents: [CalendarEvent]? {
-        didSet {
-            calendar.reloadData()
-            calendar.today = Date()
-        }
-    }
+    private let viewModel = FSCalendarViewModel()
 
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -75,6 +70,8 @@ class FSCalendarView: UIView {
         super.init(frame: frame)
         
         configureUI()
+        
+        viewModel.updateCalendarEvents()
     }
     
     required init?(coder: NSCoder) {
@@ -109,9 +106,10 @@ class FSCalendarView: UIView {
         headerLabel.text = calendar.currentPage.toCalendarHeaderLabel()
     }
     
-    private func filterSelectCalendarEvents(date: Date) -> [CalendarEvent] {
-        guard let calendarEvents = calendarEvents else { return [] }
-        return calendarEvents.filter { $0.date.toCalendarDateString() == date.toCalendarDateString() }
+    func reload() {
+        viewModel.updateCalendarEvents()
+        calendar.reloadData()
+        calendar.today = Date()
     }
     
     // MARK: - Actions
@@ -141,7 +139,7 @@ extension FSCalendarView: FSCalendarDelegate {
 
 extension FSCalendarView: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return filterSelectCalendarEvents(date: date).isEmpty ? 0 : 1
+        return viewModel.checkIsEmptyCalendarEvents(date: date) ? 0 : 1
     }
 }
 
@@ -149,10 +147,10 @@ extension FSCalendarView: FSCalendarDataSource {
 
 extension FSCalendarView: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.sampleMainColor]
+        return viewModel.checkIsEmptyCalendarEvents(date: date) ? nil : [UIColor.sampleMainColor]
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return filterSelectCalendarEvents(date: date).isEmpty ? nil : [UIColor.sampleMainColor]
+        return viewModel.checkIsEmptyCalendarEvents(date: date) ? nil : [UIColor.sampleMainColor]
     }
 }

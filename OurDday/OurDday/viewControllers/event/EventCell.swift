@@ -73,9 +73,7 @@ final class EventCell: UITableViewCell {
     }
     
     private func configureViewModel() {
-        guard let viewModel = viewModel else {
-            return
-        }
+        guard let viewModel = viewModel else { return }
         
         titleLabel.text = viewModel.title
         titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor

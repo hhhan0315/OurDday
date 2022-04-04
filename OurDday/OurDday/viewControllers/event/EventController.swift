@@ -19,26 +19,26 @@ final class EventController: UITableViewController {
         super.viewDidLoad()
 
         configureUI()
-        viewModel.todayCount = EventManager.shared.getTodayCount()
+        viewModel.updateEvent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        checkTodayCount()
-        
-        if #available(iOS 13.0, *) {
-            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIScene.willEnterForegroundNotification, object: nil)
-        } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIApplication.willEnterForegroundNotification, object: nil)
-        }
+//        checkTodayCount()
+//
+//        if #available(iOS 13.0, *) {
+//            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIScene.willEnterForegroundNotification, object: nil)
+//        } else {
+//            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIApplication.willEnterForegroundNotification, object: nil)
+//        }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//
+//        NotificationCenter.default.removeObserver(self)
+//    }
     
     // MARK: - Helpers
     
@@ -51,14 +51,14 @@ final class EventController: UITableViewController {
     
     // MARK: - Actions
     
-    @objc func checkTodayCount() {
-        let newTodayCount = EventManager.shared.getTodayCount()
-        
-        if viewModel.todayCount != newTodayCount {
-            viewModel.todayCount = newTodayCount
-            tableView.reloadData()
-        }
-    }
+//    @objc func checkTodayCount() {
+//        let newTodayCount = EventManager.shared.getTodayCount()
+//
+//        if viewModel.todayCount != newTodayCount {
+//            viewModel.todayCount = newTodayCount
+//            tableView.reloadData()
+//        }
+//    }
 
 }
 

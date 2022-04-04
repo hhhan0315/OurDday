@@ -119,12 +119,12 @@ final class TodoController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: doubleAnchorSpace),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -doubleAnchorSpace),
-            titleLabel.heightAnchor.constraint(equalToConstant: 44.0),
+            titleLabel.heightAnchor.constraint(equalToConstant: 40.0),
             
             titleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             titleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: anchorSpace),
             titleView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -anchorSpace),
-            titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44.0),
+            titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0),
             
             dateLabel.topAnchor.constraint(equalTo: titleView.bottomAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -134,7 +134,7 @@ final class TodoController: UIViewController {
             dateView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor),
             dateView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
             dateView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            dateView.heightAnchor.constraint(equalToConstant: 44.0),
+            dateView.heightAnchor.constraint(equalToConstant: 40.0),
             
             memoLabel.topAnchor.constraint(equalTo: dateView.bottomAnchor),
             memoLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -144,7 +144,7 @@ final class TodoController: UIViewController {
             memoView.topAnchor.constraint(equalTo: memoLabel.bottomAnchor),
             memoView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
             memoView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            memoView.heightAnchor.constraint(equalToConstant: 220.0),
+            memoView.heightAnchor.constraint(equalToConstant: 200.0),
         ])
     }
     
