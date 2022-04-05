@@ -145,7 +145,7 @@ struct OurDdayWidgetEntryView : View {
                 if let phrases = entry.phrases {
                     Text(phrases)
                         .foregroundColor(.black)
-                        .font(.system(size: phrasesFontSize, weight: .light, design: .default))
+                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
                         .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
                 }
             }
