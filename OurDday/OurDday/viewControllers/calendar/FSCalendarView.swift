@@ -119,6 +119,9 @@ class FSCalendarView: UIView {
     func reload() {
         viewModel.updateCalendarEvents()
         calendar.reloadData()
+    }
+    
+    func selectToday() {
         calendar.today = Date()
         calendar.select(Date())
     }

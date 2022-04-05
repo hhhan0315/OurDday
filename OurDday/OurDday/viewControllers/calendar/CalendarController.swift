@@ -104,6 +104,7 @@ final class CalendarController: UIViewController {
     }
     
     @objc func handleNotificationTimeChange() {
+        calendarView.selectToday()
         calendarView.reload()
         viewModel.updateSelectDate(date: Date())
         viewModel.updateCalendarEvents()
