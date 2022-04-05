@@ -70,6 +70,7 @@ class FSCalendarView: UIView {
         super.init(frame: frame)
         
         configureUI()
+        configureNotification()
         
         viewModel.updateCalendarEvents()
         calendar.select(Date())
@@ -100,11 +101,19 @@ class FSCalendarView: UIView {
             calendar.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
+    
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+    }
 
     private func moveCurrentPage(moveUp: Bool) {
         let moveDate = Calendar.current.date(byAdding: .month, value: moveUp ? 1 : -1, to: calendar.currentPage) ?? Date()
         calendar.setCurrentPage(moveDate, animated: true)
         headerLabel.text = calendar.currentPage.toCalendarHeaderLabel()
+    }
+    
+    private func calendarChangeColor() {
+        calendar.appearance.selectionColor = LocalStorage().colorForKey()
     }
     
     func reload() {
@@ -121,6 +130,10 @@ class FSCalendarView: UIView {
     
     @objc func touchNextButton(_ sender: UIButton) {
         moveCurrentPage(moveUp: true)
+    }
+    
+    @objc func handleNotificationColorChange() {
+        calendarChangeColor()
     }
 }
 
@@ -148,10 +161,10 @@ extension FSCalendarView: FSCalendarDataSource {
 
 extension FSCalendarView: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return viewModel.checkIsEmptyCalendarEvents(date: date) ? nil : [UIColor.sampleMainColor]
+        return viewModel.checkIsEmptyCalendarEvents(date: date) ? nil : [UIColor.darkGray]
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
-        return viewModel.checkIsEmptyCalendarEvents(date: date) ? nil : [UIColor.sampleMainColor]
+        return viewModel.checkIsEmptyCalendarEvents(date: date) ? nil : [UIColor.darkGray]
     }
 }

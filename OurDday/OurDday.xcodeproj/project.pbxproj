@@ -16,6 +16,7 @@
 		011E44BC27F6D1F900EBFCC1 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */; };
 		0124F15E27FA907500D1723D /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F15D27FA907500D1723D /* CalendarViewModel.swift */; };
 		0124F16027FACAFE00D1723D /* FSCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */; };
+		0124F16427FC200D00D1723D /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F16327FC200D00D1723D /* NotificationUtils.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
@@ -93,6 +94,7 @@
 		011E44BB27F6D1F900EBFCC1 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
 		0124F15D27FA907500D1723D /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarViewModel.swift; sourceTree = "<group>"; };
+		0124F16327FC200D00D1723D /* NotificationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtils.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				01C80CAA27C5048700E2845B /* CalendarUtils.swift */,
 				01FE724B27C6241E009B5425 /* ViewControllerUtils.swift */,
 				018CA5CF27D1B6A40093E9DD /* CGFloatUtils.swift */,
+				0124F16327FC200D00D1723D /* NotificationUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				018A49BE27D62362003E18B2 /* TodoTitleDateView.swift in Sources */,
 				018A49BB27D5D52D003E18B2 /* TodoController.swift in Sources */,
 				018CA5CC27D0D8560093E9DD /* AddDatePickerView.swift in Sources */,
+				0124F16427FC200D00D1723D /* NotificationUtils.swift in Sources */,
 				01C80CA127C36D9700E2845B /* UIColorUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

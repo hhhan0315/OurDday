@@ -37,6 +37,7 @@ final class CalendarController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
+        configureNotification()
         
         viewModel.updateSelectDate(date: Date())
         viewModel.updateCalendarEvents()
@@ -87,6 +88,10 @@ final class CalendarController: UIViewController {
         ])
     }
     
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+    }
+    
     // MARK: - Actions
     
     @objc func touchEditButton(_ sender: UIBarButtonItem) {
@@ -108,6 +113,10 @@ final class CalendarController: UIViewController {
 
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: todoAddController)
         present(nav, animated: true, completion: nil)
+    }
+    
+    @objc func handleNotificationColorChange() {
+        navigationController?.navigationBar.tintColor = LocalStorage().colorForKey()
     }
     
 //    @objc func checkDateString() {

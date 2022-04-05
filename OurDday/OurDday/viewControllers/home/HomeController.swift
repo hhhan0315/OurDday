@@ -32,6 +32,7 @@ final class HomeController: UIViewController {
         super.viewDidLoad()
 
         configureNav()
+        configureNotification()
         
         viewModel.updateUser()
         homeView.setUser(viewModel.user())
@@ -68,6 +69,10 @@ final class HomeController: UIViewController {
         self.homeView.setUser(self.viewModel.user())
     }
     
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+    }
+    
     // MARK: - Actions
     
 //    @objc func checkTodayCount() {
@@ -86,6 +91,11 @@ final class HomeController: UIViewController {
         
         let sideMenuNavController = SideMenuNavController(rootViewController: sideMenuController)
         present(sideMenuNavController, animated: true)
+    }
+    
+    @objc func handleNotificationColorChange() {
+        homeView.setUser(viewModel.user())
+        navigationController?.navigationBar.tintColor = LocalStorage().colorForKey()
     }
 }
 

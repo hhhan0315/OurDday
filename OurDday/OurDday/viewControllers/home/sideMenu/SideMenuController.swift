@@ -245,6 +245,7 @@ extension SideMenuController: UIColorPickerViewControllerDelegate {
         updateWidgetCenter()
 
         // notification center 등록
+        NotificationCenter.default.post(name: Notification.Name.colorChange, object: nil)
         
         dismiss(animated: true)
     }

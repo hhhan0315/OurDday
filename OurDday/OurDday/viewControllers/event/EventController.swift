@@ -19,6 +19,7 @@ final class EventController: UITableViewController {
         super.viewDidLoad()
 
         configureUI()
+        configureNotification()
         viewModel.updateEvent()
     }
     
@@ -49,6 +50,10 @@ final class EventController: UITableViewController {
         tableView.separatorInset.right = tableView.separatorInset.left
     }
     
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+    }
+    
     // MARK: - Actions
     
 //    @objc func checkTodayCount() {
@@ -60,6 +65,9 @@ final class EventController: UITableViewController {
 //        }
 //    }
 
+    @objc func handleNotificationColorChange() {
+        tableView.reloadData()
+    }
 }
 
 // MARK: - UITableViewDataSource

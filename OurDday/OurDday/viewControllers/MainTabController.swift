@@ -15,6 +15,7 @@ final class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         configureUI()
+        configureNotification()
     }
     
     // MARK: - Helpers
@@ -29,7 +30,19 @@ final class MainTabController: UITabBarController {
         
         viewControllers = [home, day, calendar]
         
+        setTintColor()
+    }
+    
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+    }
+    
+    private func setTintColor() {
         tabBar.tintColor = LocalStorage().colorForKey()
+    }
+    
+    @objc func handleNotificationColorChange() {
+        setTintColor()
     }
     
 }
