@@ -42,24 +42,6 @@ final class CalendarController: UIViewController {
         viewModel.updateSelectDate(date: Date())
         viewModel.updateCalendarEvents()
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        checkDateString()
-//
-//        if #available(iOS 13.0, *) {
-//            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIScene.willEnterForegroundNotification, object: nil)
-//        } else {
-//            NotificationCenter.default.addObserver(self, selector: #selector(checkDateString), name: UIApplication.willEnterForegroundNotification, object: nil)
-//        }
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        NotificationCenter.default.removeObserver(self)
-//    }
 
     // MARK: - Helpers
     
@@ -90,6 +72,8 @@ final class CalendarController: UIViewController {
     
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
     // MARK: - Actions
@@ -119,15 +103,12 @@ final class CalendarController: UIViewController {
         navigationController?.navigationBar.tintColor = LocalStorage().colorForKey()
     }
     
-//    @objc func checkDateString() {
-//        let selectDateString = selectDate.toCalendarDateString()
-//        let nowDateString = Date().toCalendarDateString()
-//
-//        if selectDateString != nowDateString {
-//            updateSelectedCalendarEvents()
-//            updateCalendarView()
-//        }
-//    }
+    @objc func handleNotificationTimeChange() {
+        calendarView.reload()
+        viewModel.updateSelectDate(date: Date())
+        viewModel.updateCalendarEvents()
+        todoTableView.reloadData()
+    }
 }
 
 // MARK: - UITableViewDataSource

@@ -23,24 +23,6 @@ final class EventController: UITableViewController {
         viewModel.updateEvent()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        checkTodayCount()
-//
-//        if #available(iOS 13.0, *) {
-//            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIScene.willEnterForegroundNotification, object: nil)
-//        } else {
-//            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIApplication.willEnterForegroundNotification, object: nil)
-//        }
-    }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        NotificationCenter.default.removeObserver(self)
-//    }
-    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -52,20 +34,18 @@ final class EventController: UITableViewController {
     
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
     // MARK: - Actions
-    
-//    @objc func checkTodayCount() {
-//        let newTodayCount = EventManager.shared.getTodayCount()
-//
-//        if viewModel.todayCount != newTodayCount {
-//            viewModel.todayCount = newTodayCount
-//            tableView.reloadData()
-//        }
-//    }
 
     @objc func handleNotificationColorChange() {
+        tableView.reloadData()
+    }
+    
+    @objc func handleNotificationTimeChange() {
+        viewModel.updateEvent()
         tableView.reloadData()
     }
 }

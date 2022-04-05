@@ -20,8 +20,6 @@ final class HomeController: UIViewController {
     
     weak var delegate: HomeControllerDelegate?
     
-//    private var todayCount: Int?
-
     // MARK: - Life cycle
     
     override func loadView() {
@@ -38,24 +36,6 @@ final class HomeController: UIViewController {
         homeView.setUser(viewModel.user())
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        checkTodayCount()
-//
-//        if #available(iOS 13.0, *) {
-//            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIScene.willEnterForegroundNotification, object: nil)
-//        } else {
-//            NotificationCenter.default.addObserver(self, selector: #selector(checkTodayCount), name: UIApplication.willEnterForegroundNotification, object: nil)
-//        }
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        NotificationCenter.default.removeObserver(self)
-//    }
-    
     // MARK: - Helpers
     
     private func configureNav() {
@@ -71,17 +51,11 @@ final class HomeController: UIViewController {
     
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
     // MARK: - Actions
-    
-//    @objc func checkTodayCount() {
-//        let newTodayCount = EventManager.shared.getTodayCount()
-//        
-//        if todayCount != newTodayCount {
-//            todayCount = newTodayCount
-//        }
-//    }
     
     @objc func touchLineButton() {
         let sideMenuController = SideMenuController()
@@ -96,6 +70,10 @@ final class HomeController: UIViewController {
     @objc func handleNotificationColorChange() {
         homeView.setUser(viewModel.user())
         navigationController?.navigationBar.tintColor = LocalStorage().colorForKey()
+    }
+    
+    @objc func handleNotificationTimeChange() {
+        homeView.setUser(viewModel.user())
     }
 }
 

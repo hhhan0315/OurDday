@@ -120,6 +120,7 @@ class FSCalendarView: UIView {
         viewModel.updateCalendarEvents()
         calendar.reloadData()
         calendar.today = Date()
+        calendar.select(Date())
     }
     
     // MARK: - Actions
