@@ -32,9 +32,7 @@ final class FirstLaunchController: UIViewController {
     
     private func configureNav() {
         navigationItem.title = "우리만의 디데이"
-//        navigationController?.navigationBar.tintColor = UIColor.white
-//        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-//        navigationController?.navigationBar.barTintColor = UIColor.mainColor
+        navigationController?.navigationBar.tintColor = UIColor.sampleMainColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
     }
     

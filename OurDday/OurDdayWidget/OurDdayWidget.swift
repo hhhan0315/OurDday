@@ -37,6 +37,16 @@ struct Provider: TimelineProvider {
         if let phrases = userDefaults?.string(forKey: "phrases") {
             entry.phrases = phrases
         }
+        
+        if let colorData = userDefaults?.data(forKey: "mainColor") {
+            do {
+                if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+                    entry.color = color
+                }
+            } catch {
+                print("Error UserDefaults")
+            }
+        }
 
         completion(entry)
     }
@@ -70,6 +80,16 @@ struct Provider: TimelineProvider {
             entry.phrases = phrases
         }
         
+        if let colorData = userDefaults?.data(forKey: "mainColor") {
+            do {
+                if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+                    entry.color = color
+                }
+            } catch {
+                print("Error UserDefaults")
+            }
+        }
+        
         let timeline = Timeline(entries: [entry], policy: .after(endOfDay))
         completion(timeline)
     }
@@ -80,6 +100,7 @@ struct SimpleEntry: TimelineEntry {
     var backgroundImage: UIImage?
     var todayCount: Int?
     var phrases: String?
+    var color: UIColor?
 }
 
 struct OurDdayWidgetEntryView : View {
@@ -114,7 +135,7 @@ struct OurDdayWidgetEntryView : View {
         } else {
             ZStack {
                 if let todayCount = entry.todayCount {
-                    let color = Color(UIColor(red: 0.910, green: 0.478, blue: 0.643, alpha: 1.0))
+                    let color = Color(entry.color ?? UIColor.systemBlue)
                     Text("\(todayCount + 1)일")
                         .foregroundColor(color)
                         .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))

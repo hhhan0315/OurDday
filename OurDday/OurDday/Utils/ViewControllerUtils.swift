@@ -12,8 +12,9 @@ extension UIViewController {
         let nav = UINavigationController(rootViewController: rootViewController)
         nav.tabBarItem.image = unselectedImage
         nav.tabBarItem.selectedImage = selectedImage
-//        nav.navigationBar.tintColor = UIColor.white
-//        nav.navigationBar.barTintColor = UIColor.mainColor
+        nav.navigationBar.tintColor = LocalStorage().colorForKey()
+//        nav.navigationBar.tintColor = UIColor.sampleMainColor
+//        nav.navigationBar.barTintColor = UIColor.sampleMainColor
 //        nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         nav.view.backgroundColor = UIColor.backgroundColor
         return nav
@@ -21,8 +22,9 @@ extension UIViewController {
     
     static func configureTemplateNavigationController(rootViewController: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: rootViewController)
-//        nav.navigationBar.tintColor = UIColor.white
-//        nav.navigationBar.barTintColor = UIColor.mainColor
+        nav.navigationBar.tintColor = LocalStorage().colorForKey()
+//        nav.navigationBar.tintColor = UIColor.sampleMainColor
+//        nav.navigationBar.barTintColor = UIColor.sampleMainColor
 //        nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         nav.view.backgroundColor = UIColor.backgroundColor
         return nav

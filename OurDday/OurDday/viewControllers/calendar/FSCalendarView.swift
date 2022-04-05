@@ -29,7 +29,7 @@ class FSCalendarView: UIView {
         calendar.appearance.titleDefaultColor = UIColor.textColor
         calendar.appearance.titleWeekendColor = .red
         calendar.appearance.todayColor = UIColor.lightGray
-//        calendar.appearance.selectionColor = .darkGray
+        calendar.appearance.selectionColor = LocalStorage().colorForKey()
         calendar.headerHeight = 0
         return calendar
     }()
@@ -72,6 +72,7 @@ class FSCalendarView: UIView {
         configureUI()
         
         viewModel.updateCalendarEvents()
+        calendar.select(Date())
     }
     
     required init?(coder: NSCoder) {

@@ -5,7 +5,7 @@
 //  Created by rae on 2022/02/17.
 //
 
-import Foundation
+import UIKit
 
 struct LocalStorage {
     private let defaults: UserDefaults?
@@ -60,6 +60,33 @@ struct LocalStorage {
         user.date = readFirstDate()
         user.phrases = readPhrases()
         completion(user)
+    }
+    
+    func colorForKey(key: String = "mainColor") -> UIColor? {
+        var colorReturnded: UIColor? = UIColor.systemBlue
+        if let colorData = defaults?.data(forKey: key) {
+            do {
+                if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+                    colorReturnded = color
+                }
+            } catch {
+                print("Error UserDefaults")
+            }
+        }
+        return colorReturnded
+    }
+    
+    func setColor(color: UIColor?, forKey key: String = "mainColor") {
+        var colorData: NSData?
+        if let color = color {
+            do {
+                let data = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) as NSData?
+                colorData = data
+            } catch {
+                print("Error UserDefaults")
+            }
+        }
+        defaults?.set(colorData, forKey: key)
     }
 }
 

@@ -63,7 +63,7 @@ final class HomeController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(touchLineButton))
     }
     
-    private func updateAnimate() {
+    private func updateViewModel() {
         self.viewModel.updateUser()
         self.homeView.setUser(self.viewModel.user())
     }
@@ -93,6 +93,6 @@ final class HomeController: UIViewController {
 
 extension HomeController: SideMenuControllerDeleagte {
     func sideMenuControllerDidSave() {
-        updateAnimate()
+        updateViewModel()
     }
 }

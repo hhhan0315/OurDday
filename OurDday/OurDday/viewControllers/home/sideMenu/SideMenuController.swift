@@ -25,7 +25,7 @@ class SideMenuNavController: SideMenuNavigationController {
         self.dismissDuration = 0.5
         self.presentationStyle = .menuSlideIn
         self.presentationStyle.presentingEndAlpha = 0.6
-        self.menuWidth = view.frame.width * 0.7
+        self.menuWidth = view.frame.width * 0.6
     }
     
 }
@@ -78,7 +78,7 @@ extension SideMenuController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // ["기념일 설정", "문구 설정", "배경화면 설정", "배경화면 사용 안함"]
+        // ["기념일 설정", "문구 설정", "배경화면 설정", "배경화면 사용 안함", "색상 변경"]
         switch indexPath.row {
         case 0:
             let contentController = ContentDatePickerController()
@@ -140,8 +140,29 @@ extension SideMenuController {
                 self.dismiss(animated: true)
             }))
             present(removeAlertController, animated: true)
+            
+        case 4:
+            if #available(iOS 14.0, *) {
+                let colorPicker = UIColorPickerViewController()
+                colorPicker.supportsAlpha = false
+                colorPicker.delegate = self
+                colorPicker.selectedColor = localStorage.colorForKey() ?? UIColor.systemBlue
+                
+                present(colorPicker, animated: true)
+            } else {
+                let colorAlert = UIAlertController(title: "버전 오류", message: "iOS 14부터 가능합니다.", preferredStyle: .alert)
+                colorAlert.addAction(UIAlertAction(title: "확인", style: .cancel))
+                present(colorAlert, animated: true)
+            }
+            
+            
         default: break
         }
+    }
+    
+    @available(iOS 14.0, *)
+    @objc func touchSaveButton(_ colorPicker: UIColorPickerViewController) {
+        colorPicker.dismiss(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -212,5 +233,19 @@ extension SideMenuController: HomeControllerDelegate {
     func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat) {
         imageWidth = width
         imageHeight = height
+    }
+}
+
+// MARK: - UIColorPickerViewControllerDelegate
+
+extension SideMenuController: UIColorPickerViewControllerDelegate {
+    @available(iOS 14.0, *)
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        localStorage.setColor(color: viewController.selectedColor)
+        updateWidgetCenter()
+
+        // notification center 등록
+        
+        dismiss(animated: true)
     }
 }
