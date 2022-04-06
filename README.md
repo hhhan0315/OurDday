@@ -21,9 +21,9 @@
 |![4](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-4.jpg)|![5](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-5.jpg)||
 
 # 1.1
-||||
+|![1.1-1](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-1-1.1.jpg)|![1.1-2](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-2-1.1.jpg)|![1.1-3](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-3-1.1.jpg)|
 |--|--|--|
-|||
+|![1.1-4](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-4-1.1.jpg)|![1.1-5](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-5-1.1.jpg)||
 
 # 진행상황
 https://velog.io/@hhhan0315/iOS-앱-우리만의-디데이
