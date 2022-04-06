@@ -135,7 +135,7 @@ struct OurDdayWidgetEntryView : View {
         } else {
             ZStack {
                 if let todayCount = entry.todayCount {
-                    let color = Color(entry.color ?? UIColor.black)
+                    let color = Color(entry.color ?? UIColor.systemBlue)
                     Text("\(todayCount + 1)일")
                         .foregroundColor(color)
                         .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
