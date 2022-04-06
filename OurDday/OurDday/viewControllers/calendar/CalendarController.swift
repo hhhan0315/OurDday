@@ -71,8 +71,6 @@ final class CalendarController: UIViewController {
     }
     
     private func configureNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
@@ -97,10 +95,6 @@ final class CalendarController: UIViewController {
 
         let nav = CalendarController.configureTemplateNavigationController(rootViewController: todoAddController)
         present(nav, animated: true, completion: nil)
-    }
-    
-    @objc func handleNotificationColorChange() {
-        navigationController?.navigationBar.tintColor = LocalStorage().colorForKey()
     }
     
     @objc func handleNotificationTimeChange() {

@@ -44,6 +44,7 @@ class SideMenuController: UITableViewController {
         super.viewDidLoad()
         
         configureUI()
+        configureNotification()
     }
     
     private func configureUI() {
@@ -53,9 +54,20 @@ class SideMenuController: UITableViewController {
         tableView.separatorInset.right = tableView.separatorInset.left
     }
     
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+    }
+    
     private func updateWidgetCenter() {
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+    
+    @objc func handleNotificationColorChange() {
+        updateWidgetCenter()
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
         }
     }
 }
@@ -143,12 +155,8 @@ extension SideMenuController {
             
         case 4:
             if #available(iOS 14.0, *) {
-                let colorPicker = UIColorPickerViewController()
-                colorPicker.supportsAlpha = false
-                colorPicker.delegate = self
-                colorPicker.selectedColor = localStorage.colorForKey() ?? UIColor.systemBlue
-                
-                present(colorPicker, animated: true)
+                let colorNav = SideMenuController.configureTemplateNavigationController(rootViewController: ColorPickerController())
+                present(colorNav, animated: true)
             } else {
                 let colorAlert = UIAlertController(title: "버전 오류", message: "iOS 14부터 가능합니다.", preferredStyle: .alert)
                 colorAlert.addAction(UIAlertAction(title: "확인", style: .cancel))
@@ -158,11 +166,6 @@ extension SideMenuController {
             
         default: break
         }
-    }
-    
-    @available(iOS 14.0, *)
-    @objc func touchSaveButton(_ colorPicker: UIColorPickerViewController) {
-        colorPicker.dismiss(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -233,20 +236,5 @@ extension SideMenuController: HomeControllerDelegate {
     func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat) {
         imageWidth = width
         imageHeight = height
-    }
-}
-
-// MARK: - UIColorPickerViewControllerDelegate
-
-extension SideMenuController: UIColorPickerViewControllerDelegate {
-    @available(iOS 14.0, *)
-    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        localStorage.setColor(color: viewController.selectedColor)
-        updateWidgetCenter()
-
-        // notification center 등록
-        NotificationCenter.default.post(name: Notification.Name.colorChange, object: nil)
-        
-        dismiss(animated: true)
     }
 }

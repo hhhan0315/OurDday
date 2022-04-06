@@ -63,7 +63,7 @@ struct LocalStorage {
     }
     
     func colorForKey(key: String = "mainColor") -> UIColor? {
-          var colorReturnded: UIColor? = UIColor.systemBlue
+        var colorReturnded: UIColor? = UIColor.black
           if let colorData = defaults?.data(forKey: key) {
               do {
                   if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {

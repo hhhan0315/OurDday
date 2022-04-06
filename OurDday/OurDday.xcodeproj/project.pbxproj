@@ -17,6 +17,7 @@
 		0124F15E27FA907500D1723D /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F15D27FA907500D1723D /* CalendarViewModel.swift */; };
 		0124F16027FACAFE00D1723D /* FSCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */; };
 		0124F16427FC200D00D1723D /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124F16327FC200D00D1723D /* NotificationUtils.swift */; };
+		0133CB8A27FD9B1700711DB2 /* ColorPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0133CB8927FD9B1700711DB2 /* ColorPickerController.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		0124F15D27FA907500D1723D /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		0124F15F27FACAFE00D1723D /* FSCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarViewModel.swift; sourceTree = "<group>"; };
 		0124F16327FC200D00D1723D /* NotificationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtils.swift; sourceTree = "<group>"; };
+		0133CB8927FD9B1700711DB2 /* ColorPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerController.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				011E44B827F6CFAB00EBFCC1 /* SideMenuController.swift */,
+				0133CB8927FD9B1700711DB2 /* ColorPickerController.swift */,
 			);
 			path = sideMenu;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
 				0134D18D27BDE2AF00552FE0 /* EventController.swift in Sources */,
 				0138EB0827BE6938003E99B1 /* Event.swift in Sources */,
+				0133CB8A27FD9B1700711DB2 /* ColorPickerController.swift in Sources */,
 				011E44A027F2FF2300EBFCC1 /* HomeView.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */,
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
@@ -754,7 +758,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rae.OurDday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -789,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rae.OurDday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -818,7 +822,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rae.OurDday.OurDdayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -847,7 +851,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rae.OurDday.OurDdayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

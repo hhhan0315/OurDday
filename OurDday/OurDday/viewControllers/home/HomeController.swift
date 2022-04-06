@@ -69,7 +69,6 @@ final class HomeController: UIViewController {
     
     @objc func handleNotificationColorChange() {
         homeView.setUser(viewModel.user())
-        navigationController?.navigationBar.tintColor = LocalStorage().colorForKey()
     }
     
     @objc func handleNotificationTimeChange() {
