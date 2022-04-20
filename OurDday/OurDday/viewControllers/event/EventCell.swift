@@ -22,18 +22,21 @@ final class EventCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleSemiBold)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let dateTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.smallSystem)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let countLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFontSize(.middleSemiBold)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -48,6 +51,12 @@ final class EventCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func updateConstraints() {
+        configureConstraints()
+        
+        super.updateConstraints()
+    }
 
     // MARK: - Helpers
     
@@ -55,11 +64,9 @@ final class EventCell: UITableViewCell {
         addSubview(titleLabel)
         addSubview(dateTitleLabel)
         addSubview(countLabel)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+    }
+    
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10.0),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
@@ -83,6 +90,8 @@ final class EventCell: UITableViewCell {
         
         dateTitleLabel.text = viewModel.dateTitle
         dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor
+        
+        setNeedsUpdateConstraints()
     }
     
 }
