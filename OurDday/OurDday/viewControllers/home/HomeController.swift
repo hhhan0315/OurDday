@@ -58,13 +58,13 @@ final class HomeController: UIViewController {
     // MARK: - Actions
     
     @objc func touchLineButton() {
-        let sideMenuController = SideMenuController()
-        sideMenuController.delegate = self
-        delegate = sideMenuController
-        delegate?.homeControllerImageSize(homeView.backgroundImageView.frame.width, homeView.backgroundImageView.frame.height)
+//        let sideMenuController = SideMenuController()
+//        sideMenuController.delegate = self
+//        delegate = sideMenuController
+//        delegate?.homeControllerImageSize(homeView.backgroundImageView.frame.width, homeView.backgroundImageView.frame.height)
         
-        let sideMenuNavController = SideMenuNavController(rootViewController: sideMenuController)
-        present(sideMenuNavController, animated: true)
+//        let sideMenuNavController = SideMenuNavController(rootViewController: sideMenuController)
+//        present(sideMenuNavController, animated: true)
     }
     
     @objc func handleNotificationColorChange() {
@@ -78,8 +78,8 @@ final class HomeController: UIViewController {
 
 // MARK: - SideMenuControllerDeleagte
 
-extension HomeController: SideMenuControllerDeleagte {
-    func sideMenuControllerDidSave() {
-        updateViewModel()
-    }
-}
+//extension HomeController: SideMenuControllerDeleagte {
+//    func sideMenuControllerDidSave() {
+//        updateViewModel()
+//    }
+//}
