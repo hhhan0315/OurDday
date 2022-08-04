@@ -11,7 +11,7 @@ final class HomeView: UIView {
     
     private let phrasesLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.wordRegular)
+//        label.font = UIFont.customFontSize(.wordRegular)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -19,14 +19,14 @@ final class HomeView: UIView {
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.bigHomeBold)
+//        label.font = UIFont.customFontSize(.bigHomeBold)
         label.textAlignment = .center
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.dateRegular)
+//        label.font = UIFont.customFontSize(.dateRegular)
         label.textAlignment = .center
         return label
     }()
@@ -84,7 +84,7 @@ final class HomeView: UIView {
     func setUser(_ user: User) {
         phrasesLabel.text = user.phrases
         countLabel.text = "\(Calendar.countDaysFromNow(fromDate: user.date) + 1)일"
-        dateLabel.text = user.date.toButtonStringKST()
+//        dateLabel.text = user.date.toButtonStringKST()
         
         if let url = user.imageUrl,
            let image = UIImage(contentsOfFile: url.path){
@@ -95,7 +95,7 @@ final class HomeView: UIView {
         } else {
             backgroundImageView.image = nil
             phrasesLabel.textColor = UIColor.black
-            countLabel.textColor = LocalStorage().colorForKey()
+//            countLabel.textColor = LocalStorageManager.shared.colorForKey()
             dateLabel.textColor = UIColor.darkGrayColor
         }
     }

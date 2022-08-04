@@ -12,96 +12,87 @@ final class FirstLaunchController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "우리 처음 만난 날"
-        label.font = UIFont.customFontSize(.bigBold)
+        label.font = UIFont.customFont(.largeTitle)
         return label
     }()
     
-    private let infoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "날짜를 선택해주세요"
-        label.font = UIFont.customFontSize(.middleSystem)
-        label.textColor = UIColor.darkGrayColor
-        return label
+    private lazy var dateButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle(DateFormatter().toTodayYearMonthDay(date: Date()), for: .normal)
+        button.titleLabel?.font = UIFont.customFont(.largeTitle)
+        button.setTitleColor(UIColor.systemBackground, for: .normal)
+        button.addTarget(self, action: #selector(touchDateButton(_:)), for: .touchUpInside)
+        return button
     }()
     
-    private let dateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(Date().toButtonStringKST(), for: .normal)
-        button.setTitleColor(UIColor.sampleMainColor, for: .normal)
+    private lazy var startButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("시작하기", for: .normal)
+        button.titleLabel?.font = UIFont.customFont(.largeTitle)
+        button.setTitleColor(UIColor.secondarySystemBackground, for: .normal)
+        button.addTarget(self, action: #selector(touchStartButton(_:)), for: .touchUpInside)
         return button
     }()
     
     // MARK: - Properties
-    private let localStorage = LocalStorage()
+    private let localStorageManager = LocalStorageManager.shared
 
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNav()
-        saveFirstDay()
-        setupAddTarget()
+        view.backgroundColor = UIColor.mainColor
+        
+        setupViews()
+//        saveFirstDay()
     }
 
     // MARK: - Layout
     private func setupViews() {
-        
+        addSubviews()
+        makeConstraints()
     }
     
     private func addSubviews() {
-        [titleLabel, infoLabel, dateButton].forEach {
+        [titleLabel, dateButton, startButton].forEach {
             view.addSubview($0)
         }
     }
-    private func configureUI() {
-        [titleLabel, infoLabel, dateButton].forEach {
+    private func makeConstraints() {
+        [titleLabel, dateButton, startButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
         NSLayoutConstraint.activate([
-//            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -125),
-//
-//            infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
-//
-//            dateButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            dateButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 50),
-//            dateButton.widthAnchor.constraint(equalTo: widthAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+
+            dateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dateButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
         ])
     }
     
-    private func configureNav() {
-        navigationItem.title = "우리만의 디데이"
-        navigationController?.navigationBar.tintColor = UIColor.black
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(touchUpOkButton(_:)))
-    }
-    
     private func saveFirstDay() {
-        localStorage.setFirstDate(date: Date())
+//        localStorage.setFirstDate(date: Date())
     }
     
-    private func setupAddTarget() {
-        dateButton.addTarget(self, action: #selector(touchUpDateButton(_:)), for: .touchUpInside)
+    // MARK: - Objc
+    @objc private func touchStartButton(_ sender: UIBarButtonItem) {
+//        localStorageManager.setFirstTime()
+        view.window?.rootViewController = HomeController()
     }
     
-    // MARK: - Actions
-    
-    @objc func touchUpOkButton(_ sender: UIBarButtonItem) {
-        localStorage.setFirstTime()
-        localStorage.setPhrases(phrases: "우리 디데이")
-        view.window?.rootViewController = MainTabController()
-    }
-    
-    @objc func touchUpDateButton(_ sender: UIButton) {
-        let contentController = ContentDatePickerController()
+    @objc private func touchDateButton(_ sender: UIButton) {
+        let datePickerController = DatePickerController()
         
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            self.localStorage.setFirstDate(date: contentController.datePicker.date)
-            self.dateButton.setTitle(contentController.datePicker.date.toButtonStringKST(), for: .normal)
+            self.dateButton.setTitle(DateFormatter().toTodayYearMonthDay(date: datePickerController.datePicker.date), for: .normal)
         }))
-        alert.setValue(contentController, forKey: "contentViewController")
+        alert.setValue(datePickerController, forKey: "contentViewController")
         
         present(alert, animated: true, completion: nil)
     }

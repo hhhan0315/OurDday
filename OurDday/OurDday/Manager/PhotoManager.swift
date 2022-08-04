@@ -32,7 +32,7 @@ final class PhotoManager {
         
         do {
             try data.write(to: imageUrl)
-            LocalStorage().setImageUrl(url: imageUrl)
+            LocalStorageManager.shared.setImageUrl(url: imageUrl)
             print("이미지 저장 완료")
         } catch {
             print("이미지 저장 실패")

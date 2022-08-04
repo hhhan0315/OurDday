@@ -8,7 +8,7 @@
 import Foundation
 
 class HomeViewModel: NSObject {
-    private let storage = LocalStorage()
+    private let storage = LocalStorageManager.shared
     
     private var homeUser = User.EMPTY
     

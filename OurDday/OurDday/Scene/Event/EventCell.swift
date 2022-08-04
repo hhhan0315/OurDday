@@ -21,21 +21,21 @@ final class EventCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.middleSemiBold)
+//        label.font = UIFont.customFontSize(.middleSemiBold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let dateTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.smallSystem)
+//        label.font = UIFont.customFontSize(.smallSystem)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFontSize(.middleSemiBold)
+//        label.font = UIFont.customFontSize(.middleSemiBold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -86,7 +86,7 @@ final class EventCell: UITableViewCell {
         titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor
         
         countLabel.text = viewModel.countTitle
-        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : LocalStorage().colorForKey()
+//        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : LocalStorageManager.shared.colorForKey()
         
         dateTitleLabel.text = viewModel.dateTitle
         dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor

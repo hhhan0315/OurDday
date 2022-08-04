@@ -15,7 +15,7 @@ class EventCellViewModel: NSObject {
     init(event: Event) {
         self.event = event
         self.calendar = Calendar.current
-        self.firstDayDate = LocalStorage().readFirstDate()
+        self.firstDayDate = LocalStorageManager.shared.readFirstDate()
     }
     
     var title: String {
