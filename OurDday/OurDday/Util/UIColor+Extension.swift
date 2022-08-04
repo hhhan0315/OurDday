@@ -1,5 +1,5 @@
 //
-//  UIColor.swift
+//  UIColor+Extension.swift
 //  OurDday
 //
 //  Created by rae on 2022/02/21.
@@ -8,8 +8,8 @@
 import UIKit
 
 extension UIColor {
-    static var mainColor: UIColor {
-        return UIColor(named: "mainColor")!
+    static var mainColor: UIColor? {
+        return UIColor(named: "MainColor")
     }
     
     static var textColor: UIColor {
@@ -26,9 +26,5 @@ extension UIColor {
         
     static var backgroundColor: UIColor {
         return UIColor.white
-    }
-    
-    static var sampleMainColor: UIColor {
-        return UIColor(named: "sampleMainColor")!
     }
 }

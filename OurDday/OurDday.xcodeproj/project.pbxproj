@@ -8,15 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		011E44A027F2FF2300EBFCC1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E449F27F2FF2300EBFCC1 /* HomeView.swift */; };
-		011E44A227F5935200EBFCC1 /* ContentDatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A127F5935200EBFCC1 /* ContentDatePickerController.swift */; };
+		011E44A227F5935200EBFCC1 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A127F5935200EBFCC1 /* DatePickerController.swift */; };
 		011E44A527F5F10400EBFCC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A427F5F10400EBFCC1 /* User.swift */; };
 		011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A727F6834000EBFCC1 /* HomeViewModel.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
 		0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
 		0134D17527BDDE0600552FE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17327BDDE0600552FE0 /* LaunchScreen.storyboard */; };
-		0134D18027BDE14200552FE0 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D17F27BDE14200552FE0 /* LocalStorage.swift */; };
-		0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18127BDE2AF00552FE0 /* MainTabController.swift */; };
+		0134D18027BDE14200552FE0 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D17F27BDE14200552FE0 /* LocalStorageManager.swift */; };
 		0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18327BDE2AF00552FE0 /* HomeController.swift */; };
 		0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */; };
 		0134D18D27BDE2AF00552FE0 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18627BDE2AF00552FE0 /* EventController.swift */; };
@@ -24,21 +23,21 @@
 		013822C027C9CA98003949DF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BF27C9CA98003949DF /* EventManager.swift */; };
 		0138EB0827BE6938003E99B1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* Event.swift */; };
 		0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* EventCell.swift */; };
-		01764061289BC4130070B02A /* UIColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405A289BC4130070B02A /* UIColorUtils.swift */; };
+		01764061289BC4130070B02A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405A289BC4130070B02A /* UIColor+Extension.swift */; };
 		01764062289BC4130070B02A /* CGFloatUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405B289BC4130070B02A /* CGFloatUtils.swift */; };
-		01764063289BC4130070B02A /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405C289BC4130070B02A /* FontUtils.swift */; };
-		01764064289BC4130070B02A /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405D289BC4130070B02A /* DateUtils.swift */; };
+		01764063289BC4130070B02A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405C289BC4130070B02A /* UIFont+Extension.swift */; };
+		01764064289BC4130070B02A /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405D289BC4130070B02A /* DateFormatter+Extension.swift */; };
 		01764065289BC4130070B02A /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405E289BC4130070B02A /* NotificationUtils.swift */; };
 		01764066289BC4130070B02A /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405F289BC4130070B02A /* ViewControllerUtils.swift */; };
 		01764067289BC4130070B02A /* CalendarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01764060289BC4130070B02A /* CalendarUtils.swift */; };
+		0176406C289BFB510070B02A /* BMJUA_ttf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0176406B289BFB510070B02A /* BMJUA_ttf.ttf */; };
+		0176406D289BFB510070B02A /* BMJUA_ttf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0176406B289BFB510070B02A /* BMJUA_ttf.ttf */; };
 		018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49C627D9D331003E18B2 /* PhotoManager.swift */; };
-		01B1D86527E1B0F6001863C8 /* CalendarEventStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D86427E1B0F6001863C8 /* CalendarEventStruct.swift */; };
 		01B1D89827E36EE1001863C8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89727E36EE1001863C8 /* WidgetKit.framework */; };
 		01B1D89A27E36EE1001863C8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89927E36EE1001863C8 /* SwiftUI.framework */; };
 		01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D89C27E36EE1001863C8 /* OurDdayWidget.swift */; };
 		01B1D89F27E36EE3001863C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01B1D89E27E36EE3001863C8 /* Assets.xcassets */; };
 		01B1D8A327E36EE3001863C8 /* OurDdayWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 01B1D89627E36EE1001863C8 /* OurDdayWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */; };
 		01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE725727C7AE85009B5425 /* EventCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +67,7 @@
 
 /* Begin PBXFileReference section */
 		011E449F27F2FF2300EBFCC1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		011E44A127F5935200EBFCC1 /* ContentDatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDatePickerController.swift; sourceTree = "<group>"; };
+		011E44A127F5935200EBFCC1 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
 		011E44A427F5F10400EBFCC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		011E44A727F6834000EBFCC1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,8 +76,7 @@
 		0134D17127BDDE0600552FE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0134D17427BDDE0600552FE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0134D17627BDDE0600552FE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0134D17F27BDE14200552FE0 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
-		0134D18127BDE2AF00552FE0 /* MainTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		0134D17F27BDE14200552FE0 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		0134D18327BDE2AF00552FE0 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		0134D18427BDE2AF00552FE0 /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		0134D18627BDE2AF00552FE0 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
@@ -86,15 +84,15 @@
 		013822BF27C9CA98003949DF /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		0138EB0727BE6938003E99B1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0138EB0927BF44CE003E99B1 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
-		0176405A289BC4130070B02A /* UIColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorUtils.swift; sourceTree = "<group>"; };
+		0176405A289BC4130070B02A /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		0176405B289BC4130070B02A /* CGFloatUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatUtils.swift; sourceTree = "<group>"; };
-		0176405C289BC4130070B02A /* FontUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
-		0176405D289BC4130070B02A /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		0176405C289BC4130070B02A /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		0176405D289BC4130070B02A /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		0176405E289BC4130070B02A /* NotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationUtils.swift; sourceTree = "<group>"; };
 		0176405F289BC4130070B02A /* ViewControllerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		01764060289BC4130070B02A /* CalendarUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarUtils.swift; sourceTree = "<group>"; };
+		0176406B289BFB510070B02A /* BMJUA_ttf.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMJUA_ttf.ttf; sourceTree = "<group>"; };
 		018A49C627D9D331003E18B2 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
-		01B1D86427E1B0F6001863C8 /* CalendarEventStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventStruct.swift; sourceTree = "<group>"; };
 		01B1D89627E36EE1001863C8 /* OurDdayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OurDdayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B1D89727E36EE1001863C8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		01B1D89927E36EE1001863C8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -103,7 +101,6 @@
 		01B1D8A027E36EE3001863C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01B1D8A827E417D5001863C8 /* OurDday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OurDday.entitlements; sourceTree = "<group>"; };
 		01B1D8A927E417ED001863C8 /* OurDdayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OurDdayWidgetExtension.entitlements; sourceTree = "<group>"; };
-		01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		01FE725727C7AE85009B5425 /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,7 +176,6 @@
 		0134D16727BDDE0400552FE0 /* OurDday */ = {
 			isa = PBXGroup;
 			children = (
-				0134D17627BDDE0600552FE0 /* Info.plist */,
 				01B1D8A827E417D5001863C8 /* OurDday.entitlements */,
 				01764068289BC5320070B02A /* Application */,
 				0138EB0627BE692D003E99B1 /* Model */,
@@ -196,6 +192,8 @@
 			children = (
 				0134D17327BDDE0600552FE0 /* LaunchScreen.storyboard */,
 				0134D17127BDDE0600552FE0 /* Assets.xcassets */,
+				0134D17627BDDE0600552FE0 /* Info.plist */,
+				0176406B289BFB510070B02A /* BMJUA_ttf.ttf */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -203,7 +201,7 @@
 		0134D19827BDEAEF00552FE0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				0134D17F27BDE14200552FE0 /* LocalStorage.swift */,
+				0134D17F27BDE14200552FE0 /* LocalStorageManager.swift */,
 				013822BF27C9CA98003949DF /* EventManager.swift */,
 				018A49C627D9D331003E18B2 /* PhotoManager.swift */,
 			);
@@ -215,7 +213,6 @@
 			children = (
 				011E44A427F5F10400EBFCC1 /* User.swift */,
 				0138EB0727BE6938003E99B1 /* Event.swift */,
-				01B1D86427E1B0F6001863C8 /* CalendarEventStruct.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,10 +220,10 @@
 		01764059289BC4130070B02A /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				0176405A289BC4130070B02A /* UIColorUtils.swift */,
+				0176405A289BC4130070B02A /* UIColor+Extension.swift */,
 				0176405B289BC4130070B02A /* CGFloatUtils.swift */,
-				0176405C289BC4130070B02A /* FontUtils.swift */,
-				0176405D289BC4130070B02A /* DateUtils.swift */,
+				0176405C289BC4130070B02A /* UIFont+Extension.swift */,
+				0176405D289BC4130070B02A /* DateFormatter+Extension.swift */,
 				0176405E289BC4130070B02A /* NotificationUtils.swift */,
 				0176405F289BC4130070B02A /* ViewControllerUtils.swift */,
 				01764060289BC4130070B02A /* CalendarUtils.swift */,
@@ -246,9 +243,7 @@
 		01764069289BC53C0070B02A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				01C80CA227C3BF0C00E2845B /* CustomDatePicker.swift */,
-				011E44A127F5935200EBFCC1 /* ContentDatePickerController.swift */,
-				0134D18127BDE2AF00552FE0 /* MainTabController.swift */,
+				011E44A127F5935200EBFCC1 /* DatePickerController.swift */,
 				011E44A327F5EE1800EBFCC1 /* FirstLaunch */,
 				011E44A627F5F16200EBFCC1 /* Home */,
 				011E44B527F69C1E00EBFCC1 /* Event */,
@@ -357,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0134D17527BDDE0600552FE0 /* LaunchScreen.storyboard in Resources */,
+				0176406C289BFB510070B02A /* BMJUA_ttf.ttf in Resources */,
 				0134D17227BDDE0600552FE0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01B1D89F27E36EE3001863C8 /* Assets.xcassets in Resources */,
+				0176406D289BFB510070B02A /* BMJUA_ttf.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,12 +374,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				01764065289BC4130070B02A /* NotificationUtils.swift in Sources */,
-				0134D18027BDE14200552FE0 /* LocalStorage.swift in Sources */,
+				0134D18027BDE14200552FE0 /* LocalStorageManager.swift in Sources */,
 				01764066289BC4130070B02A /* ViewControllerUtils.swift in Sources */,
 				013822C027C9CA98003949DF /* EventManager.swift in Sources */,
-				01C80CA327C3BF0C00E2845B /* CustomDatePicker.swift in Sources */,
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
-				01764063289BC4130070B02A /* FontUtils.swift in Sources */,
+				01764063289BC4130070B02A /* UIFont+Extension.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
 				0134D18D27BDE2AF00552FE0 /* EventController.swift in Sources */,
 				0138EB0827BE6938003E99B1 /* Event.swift in Sources */,
@@ -391,15 +387,13 @@
 				0134D18A27BDE2AF00552FE0 /* HomeController.swift in Sources */,
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
 				0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */,
-				01B1D86527E1B0F6001863C8 /* CalendarEventStruct.swift in Sources */,
 				011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */,
-				01764064289BC4130070B02A /* DateUtils.swift in Sources */,
-				01764061289BC4130070B02A /* UIColorUtils.swift in Sources */,
+				01764064289BC4130070B02A /* DateFormatter+Extension.swift in Sources */,
+				01764061289BC4130070B02A /* UIColor+Extension.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchController.swift in Sources */,
 				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
 				011E44A527F5F10400EBFCC1 /* User.swift in Sources */,
-				011E44A227F5935200EBFCC1 /* ContentDatePickerController.swift in Sources */,
-				0134D18827BDE2AF00552FE0 /* MainTabController.swift in Sources */,
+				011E44A227F5935200EBFCC1 /* DatePickerController.swift in Sources */,
 				01764062289BC4130070B02A /* CGFloatUtils.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
 			);
@@ -487,7 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -543,7 +537,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -565,14 +559,14 @@
 				DEVELOPMENT_TEAM = WB3J5J4ZWS;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OurDday/Info.plist;
+				INFOPLIST_FILE = OurDday/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -599,14 +593,14 @@
 				DEVELOPMENT_TEAM = WB3J5J4ZWS;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OurDday/Info.plist;
+				INFOPLIST_FILE = OurDday/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
