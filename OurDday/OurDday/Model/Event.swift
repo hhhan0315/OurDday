@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum EventType {
-    case hundred
-    case year
-    case today
-}
-
 struct Event {
+    enum EventType {
+        case hundred
+        case year
+        case today
+    }
+    
     let type: EventType
     let day: Int
 }

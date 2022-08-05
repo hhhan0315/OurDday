@@ -17,7 +17,16 @@ final class MainViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
         collectionView.dataSource = self
+        collectionView.delegate = self
         return collectionView
+    }()
+    
+    private lazy var gearButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = UIColor.mainColor
+        button.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        button.addTarget(self, action: #selector(touchGearButton(_:)), for: .touchUpInside)
+        return button
     }()
     
     private lazy var pageViewController: UIPageViewController = {
@@ -47,37 +56,33 @@ final class MainViewController: UIViewController {
     private func setupViews() {
         addSubviews()
         makeConstraints()
-        setupNavigation()
     }
     
     private func addSubviews() {
-        [collectionView, pageViewController.view].forEach {
+        [collectionView, gearButton, pageViewController.view].forEach {
             view.addSubview($0)
         }
     }
     
     private func makeConstraints() {
-        [collectionView, pageViewController.view].forEach {
+        [collectionView, gearButton, pageViewController.view].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0),
+            collectionView.trailingAnchor.constraint(equalTo: gearButton.leadingAnchor, constant: -16.0),
             collectionView.heightAnchor.constraint(equalToConstant: 50.0),
+            
+            gearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            gearButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0),
+            gearButton.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
             
             pageViewController.view.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             pageViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             pageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
-    }
-    
-    private func setupNavigation() {
-        navigationItem.title = "우리 디데이"
-        // 폰트 수정
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     // MARK: - Method
@@ -97,9 +102,17 @@ final class MainViewController: UIViewController {
         viewModel.$currentIndex
             .receive(on: DispatchQueue.main)
             .sink { currentIndex in
+                let direction: UIPageViewController.NavigationDirection = currentIndex == 0 ? .reverse : .forward
                 self.collectionView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-                self.pageViewController.setViewControllers([self.viewModel.viewController(at: currentIndex)], direction: .forward, animated: true)
+                self.pageViewController.setViewControllers([self.viewModel.viewController(at: currentIndex)], direction: direction, animated: true)
             }.store(in: &cancellable)
+    }
+    
+    // MARK: - Objc
+    @objc private func touchGearButton(_ sender: UIButton) {
+        let settingViewController = SettingViewController()
+        let navigationController = UINavigationController(rootViewController: settingViewController)
+        present(navigationController, animated: true)
     }
 }
 
@@ -118,6 +131,13 @@ extension MainViewController: UICollectionViewDataSource {
         cell.configureCell(with: text)
         
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.configureCurrentIndex(with: indexPath.row)
     }
 }
 
@@ -150,13 +170,11 @@ extension MainViewController: UIPageViewControllerDataSource {
 
 // MARK: - UIPageViewControllerDelegate
 extension MainViewController: UIPageViewControllerDelegate {
-//    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-//        guard let currentViewController = pendingViewControllers.first else {
-//            return
-//        }
-//        guard let index = viewModel.viewControllerIndex(at: currentViewController) else {
-//            return
-//        }
-//        viewModel.configureCurrentIndex(with: index)
-//    }
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let currentViewController = pageViewController.viewControllers?.first,
+              let currentIndex = viewModel.viewControllerIndex(at: currentViewController) else {
+            return
+        }
+        viewModel.configureCurrentIndex(with: currentIndex)
+    }
 }

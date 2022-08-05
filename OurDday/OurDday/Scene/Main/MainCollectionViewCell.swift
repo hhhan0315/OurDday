@@ -9,7 +9,7 @@ import UIKit
 
 final class MainCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: MainCollectionViewCell.self)
-    
+        
     // MARK: - UI Define
     private let titleLabel: UILabel = {
         let label = UILabel()
