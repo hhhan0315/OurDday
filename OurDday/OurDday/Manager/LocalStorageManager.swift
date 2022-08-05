@@ -24,7 +24,7 @@ class LocalStorageManager {
         }
     }
     
-    func setFirstTime() {
+    func setFirstLaunch() {
         userDefaults?.set("No", forKey: "isFirstLaunch")
     }
     

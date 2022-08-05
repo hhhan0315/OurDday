@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         if LocalStorageManager.shared.isFirstLaunch() {
-            let nav = UINavigationController(rootViewController: FirstLaunchController())
-            window?.rootViewController = nav
+            window?.rootViewController = FirstLaunchViewController()
         } else {
-//            window?.rootViewController = MainTabController()
-            window?.rootViewController = HomeController()
+            let rootViewController = MainViewController()
+            let navigationController = UINavigationController(rootViewController: rootViewController)
+            window?.rootViewController = navigationController
         }
         window?.makeKeyAndVisible()
     }

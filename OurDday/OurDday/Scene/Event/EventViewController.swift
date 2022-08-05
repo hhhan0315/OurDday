@@ -1,5 +1,5 @@
 //
-//  EventController.swift
+//  EventViewController.swift
 //  TheDayCouple
 //
 //  Created by rae on 2022/02/09.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class EventController: UITableViewController {
+final class EventViewController: UITableViewController {
     
     // MARK: - Properties
         
@@ -17,7 +17,7 @@ final class EventController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureUI()
         configureNotification()
         viewModel.updateEvent()
@@ -33,7 +33,7 @@ final class EventController: UITableViewController {
     }
     
     private func configureNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
@@ -52,7 +52,7 @@ final class EventController: UITableViewController {
 
 // MARK: - UITableViewDataSource
 
-extension EventController {
+extension EventViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.eventsCount()
     }
@@ -73,7 +73,7 @@ extension EventController {
     }
 }
 
-extension EventController {
+extension EventViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.frame.height / 10
     }
