@@ -15,7 +15,7 @@ final class MainCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.customFont(.title3)
         label.textColor = UIColor.lightGray
-        //        label.textColor = UIColor.mainColor
+        label.textAlignment = .center
         return label
     }()
     

@@ -6,14 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 final class MainViewController: UIViewController {
     // MARK: - View Define
     private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        flowLayout.minimumLineSpacing = 25
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
@@ -24,11 +23,13 @@ final class MainViewController: UIViewController {
     private lazy var pageViewController: UIPageViewController = {
         let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         pageViewController.dataSource = self
+        pageViewController.delegate = self
         return pageViewController
     }()
     
     // MARK: - Properties
     private let viewModel = MainViewModel()
+    private var cancellable = Set<AnyCancellable>()
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -39,6 +40,7 @@ final class MainViewController: UIViewController {
         setupViews()
         setFirstIndexIsSelected()
         setFirstViewController()
+        setupBind()
     }
     
     // MARK: - Layout
@@ -62,7 +64,7 @@ final class MainViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0),
-            collectionView.heightAnchor.constraint(equalToConstant: 44.0),
+            collectionView.heightAnchor.constraint(equalToConstant: 50.0),
             
             pageViewController.view.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -78,7 +80,7 @@ final class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    // MARK: - Menu CollectionView Method
+    // MARK: - Method
     private func setFirstIndexIsSelected() {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
@@ -88,6 +90,16 @@ final class MainViewController: UIViewController {
         if let firstViewController = viewModel.firstViewController() {
             pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true)
         }
+    }
+    
+    // MARK: - Bind
+    private func setupBind() {
+        viewModel.$currentIndex
+            .receive(on: DispatchQueue.main)
+            .sink { currentIndex in
+                self.collectionView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+                self.pageViewController.setViewControllers([self.viewModel.viewController(at: currentIndex)], direction: .forward, animated: true)
+            }.store(in: &cancellable)
     }
 }
 
@@ -134,4 +146,17 @@ extension MainViewController: UIPageViewControllerDataSource {
         }
         return viewModel.viewController(at: nextIndex)
     }
+}
+
+// MARK: - UIPageViewControllerDelegate
+extension MainViewController: UIPageViewControllerDelegate {
+//    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+//        guard let currentViewController = pendingViewControllers.first else {
+//            return
+//        }
+//        guard let index = viewModel.viewControllerIndex(at: currentViewController) else {
+//            return
+//        }
+//        viewModel.configureCurrentIndex(with: index)
+//    }
 }

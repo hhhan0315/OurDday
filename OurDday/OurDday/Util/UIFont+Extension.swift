@@ -9,6 +9,7 @@ import UIKit
 
 enum CustomFontSize {
     case largeTitle
+    case title1
     case title3
     case body
 }
@@ -18,6 +19,8 @@ extension UIFont {
         switch name {
         case .largeTitle:
             return UIFont(name: "BMJUA", size: 34.0)
+        case .title1:
+            return UIFont(name: "BMJUA", size: 28.0)
         case .title3:
             return UIFont(name: "BMJUA", size: 20.0)
         case .body:

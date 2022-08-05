@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		011E44A027F2FF2300EBFCC1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E449F27F2FF2300EBFCC1 /* HomeView.swift */; };
 		011E44A227F5935200EBFCC1 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A127F5935200EBFCC1 /* DatePickerController.swift */; };
-		011E44A527F5F10400EBFCC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A427F5F10400EBFCC1 /* User.swift */; };
+		011E44A527F5F10400EBFCC1 /* HomeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A427F5F10400EBFCC1 /* HomeInformation.swift */; };
 		011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E44A727F6834000EBFCC1 /* HomeViewModel.swift */; };
 		0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16827BDDE0400552FE0 /* AppDelegate.swift */; };
 		0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D16A27BDDE0400552FE0 /* SceneDelegate.swift */; };
@@ -66,9 +65,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		011E449F27F2FF2300EBFCC1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		011E44A127F5935200EBFCC1 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
-		011E44A427F5F10400EBFCC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		011E44A427F5F10400EBFCC1 /* HomeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInformation.swift; sourceTree = "<group>"; };
 		011E44A727F6834000EBFCC1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0134D16527BDDE0400552FE0 /* OurDday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurDday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0134D16827BDDE0400552FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				0134D18327BDE2AF00552FE0 /* HomeViewController.swift */,
-				011E449F27F2FF2300EBFCC1 /* HomeView.swift */,
 				011E44A727F6834000EBFCC1 /* HomeViewModel.swift */,
 			);
 			path = Home;
@@ -212,7 +209,7 @@
 		0138EB0627BE692D003E99B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				011E44A427F5F10400EBFCC1 /* User.swift */,
+				011E44A427F5F10400EBFCC1 /* HomeInformation.swift */,
 				0138EB0727BE6938003E99B1 /* Event.swift */,
 			);
 			path = Model;
@@ -391,7 +388,6 @@
 				01764071289CAE480070B02A /* MainCollectionViewCell.swift in Sources */,
 				0138EB0827BE6938003E99B1 /* Event.swift in Sources */,
 				01764067289BC4130070B02A /* CalendarUtils.swift in Sources */,
-				011E44A027F2FF2300EBFCC1 /* HomeView.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeViewController.swift in Sources */,
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
 				0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */,
@@ -400,7 +396,7 @@
 				01764061289BC4130070B02A /* UIColor+Extension.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchViewController.swift in Sources */,
 				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
-				011E44A527F5F10400EBFCC1 /* User.swift in Sources */,
+				011E44A527F5F10400EBFCC1 /* HomeInformation.swift in Sources */,
 				011E44A227F5935200EBFCC1 /* DatePickerController.swift in Sources */,
 				01764073289CB3AB0070B02A /* MainViewModel.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,

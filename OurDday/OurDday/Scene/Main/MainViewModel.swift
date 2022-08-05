@@ -5,14 +5,15 @@
 //  Created by rae on 2022/08/05.
 //
 
-//import Foundation
 import UIKit
 
 final class MainViewModel {
+    @Published var currentIndex: Int
     private var titles: [String]
     private var viewControllers: [UIViewController]
     
     init() {
+        self.currentIndex = 0
         self.titles = ["우리", "기념일"]
         self.viewControllers = [HomeViewController(), EventViewController()]
     }
@@ -39,5 +40,9 @@ final class MainViewModel {
     
     func viewController(at index: Int) -> UIViewController {
         return viewControllers[index]
+    }
+    
+    func configureCurrentIndex(with index: Int) {
+        currentIndex = index
     }
 }
