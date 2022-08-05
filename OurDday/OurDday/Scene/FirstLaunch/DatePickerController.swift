@@ -13,7 +13,7 @@ final class DatePickerViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko_kr")
-        datePicker.setDate(LocalStorageManager.shared.readFirstDate(), animated: false)
+        datePicker.setDate(LocalStorageManager.shared.readDate(), animated: false)
         datePicker.preferredDatePickerStyle = .wheels
         
         let hundred: TimeInterval = -60 * 60 * 24 * 365 * 100

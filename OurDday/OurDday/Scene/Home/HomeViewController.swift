@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol HomeControllerDelegate: AnyObject {
     func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat)
@@ -18,8 +19,49 @@ final class HomeViewController: UIViewController {
         return imageView
     }()
     
+    private let myImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 50
+        imageView.tintColor = .lightGray
+        return imageView
+    }()
+    
+    private let youImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 50
+        imageView.tintColor = .lightGray
+        return imageView
+    }()
+    
+    private let heartImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "heart.fill"))
+        imageView.tintColor = UIColor.mainColor
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1일"
+        label.textAlignment = .center
+        label.font = UIFont.customFont(.title3)
+        return label
+    }()
+    
+    private lazy var heartDateStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [heartImageView, dateLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        return stackView
+    }()
+    
     // MARK: - Properties
     private let viewModel = HomeViewModel()
+    private var cancellable = Set<AnyCancellable>()
     
     weak var delegate: HomeControllerDelegate?
     
@@ -27,15 +69,12 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .blue
+        view.backgroundColor = .systemBackground
+        
+        viewModel.fetch()
         
         setupViews()
-        
-        configureNav()
-        configureNotification()
-        
-        viewModel.updateUser()
-//        homeView.setUser(viewModel.user())
+        setupBind()
     }
     
     // MARK: - Layout
@@ -45,51 +84,47 @@ final class HomeViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [photoImageView].forEach {
+        [photoImageView, heartDateStackView, myImageView, youImageView].forEach {
             view.addSubview($0)
         }
     }
     
     private func makeConstraints() {
-        [photoImageView].forEach {
+        [photoImageView, heartDateStackView, myImageView, youImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
             photoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             photoImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             photoImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            photoImageView.heightAnchor.constraint(equalTo: view.widthAnchor),
+            
+            heartDateStackView.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 20.0),
+            heartDateStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            heartDateStackView.widthAnchor.constraint(equalToConstant: 100.0),
+            heartDateStackView.heightAnchor.constraint(equalToConstant: 100.0),
+            
+            myImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
+            myImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
+            myImageView.widthAnchor.constraint(equalToConstant: 100.0),
+            myImageView.heightAnchor.constraint(equalToConstant: 100.0),
+            myImageView.trailingAnchor.constraint(equalTo: heartDateStackView.leadingAnchor, constant: -16.0),
+            
+            youImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
+            youImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
+            youImageView.widthAnchor.constraint(equalToConstant: 100.0),
+            youImageView.heightAnchor.constraint(equalToConstant: 100.0),
+            youImageView.leadingAnchor.constraint(equalTo: heartDateStackView.trailingAnchor, constant: 16.0),
         ])
     }
     
-    private func configureNav() {
-        
-    }
-    
-    private func updateViewModel() {
-        self.viewModel.updateUser()
-//        self.homeView.setUser(self.viewModel.user())
-    }
-    
-    private func configureNotification() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationColorChange), name: Notification.Name.colorChange, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeChange), name: UIApplication.significantTimeChangeNotification, object: nil)
-    }
-    
-    // MARK: - Objc
-    @objc func handleNotificationColorChange() {
-//        homeView.setUser(viewModel.user())
-    }
-    
-    @objc func handleNotificationTimeChange() {
-//        homeView.setUser(viewModel.user())
+    // MARK: - Bind
+    private func setupBind() {
+        viewModel.$homeInformation
+            .receive(on: DispatchQueue.main)
+            .sink { homeInformation in
+                self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date))일"
+            }
+            .store(in: &cancellable)
     }
 }
-
-// MARK: - SideMenuControllerDeleagte
-
-//extension HomeController: SideMenuControllerDeleagte {
-//    func sideMenuControllerDidSave() {
-//        updateViewModel()
-//    }
-//}

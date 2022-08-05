@@ -18,7 +18,7 @@ final class EventManager {
     
     func getEvents(completion: @escaping([Event]) -> Void) {
         var events = [Event]()
-        let firstDayDate = LocalStorageManager.shared.readFirstDate()
+        let firstDayDate = LocalStorageManager.shared.readDate()
         
         let ten = Event(type: .hundred, day: 10)
         let fifty = Event(type: .hundred, day: 50)

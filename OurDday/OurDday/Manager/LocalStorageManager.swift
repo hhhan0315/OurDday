@@ -36,15 +36,11 @@ class LocalStorageManager {
         userDefaults?.set(date, forKey: "date")
     }
     
-    func setPhrases(phrases: String) {
-        userDefaults?.set(phrases, forKey: "phrases")
-    }
-    
     func readImageUrl() -> URL? {
         return userDefaults?.url(forKey: "imageUrl")
     }
     
-    func readFirstDate() -> Date {
+    func readDate() -> Date {
         if let date = userDefaults?.object(forKey: "date") as? Date {
             return date
         } else {
@@ -52,16 +48,11 @@ class LocalStorageManager {
         }
     }
     
-    func readPhrases() -> String {
-        return userDefaults?.string(forKey: "phrases") ?? ""
-    }
-    
-    func updateUser(completion: @escaping (User) -> Void) {
-        var user = User.EMPTY
-        user.imageUrl = readImageUrl()
-        user.date = readFirstDate()
-        user.phrases = readPhrases()
-        completion(user)
+    func updateHomeInformation(completion: @escaping (HomeInformation) -> Void) {
+        var home = HomeInformation.EMPTY
+//        home.imageUrl = readImageUrl()
+        home.date = readDate()
+        completion(home)
     }
     
 //    func colorForKey(key: String = "mainColor") -> UIColor? {

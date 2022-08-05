@@ -7,19 +7,16 @@
 
 import Foundation
 
-class HomeViewModel: NSObject {
-    private let storage = LocalStorageManager.shared
+class HomeViewModel {
+    @Published var homeInformation: HomeInformation
     
-    private var homeUser = User.EMPTY
-    
-    func user() -> User {
-        return homeUser
+    init() {
+        self.homeInformation = .EMPTY
     }
     
-    func updateUser() {
-        storage.updateUser { user in
-            self.homeUser = user
+    func fetch() {
+        LocalStorageManager.shared.updateHomeInformation { homeInformation in
+            self.homeInformation = homeInformation
         }
     }
-    
 }
