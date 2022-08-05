@@ -1,5 +1,5 @@
 //
-//  FirstLaunchController.swift
+//  FirstLaunchViewController.swift
 //  TheDayCouple
 //
 //  Created by rae on 2022/02/11.
@@ -7,12 +7,13 @@
 
 import UIKit
 
-final class FirstLaunchController: UIViewController {
+final class FirstLaunchViewController: UIViewController {
     // MARK: - UI Define
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "우리 처음 만난 날"
         label.font = UIFont.customFont(.largeTitle)
+        label.textColor = UIColor.black
         return label
     }()
     
@@ -20,7 +21,7 @@ final class FirstLaunchController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitle(DateFormatter().toTodayYearMonthDay(date: Date()), for: .normal)
         button.titleLabel?.font = UIFont.customFont(.largeTitle)
-        button.setTitleColor(UIColor.systemBackground, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self, action: #selector(touchDateButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -29,13 +30,13 @@ final class FirstLaunchController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitle("시작하기", for: .normal)
         button.titleLabel?.font = UIFont.customFont(.largeTitle)
-        button.setTitleColor(UIColor.secondarySystemBackground, for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
         button.addTarget(self, action: #selector(touchStartButton(_:)), for: .touchUpInside)
         return button
     }()
     
     // MARK: - Properties
-    private let localStorageManager = LocalStorageManager.shared
+    private var selectDate: Date = Date()
 
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -44,7 +45,6 @@ final class FirstLaunchController: UIViewController {
         view.backgroundColor = UIColor.mainColor
         
         setupViews()
-//        saveFirstDay()
     }
 
     // MARK: - Layout
@@ -71,26 +71,25 @@ final class FirstLaunchController: UIViewController {
             dateButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
+            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
         ])
     }
     
-    private func saveFirstDay() {
-//        localStorage.setFirstDate(date: Date())
-    }
-    
     // MARK: - Objc
-    @objc private func touchStartButton(_ sender: UIBarButtonItem) {
-//        localStorageManager.setFirstTime()
-        view.window?.rootViewController = HomeController()
+    @objc private func touchStartButton(_ sender: UIButton) {
+        LocalStorageManager.shared.setFirstLaunch()
+        LocalStorageManager.shared.setDate(date: selectDate)
+        view.window?.rootViewController = HomeViewController()
     }
     
     @objc private func touchDateButton(_ sender: UIButton) {
-        let datePickerController = DatePickerController()
+        let datePickerController = DatePickerViewController()
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            self.dateButton.setTitle(DateFormatter().toTodayYearMonthDay(date: datePickerController.datePicker.date), for: .normal)
+            let datePickerDate = datePickerController.datePicker.date
+            self.selectDate = datePickerDate
+            self.dateButton.setTitle(DateFormatter().toTodayYearMonthDay(date: datePickerDate), for: .normal)
         }))
         alert.setValue(datePickerController, forKey: "contentViewController")
         

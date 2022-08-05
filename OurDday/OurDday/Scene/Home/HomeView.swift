@@ -11,7 +11,6 @@ final class HomeView: UIView {
     
     private let phrasesLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.customFontSize(.wordRegular)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -19,14 +18,12 @@ final class HomeView: UIView {
     
     private let countLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.customFontSize(.bigHomeBold)
         label.textAlignment = .center
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.customFontSize(.dateRegular)
         label.textAlignment = .center
         return label
     }()
@@ -96,7 +93,7 @@ final class HomeView: UIView {
             backgroundImageView.image = nil
             phrasesLabel.textColor = UIColor.black
 //            countLabel.textColor = LocalStorageManager.shared.colorForKey()
-            dateLabel.textColor = UIColor.darkGrayColor
+//            dateLabel.textColor = UIColor.darkGrayColor
         }
     }
 }

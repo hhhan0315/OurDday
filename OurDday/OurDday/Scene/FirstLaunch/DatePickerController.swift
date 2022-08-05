@@ -1,5 +1,5 @@
 //
-//  DatePickerController.swift
+//  DatePickerViewController.swift
 //  OurDday
 //
 //  Created by rae on 2022/03/31.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DatePickerController: UIViewController {
+final class DatePickerViewController: UIViewController {
         
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -23,10 +23,6 @@ final class DatePickerController: UIViewController {
         return datePicker
     }()
     
-//    deinit {
-//        LocalStorageManager.shared.setDate(date: datePicker.date)
-//    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

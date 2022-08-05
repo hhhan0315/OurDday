@@ -69,13 +69,13 @@ final class EventCell: UITableViewCell {
     private func configureConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10.0),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
+//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
             
             dateTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10.0),
             dateTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
+//            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
         ])
     }
     
@@ -83,13 +83,13 @@ final class EventCell: UITableViewCell {
         guard let viewModel = viewModel else { return }
         
         titleLabel.text = viewModel.title
-        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor
+//        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor
         
         countLabel.text = viewModel.countTitle
 //        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : LocalStorageManager.shared.colorForKey()
         
         dateTitleLabel.text = viewModel.dateTitle
-        dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor
+//        dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor
         
         setNeedsUpdateConstraints()
     }
