@@ -16,6 +16,7 @@ final class HomeViewController: UIViewController {
     // MARK: - View Define
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "photo")
         return imageView
     }()
     
@@ -123,6 +124,7 @@ final class HomeViewController: UIViewController {
         viewModel.$homeInformation
             .receive(on: DispatchQueue.main)
             .sink { homeInformation in
+//                self.photoImageView.image = homeInformation.photoURL ?? UIImage(named: "photo")
                 self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date))일"
             }
             .store(in: &cancellable)

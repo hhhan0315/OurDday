@@ -8,10 +8,8 @@
 import UIKit
 
 final class EventCell: UITableViewCell {
-
     // MARK: - Properties
-    
-    static let identifier = "EventCell"
+    static let identifier = String(describing: EventCell.self)
     
     var viewModel: EventCellViewModel? {
         didSet {
@@ -21,77 +19,81 @@ final class EventCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.customFontSize(.middleSemiBold)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.customFont(.title3)
         return label
     }()
     
-    private let dateTitleLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.customFontSize(.smallSystem)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.customFont(.body)
         return label
+    }()
+    
+    private lazy var dateStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        return stackView
     }()
     
     private let countLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.customFontSize(.middleSemiBold)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.customFont(.title3)
         return label
     }()
     
-    // MARK: - Life cycle
-
+    // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureUI()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func updateConstraints() {
-        configureConstraints()
-        
-        super.updateConstraints()
+        super.init(coder: coder)
+        setupViews()
     }
 
-    // MARK: - Helpers
-    
-    private func configureUI() {
-        addSubview(titleLabel)
-        addSubview(dateTitleLabel)
-        addSubview(countLabel)
+    // MARK: - Layout
+    private func setupViews() {
+        addSubviews()
+        makeConstraints()
+    }
+    private func addSubviews() {
+        [dateStackView, countLabel].forEach {
+            contentView.addSubview($0)
+        }
     }
     
-    private func configureConstraints() {
+    private func makeConstraints() {
+        [dateStackView, countLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10.0),
-//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .customSize(.anchorSpace)),
-            
-            dateTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10.0),
-            dateTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            dateStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.0),
+            dateStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32.0),
+            dateStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
+            dateStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.customSize(.anchorSpace)),
+            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32.0),
         ])
     }
     
     private func configureViewModel() {
-        guard let viewModel = viewModel else { return }
+        guard let viewModel = viewModel else {
+            return
+        }
         
         titleLabel.text = viewModel.title
-//        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.textColor
+        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.textColor
+        
+        dateLabel.text = viewModel.dateTitle
+        dateLabel.textColor = UIColor.lightGray
         
         countLabel.text = viewModel.countTitle
-//        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : LocalStorageManager.shared.colorForKey()
+        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.mainColor
         
-        dateTitleLabel.text = viewModel.dateTitle
-//        dateTitleLabel.textColor = viewModel.count > 0 ? UIColor.lightGrayColor : UIColor.darkGrayColor
-        
-        setNeedsUpdateConstraints()
+//        setNeedsUpdateConstraints()
     }
     
 }

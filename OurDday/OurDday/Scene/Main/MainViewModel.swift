@@ -15,7 +15,7 @@ final class MainViewModel {
     init() {
         self.currentIndex = 0
         self.titles = ["우리", "기념일"]
-        self.viewControllers = [HomeViewController(), EventViewController()]
+        self.viewControllers = [HomeViewController(), EventTableViewController()]
     }
     
     func titlesCount() -> Int {
