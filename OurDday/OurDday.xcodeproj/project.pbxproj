@@ -36,6 +36,9 @@
 		0197D09A289D18C000721EFC /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197D099289D18C000721EFC /* SettingTableViewCell.swift */; };
 		0197D09E289D1DD300721EFC /* SettingTableKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197D09D289D1DD300721EFC /* SettingTableKeys.swift */; };
 		01AF980A289E30B100E08767 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF9809289E30B100E08767 /* NotificationName+Extension.swift */; };
+		01AF980E289EA93000E08767 /* HomePhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF980D289EA93000E08767 /* HomePhotoImageView.swift */; };
+		01AF9810289EAAF500E08767 /* HomeProfileFirstImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF980F289EAAF500E08767 /* HomeProfileFirstImageView.swift */; };
+		01AF9812289EAD5F00E08767 /* HomeProfileSecondImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF9811289EAD5F00E08767 /* HomeProfileSecondImageView.swift */; };
 		01B1D89827E36EE1001863C8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89727E36EE1001863C8 /* WidgetKit.framework */; };
 		01B1D89A27E36EE1001863C8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89927E36EE1001863C8 /* SwiftUI.framework */; };
 		01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D89C27E36EE1001863C8 /* OurDdayWidget.swift */; };
@@ -98,6 +101,9 @@
 		0197D099289D18C000721EFC /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		0197D09D289D1DD300721EFC /* SettingTableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableKeys.swift; sourceTree = "<group>"; };
 		01AF9809289E30B100E08767 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		01AF980D289EA93000E08767 /* HomePhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePhotoImageView.swift; sourceTree = "<group>"; };
+		01AF980F289EAAF500E08767 /* HomeProfileFirstImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileFirstImageView.swift; sourceTree = "<group>"; };
+		01AF9811289EAD5F00E08767 /* HomeProfileSecondImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileSecondImageView.swift; sourceTree = "<group>"; };
 		01B1D89627E36EE1001863C8 /* OurDdayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OurDdayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B1D89727E36EE1001863C8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		01B1D89927E36EE1001863C8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -140,6 +146,9 @@
 		011E44A627F5F16200EBFCC1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				01AF980D289EA93000E08767 /* HomePhotoImageView.swift */,
+				01AF980F289EAAF500E08767 /* HomeProfileFirstImageView.swift */,
+				01AF9811289EAD5F00E08767 /* HomeProfileSecondImageView.swift */,
 				0134D18327BDE2AF00552FE0 /* HomeViewController.swift */,
 				011E44A727F6834000EBFCC1 /* HomeViewModel.swift */,
 			);
@@ -401,12 +410,15 @@
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
 				01764063289BC4130070B02A /* UIFont+Extension.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
+				01AF980E289EA93000E08767 /* HomePhotoImageView.swift in Sources */,
 				0197D09A289D18C000721EFC /* SettingTableViewCell.swift in Sources */,
 				0134D18D27BDE2AF00552FE0 /* EventTableViewController.swift in Sources */,
 				01764071289CAE480070B02A /* MainCollectionViewCell.swift in Sources */,
 				0138EB0827BE6938003E99B1 /* Event.swift in Sources */,
 				01764067289BC4130070B02A /* Calendar+Extension.swift in Sources */,
+				01AF9810289EAAF500E08767 /* HomeProfileFirstImageView.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeViewController.swift in Sources */,
+				01AF9812289EAD5F00E08767 /* HomeProfileSecondImageView.swift in Sources */,
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
 				0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */,
 				011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */,

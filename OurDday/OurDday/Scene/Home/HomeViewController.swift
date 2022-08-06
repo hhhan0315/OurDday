@@ -14,27 +14,9 @@ protocol HomeControllerDelegate: AnyObject {
 
 final class HomeViewController: UIViewController {
     // MARK: - View Define
-    private let photoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "photo")
-        return imageView
-    }()
-    
-    private let myImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 50
-        imageView.tintColor = .lightGray
-        return imageView
-    }()
-    
-    private let youImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 50
-        imageView.tintColor = .lightGray
-        return imageView
-    }()
+    private let photoImageView = HomePhotoImageView(frame: .zero)
+    private let profileFirstImageView = HomeProfileFirstImageView(frame: .zero)
+    private let profileSecondImageView = HomeProfileSecondImageView(frame: .zero)
     
     private let heartImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "heart.fill"))
@@ -93,13 +75,13 @@ final class HomeViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [photoImageView, heartDateStackView, myImageView, youImageView, meetDateLabel].forEach {
+        [photoImageView, heartDateStackView, profileFirstImageView, profileSecondImageView, meetDateLabel].forEach {
             view.addSubview($0)
         }
     }
     
     private func makeConstraints() {
-        [photoImageView, heartDateStackView, myImageView, youImageView, meetDateLabel].forEach {
+        [photoImageView, heartDateStackView, profileFirstImageView, profileSecondImageView, meetDateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
@@ -113,17 +95,17 @@ final class HomeViewController: UIViewController {
             heartDateStackView.widthAnchor.constraint(equalToConstant: 100.0),
             heartDateStackView.heightAnchor.constraint(equalToConstant: 100.0),
             
-            myImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
-            myImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
-            myImageView.widthAnchor.constraint(equalToConstant: 100.0),
-            myImageView.heightAnchor.constraint(equalToConstant: 100.0),
-            myImageView.trailingAnchor.constraint(equalTo: heartDateStackView.leadingAnchor, constant: -16.0),
+            profileFirstImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
+            profileFirstImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
+            profileFirstImageView.widthAnchor.constraint(equalToConstant: 100.0),
+            profileFirstImageView.heightAnchor.constraint(equalToConstant: 100.0),
+            profileFirstImageView.trailingAnchor.constraint(equalTo: heartDateStackView.leadingAnchor, constant: -16.0),
             
-            youImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
-            youImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
-            youImageView.widthAnchor.constraint(equalToConstant: 100.0),
-            youImageView.heightAnchor.constraint(equalToConstant: 100.0),
-            youImageView.leadingAnchor.constraint(equalTo: heartDateStackView.trailingAnchor, constant: 16.0),
+            profileSecondImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
+            profileSecondImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
+            profileSecondImageView.widthAnchor.constraint(equalToConstant: 100.0),
+            profileSecondImageView.heightAnchor.constraint(equalToConstant: 100.0),
+            profileSecondImageView.leadingAnchor.constraint(equalTo: heartDateStackView.trailingAnchor, constant: 16.0),
             
             meetDateLabel.topAnchor.constraint(equalTo: heartDateStackView.bottomAnchor, constant: 10.0),
             meetDateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -136,7 +118,7 @@ final class HomeViewController: UIViewController {
         viewModel.$homeInformation
             .receive(on: DispatchQueue.main)
             .sink { homeInformation in
-//                self.photoImageView.image = homeInformation.photoURL ?? UIImage(named: "photo")
+                //                self.photoImageView.image = homeInformation.photoURL ?? UIImage(named: "photo")
                 self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date) + 1)일"
                 self.meetDateLabel.text = DateFormatter().toYearMonthDay(date: LocalStorageManager.shared.readDate())
             }
