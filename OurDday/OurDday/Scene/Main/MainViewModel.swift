@@ -14,7 +14,7 @@ final class MainViewModel {
     
     init() {
         self.currentIndex = 0
-        self.titles = ["우리", "기념일"]
+        self.titles = ["우리", "디데이"]
         self.viewControllers = [HomeViewController(), EventTableViewController()]
     }
     

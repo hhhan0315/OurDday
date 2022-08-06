@@ -11,9 +11,10 @@ class EventViewModel: NSObject {
     
     private var events = [Event]()
     
-    func updateEvent() {
+    func fetch(completion: @escaping () -> Void) {
         EventManager.shared.getEvents(completion: { events in
             self.events = events
+            completion()
         })
     }
     
@@ -23,5 +24,10 @@ class EventViewModel: NSObject {
 
     func event(at index: Int) -> Event {
         return events[index]
+    }
+    
+    func todayEventIndex() -> Int? {
+        let index = events.firstIndex { $0.type == .today }
+        return index
     }
 }

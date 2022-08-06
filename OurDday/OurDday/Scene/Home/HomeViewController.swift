@@ -51,6 +51,13 @@ final class HomeViewController: UIViewController {
         return label
     }()
     
+    private let meetDateLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.customFont(.body)
+        return label
+    }()
+    
     private lazy var heartDateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [heartImageView, dateLabel])
         stackView.axis = .vertical
@@ -85,13 +92,13 @@ final class HomeViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [photoImageView, heartDateStackView, myImageView, youImageView].forEach {
+        [photoImageView, heartDateStackView, myImageView, youImageView, meetDateLabel].forEach {
             view.addSubview($0)
         }
     }
     
     private func makeConstraints() {
-        [photoImageView, heartDateStackView, myImageView, youImageView].forEach {
+        [photoImageView, heartDateStackView, myImageView, youImageView, meetDateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
@@ -116,6 +123,10 @@ final class HomeViewController: UIViewController {
             youImageView.widthAnchor.constraint(equalToConstant: 100.0),
             youImageView.heightAnchor.constraint(equalToConstant: 100.0),
             youImageView.leadingAnchor.constraint(equalTo: heartDateStackView.trailingAnchor, constant: 16.0),
+            
+            meetDateLabel.topAnchor.constraint(equalTo: heartDateStackView.bottomAnchor, constant: 10.0),
+            meetDateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            meetDateLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
@@ -125,7 +136,8 @@ final class HomeViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { homeInformation in
 //                self.photoImageView.image = homeInformation.photoURL ?? UIImage(named: "photo")
-                self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date))일"
+                self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date) + 1)일"
+                self.meetDateLabel.text = DateFormatter().toYearMonthDay(date: LocalStorageManager.shared.readDate())
             }
             .store(in: &cancellable)
     }

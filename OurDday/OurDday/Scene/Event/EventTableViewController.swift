@@ -18,7 +18,9 @@ final class EventTableViewController: UITableViewController {
         
         setupTableView()
         
-        viewModel.updateEvent()
+        viewModel.fetch(completion: {
+            self.scrollToTodayEvent()
+        })
     }
     
     // MARK: - Layout
@@ -43,12 +45,19 @@ final class EventTableViewController: UITableViewController {
         }
         
         let event = viewModel.event(at: indexPath.row)
-                
-        let eventCellViewModel = EventCellViewModel(event: event)
-        cell.viewModel = eventCellViewModel
         
+        cell.configureCell(with: event)
         cell.selectionStyle = .none
         
         return cell
+    }
+    
+    // MARK: - Method
+    private func scrollToTodayEvent() {
+        guard let index = viewModel.todayEventIndex() else {
+            return
+        }
+        tableView.layoutIfNeeded()
+        tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .none, animated: false)
     }
 }

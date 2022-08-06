@@ -40,7 +40,6 @@
 		01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D89C27E36EE1001863C8 /* OurDdayWidget.swift */; };
 		01B1D89F27E36EE3001863C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01B1D89E27E36EE3001863C8 /* Assets.xcassets */; };
 		01B1D8A327E36EE3001863C8 /* OurDdayWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 01B1D89627E36EE1001863C8 /* OurDdayWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE725727C7AE85009B5425 /* EventCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,7 +104,6 @@
 		01B1D8A027E36EE3001863C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01B1D8A827E417D5001863C8 /* OurDday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OurDday.entitlements; sourceTree = "<group>"; };
 		01B1D8A927E417ED001863C8 /* OurDdayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OurDdayWidgetExtension.entitlements; sourceTree = "<group>"; };
-		01FE725727C7AE85009B5425 /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,10 +147,9 @@
 		011E44B527F69C1E00EBFCC1 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
 				0134D18627BDE2AF00552FE0 /* EventTableViewController.swift */,
 				013822BD27C9C8EF003949DF /* EventViewModel.swift */,
-				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
-				01FE725727C7AE85009B5425 /* EventCellViewModel.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -414,7 +411,6 @@
 				0197D09E289D1DD300721EFC /* SettingTableKeys.swift in Sources */,
 				01764061289BC4130070B02A /* UIColor+Extension.swift in Sources */,
 				0134D18B27BDE2AF00552FE0 /* FirstLaunchViewController.swift in Sources */,
-				01FE725827C7AE85009B5425 /* EventCellViewModel.swift in Sources */,
 				01764076289D106E0070B02A /* SettingViewController.swift in Sources */,
 				011E44A527F5F10400EBFCC1 /* HomeInformation.swift in Sources */,
 				011E44A227F5935200EBFCC1 /* DatePickerController.swift in Sources */,

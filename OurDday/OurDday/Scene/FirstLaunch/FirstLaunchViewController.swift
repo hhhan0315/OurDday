@@ -19,7 +19,7 @@ final class FirstLaunchViewController: UIViewController {
     
     private lazy var dateButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle(DateFormatter().toTodayYearMonthDay(date: Date()), for: .normal)
+        button.setTitle(DateFormatter().toYearMonthDay(date: Date()), for: .normal)
         button.titleLabel?.font = UIFont.customFont(.largeTitle)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self, action: #selector(touchDateButton(_:)), for: .touchUpInside)
@@ -79,7 +79,7 @@ final class FirstLaunchViewController: UIViewController {
     @objc private func touchStartButton(_ sender: UIButton) {
         LocalStorageManager.shared.setFirstLaunch()
         LocalStorageManager.shared.setDate(date: selectDate)
-        view.window?.rootViewController = HomeViewController()
+        view.window?.rootViewController = MainViewController()
     }
     
     @objc private func touchDateButton(_ sender: UIButton) {
@@ -89,7 +89,7 @@ final class FirstLaunchViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             let datePickerDate = datePickerController.datePicker.date
             self.selectDate = datePickerDate
-            self.dateButton.setTitle(DateFormatter().toTodayYearMonthDay(date: datePickerDate), for: .normal)
+            self.dateButton.setTitle(DateFormatter().toYearMonthDay(date: datePickerDate), for: .normal)
         }))
         alert.setValue(datePickerController, forKey: "contentViewController")
         
