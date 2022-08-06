@@ -83,6 +83,7 @@ final class HomeViewController: UIViewController {
         
         setupViews()
         setupBind()
+        setupNotification()
     }
     
     // MARK: - Layout
@@ -140,5 +141,14 @@ final class HomeViewController: UIViewController {
                 self.meetDateLabel.text = DateFormatter().toYearMonthDay(date: LocalStorageManager.shared.readDate())
             }
             .store(in: &cancellable)
+    }
+    
+    // MARK: - Notification
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChangeDate), name: Notification.Name.changeDate, object: nil)
+    }
+    
+    @objc private func notificationChangeDate() {
+        viewModel.fetch()
     }
 }

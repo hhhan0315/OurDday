@@ -86,6 +86,7 @@ final class FirstLaunchViewController: UIViewController {
         let datePickerController = DatePickerViewController()
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             let datePickerDate = datePickerController.datePicker.date
             self.selectDate = datePickerDate

@@ -54,33 +54,6 @@ class LocalStorageManager {
         home.date = readDate()
         completion(home)
     }
-    
-//    func colorForKey(key: String = "mainColor") -> UIColor? {
-//        var colorReturnded: UIColor? = UIColor.systemBlue
-//          if let colorData = userDefaults?.data(forKey: key) {
-//              do {
-//                  if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
-//                      colorReturnded = color
-//                  }
-//              } catch {
-//                  print("Error UserDefaults")
-//              }
-//          }
-//          return colorReturnded
-//      }
-//
-//      func setColor(color: UIColor?, forKey key: String = "mainColor") {
-//          var colorData: NSData?
-//          if let color = color {
-//              do {
-//                  let data = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) as NSData?
-//                  colorData = data
-//              } catch {
-//                  print("Error UserDefaults")
-//              }
-//          }
-//          userDefaults?.set(colorData, forKey: key)
-//      }
 }
 
 extension UserDefaults {

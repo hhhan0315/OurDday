@@ -6,21 +6,23 @@
 //
 
 import UIKit
+import Combine
 
 final class EventTableViewController: UITableViewController {
     
     // MARK: - Properties
     private let viewModel = EventViewModel()
+    private var cancellable = Set<AnyCancellable>()
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
+        setupBind()
+        setupNotification()
         
-        viewModel.fetch(completion: {
-            self.scrollToTodayEvent()
-        })
+        viewModel.fetch()
     }
     
     // MARK: - Layout
@@ -58,6 +60,26 @@ final class EventTableViewController: UITableViewController {
             return
         }
         tableView.layoutIfNeeded()
-        tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .none, animated: false)
+        tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: false)
+    }
+    
+    // MARK: - Bind
+    private func setupBind() {
+        viewModel.$events
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.tableView.reloadData()
+                self.scrollToTodayEvent()
+            }
+            .store(in: &cancellable)
+    }
+    
+    // MARK: - Notification
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChangeDate), name: Notification.Name.changeDate, object: nil)
+    }
+    
+    @objc private func notificationChangeDate() {
+        viewModel.fetch()
     }
 }

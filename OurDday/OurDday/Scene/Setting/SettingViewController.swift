@@ -10,7 +10,7 @@ import UIKit
 class SettingViewController: UIViewController {
     // MARK: - View Define
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifer)
         tableView.dataSource = self
         tableView.delegate = self
@@ -21,7 +21,7 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .systemBackground
         setupViews()
     }
     
@@ -42,7 +42,7 @@ class SettingViewController: UIViewController {
         
         let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(touchXMarkButton(_:)))
         navigationItem.leftBarButtonItem = leftBarButton
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.textColor
     }
     
     private func addSubviews() {
@@ -61,7 +61,6 @@ class SettingViewController: UIViewController {
     
     // MARK: - Objc
     @objc private func touchXMarkButton(_ sender: UIButton) {
-        // delegate로 변경된 것 수정
         dismiss(animated: true)
     }
     
@@ -113,9 +112,26 @@ extension SettingViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let rows = getRows(section: indexPath.section)
-//        let z = rows[indexPath.row]
-//        print(z)
+        let rows = getRows(section: indexPath.section)
+        let row = rows[indexPath.row]
+        
+        switch row[SettingTableKeys.Title] {
+        case SettingTableKeys.changeDate:
+            let datePickerController = DatePickerViewController()
+            
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                let datePickerDate = datePickerController.datePicker.date
+                LocalStorageManager.shared.setDate(date: datePickerDate)
+                NotificationCenter.default.post(name: Notification.Name.changeDate, object: nil)
+            }))
+            alert.setValue(datePickerController, forKey: "contentViewController")
+            
+            present(alert, animated: true, completion: nil)
+        default: break
+        }
+                
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
