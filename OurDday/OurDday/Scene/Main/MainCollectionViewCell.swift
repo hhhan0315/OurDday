@@ -19,6 +19,13 @@ final class MainCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let underBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.mainColor
+        view.alpha = 0
+        return view
+    }()
+    
     // MARK: - LifeCycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,25 +37,10 @@ final class MainCollectionViewCell: UICollectionViewCell {
         setupViews()
     }
     
-    //    override var isHighlighted: Bool {
-    //        didSet {
-    //            titleLabel.textColor = isSelected ? UIColor.mainColor : UIColor.gray
-    //
-    //            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseOut, animations: {
-    ////                self.menuUnderBar.layoutIfNeeded()
-    ////                self.menuUnderBar.alpha = self.isSelected ? 1 : 0
-    //            }, completion: nil)
-    //        }
-    //    }
-    
     override var isSelected: Bool {
         didSet {
             titleLabel.textColor = isSelected ? UIColor.mainColor : UIColor.lightGray
-            
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-                //                self.menuUnderBar.layoutIfNeeded()
-                //                self.menuUnderBar.alpha = self.isSelected ? 1 : 0
-            }, completion: nil)
+            underBar.alpha = isSelected ? 1 : 0
         }
     }
     
@@ -59,20 +51,25 @@ final class MainCollectionViewCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        [titleLabel].forEach {
+        [titleLabel, underBar].forEach {
             contentView.addSubview($0)
         }
     }
     
     private func makeConstraints() {
-        [titleLabel].forEach {
+        [titleLabel, underBar].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            underBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            underBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            underBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            underBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3.0),
+            underBar.heightAnchor.constraint(equalToConstant: 3.0),
         ])
     }
     

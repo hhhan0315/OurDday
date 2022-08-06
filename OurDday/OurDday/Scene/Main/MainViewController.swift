@@ -85,15 +85,15 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    // MARK: - Method
+    // MARK: - Initial Method
     private func setFirstIndexIsSelected() {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
-        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
+        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .centeredHorizontally)
     }
     
     private func setFirstViewController() {
         if let firstViewController = viewModel.firstViewController() {
-            pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true)
+            pageViewController.setViewControllers([firstViewController], direction: .forward, animated: false)
         }
     }
     
@@ -102,8 +102,9 @@ final class MainViewController: UIViewController {
         viewModel.$currentIndex
             .receive(on: DispatchQueue.main)
             .sink { currentIndex in
-                let direction: UIPageViewController.NavigationDirection = currentIndex == 0 ? .reverse : .forward
                 self.collectionView.selectItem(at: IndexPath(item: currentIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+                
+                let direction: UIPageViewController.NavigationDirection = currentIndex == 0 ? .reverse : .forward
                 self.pageViewController.setViewControllers([self.viewModel.viewController(at: currentIndex)], direction: direction, animated: true)
             }.store(in: &cancellable)
     }

@@ -11,11 +11,11 @@ final class EventCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = String(describing: EventCell.self)
     
-    var viewModel: EventCellViewModel? {
-        didSet {
-            configureViewModel()
-        }
-    }
+//    var viewModel: EventCellViewModel? {
+//        didSet {
+//            configureViewModel()
+//        }
+//    }
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -79,21 +79,31 @@ final class EventCell: UITableViewCell {
         ])
     }
     
-    private func configureViewModel() {
-        guard let viewModel = viewModel else {
-            return
-        }
+//    private func configureViewModel() {
+//        guard let viewModel = viewModel else {
+//            return
+//        }
+//        
+//        titleLabel.text = viewModel.title
+//        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.textColor
+//        
+//        dateLabel.text = viewModel.dateTitle
+//        dateLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.gray
+//        
+//        countLabel.text = viewModel.countTitle
+//        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.mainColor
+//    }
+    
+    // MARK: - Configure
+    func configureCell(with event: Event) {
+        titleLabel.text = event.title
+        titleLabel.textColor = event.count > 0 ? UIColor.lightGray : UIColor.textColor
         
-        titleLabel.text = viewModel.title
-        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.textColor
+        dateLabel.text = event.dateTitle
+        dateLabel.textColor = event.count > 0 ? UIColor.lightGray : UIColor.gray
         
-        dateLabel.text = viewModel.dateTitle
-        dateLabel.textColor = UIColor.lightGray
-        
-        countLabel.text = viewModel.countTitle
-        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.mainColor
-        
-//        setNeedsUpdateConstraints()
+        countLabel.text = event.countTitle
+        countLabel.textColor = event.count > 0 ? UIColor.lightGray : UIColor.mainColor
     }
     
 }

@@ -7,19 +7,25 @@
 
 import Foundation
 
-extension Date {
-    func toStringWithDayOfTheWeek() -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_kr")
-        formatter.dateFormat = "yyyy.MM.dd(EEE)"
-        return formatter.string(from: self)
-    }
-}
+//extension Date {
+//    func toStringWithDayOfTheWeek() -> String {
+//        let formatter = DateFormatter()
+//        formatter.locale = Locale(identifier: "ko_kr")
+//        formatter.dateFormat = "yyyy.MM.dd(EEE)"
+//        return formatter.string(from: self)
+//    }
+//}
 
 extension DateFormatter {
-    func toTodayYearMonthDay(date: Date) -> String {
-        self.dateFormat = "yyyy-MM-dd"
+    func toYearMonthDay(date: Date) -> String {
+        self.dateFormat = "yyyy.MM.dd"
         self.locale = Locale(identifier: "ko_KR")
+        return self.string(from: date)
+    }
+    
+    func toYearMonthDayWeek(date: Date) -> String {
+        self.dateFormat = "yyyy.MM.dd(EEE)"
+        self.locale = Locale(identifier: "ko_kr")
         return self.string(from: date)
     }
 }
