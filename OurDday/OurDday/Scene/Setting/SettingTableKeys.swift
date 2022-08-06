@@ -13,11 +13,13 @@ struct SettingTableKeys {
     static let Title = "title"
     static let SubTitle = "subTitle"
     
+    static let changeDate = "우리 만난 날 설정"
+    
     static let data: [[String:Any]] = [
         [
             SettingTableKeys.Section: "화면 설정",
             SettingTableKeys.Rows: [
-                [SettingTableKeys.Title: "우리 만난 날"],
+                [SettingTableKeys.Title: changeDate],
             ]
         ],
 //        [

@@ -11,12 +11,6 @@ final class EventCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = String(describing: EventCell.self)
     
-//    var viewModel: EventCellViewModel? {
-//        didSet {
-//            configureViewModel()
-//        }
-//    }
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFont(.title3)
@@ -78,21 +72,6 @@ final class EventCell: UITableViewCell {
             countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32.0),
         ])
     }
-    
-//    private func configureViewModel() {
-//        guard let viewModel = viewModel else {
-//            return
-//        }
-//        
-//        titleLabel.text = viewModel.title
-//        titleLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.textColor
-//        
-//        dateLabel.text = viewModel.dateTitle
-//        dateLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.gray
-//        
-//        countLabel.text = viewModel.countTitle
-//        countLabel.textColor = viewModel.count > 0 ? UIColor.lightGray : UIColor.mainColor
-//    }
     
     // MARK: - Configure
     func configureCell(with event: Event) {
