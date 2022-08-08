@@ -28,16 +28,8 @@ class LocalStorageManager {
         userDefaults?.set("No", forKey: "isFirstLaunch")
     }
     
-    func setImageUrl(url: URL) {
-        userDefaults?.set(url, forKey: "imageUrl")
-    }
-    
     func setDate(date: Date) {
         userDefaults?.set(date, forKey: "date")
-    }
-    
-    func readImageUrl() -> URL? {
-        return userDefaults?.url(forKey: "imageUrl")
     }
     
     func readDate() -> Date {
@@ -48,9 +40,35 @@ class LocalStorageManager {
         }
     }
     
+    func setPhotoURL(url: URL) {
+        userDefaults?.set(url, forKey: "photoURL")
+    }
+    
+    func readPhotoURL() -> URL? {
+        return userDefaults?.url(forKey: "photoURL")
+    }
+    
+    func setProfileFirstURL(url: URL) {
+        userDefaults?.set(url, forKey: "profileFirstURL")
+    }
+    
+    func readProfileFirstURL() -> URL? {
+        return userDefaults?.url(forKey: "profileFirstURL")
+    }
+    
+    func setProfileSecondURL(url: URL) {
+        userDefaults?.set(url, forKey: "profileSecondURL")
+    }
+    
+    func readProfileSecondURL() -> URL? {
+        return userDefaults?.url(forKey: "profileSecondURL")
+    }
+    
     func updateHomeInformation(completion: @escaping (HomeInformation) -> Void) {
         var home = HomeInformation.EMPTY
-//        home.imageUrl = readImageUrl()
+        home.photoURL = readPhotoURL()
+        home.profileFirstURL = readProfileFirstURL()
+        home.profileSecondURL = readProfileSecondURL()
         home.date = readDate()
         completion(home)
     }

@@ -27,7 +27,7 @@ final class EventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         setupViews()
         setupBind()
@@ -53,7 +53,6 @@ final class EventViewController: UIViewController {
         guard let index = viewModel.todayEventIndex() else {
             return
         }
-        tableView.layoutIfNeeded()
         tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: false)
     }
     
@@ -101,6 +100,6 @@ extension EventViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension EventViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.height / 8
+        return 100.0
     }
 }
