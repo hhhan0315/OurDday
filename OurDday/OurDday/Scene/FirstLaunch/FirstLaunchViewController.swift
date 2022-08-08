@@ -79,7 +79,7 @@ final class FirstLaunchViewController: UIViewController {
     @objc private func touchStartButton(_ sender: UIButton) {
         LocalStorageManager.shared.setFirstLaunch()
         LocalStorageManager.shared.setDate(date: selectDate)
-        view.window?.rootViewController = MainViewController()
+        view.window?.rootViewController = TabViewController()
     }
     
     @objc private func touchDateButton(_ sender: UIButton) {

@@ -17,7 +17,7 @@
 		0134D18027BDE14200552FE0 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D17F27BDE14200552FE0 /* LocalStorageManager.swift */; };
 		0134D18A27BDE2AF00552FE0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18327BDE2AF00552FE0 /* HomeViewController.swift */; };
 		0134D18B27BDE2AF00552FE0 /* FirstLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18427BDE2AF00552FE0 /* FirstLaunchViewController.swift */; };
-		0134D18D27BDE2AF00552FE0 /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18627BDE2AF00552FE0 /* EventTableViewController.swift */; };
+		0134D18D27BDE2AF00552FE0 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0134D18627BDE2AF00552FE0 /* EventViewController.swift */; };
 		013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BD27C9C8EF003949DF /* EventViewModel.swift */; };
 		013822C027C9CA98003949DF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BF27C9CA98003949DF /* EventManager.swift */; };
 		0138EB0827BE6938003E99B1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* Event.swift */; };
@@ -28,9 +28,6 @@
 		01764067289BC4130070B02A /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01764060289BC4130070B02A /* Calendar+Extension.swift */; };
 		0176406C289BFB510070B02A /* BMJUA_ttf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0176406B289BFB510070B02A /* BMJUA_ttf.ttf */; };
 		0176406D289BFB510070B02A /* BMJUA_ttf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0176406B289BFB510070B02A /* BMJUA_ttf.ttf */; };
-		0176406F289CAC4A0070B02A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176406E289CAC4A0070B02A /* MainViewController.swift */; };
-		01764071289CAE480070B02A /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01764070289CAE480070B02A /* MainCollectionViewCell.swift */; };
-		01764073289CB3AB0070B02A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01764072289CB3AB0070B02A /* MainViewModel.swift */; };
 		01764076289D106E0070B02A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01764075289D106E0070B02A /* SettingViewController.swift */; };
 		018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A49C627D9D331003E18B2 /* PhotoManager.swift */; };
 		0197D09A289D18C000721EFC /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197D099289D18C000721EFC /* SettingTableViewCell.swift */; };
@@ -38,6 +35,8 @@
 		01AF980A289E30B100E08767 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF9809289E30B100E08767 /* NotificationName+Extension.swift */; };
 		01AF9815289EB4FF00E08767 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 01AF9814289EB4FF00E08767 /* CropViewController */; };
 		01AF9817289FFCEC00E08767 /* HomeProfileAlertContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF9816289FFCEC00E08767 /* HomeProfileAlertContentViewController.swift */; };
+		01AF981A28A0C02400E08767 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 01AF981928A0C02400E08767 /* Tabman */; };
+		01AF981C28A0C08300E08767 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF981B28A0C08300E08767 /* TabViewController.swift */; };
 		01B1D89827E36EE1001863C8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89727E36EE1001863C8 /* WidgetKit.framework */; };
 		01B1D89A27E36EE1001863C8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89927E36EE1001863C8 /* SwiftUI.framework */; };
 		01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D89C27E36EE1001863C8 /* OurDdayWidget.swift */; };
@@ -82,7 +81,7 @@
 		0134D17F27BDE14200552FE0 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		0134D18327BDE2AF00552FE0 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0134D18427BDE2AF00552FE0 /* FirstLaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchViewController.swift; sourceTree = "<group>"; };
-		0134D18627BDE2AF00552FE0 /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
+		0134D18627BDE2AF00552FE0 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		013822BD27C9C8EF003949DF /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		013822BF27C9CA98003949DF /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		0138EB0727BE6938003E99B1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -92,15 +91,13 @@
 		0176405D289BC4130070B02A /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		01764060289BC4130070B02A /* Calendar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
 		0176406B289BFB510070B02A /* BMJUA_ttf.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMJUA_ttf.ttf; sourceTree = "<group>"; };
-		0176406E289CAC4A0070B02A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		01764070289CAE480070B02A /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
-		01764072289CB3AB0070B02A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		01764075289D106E0070B02A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		018A49C627D9D331003E18B2 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		0197D099289D18C000721EFC /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		0197D09D289D1DD300721EFC /* SettingTableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableKeys.swift; sourceTree = "<group>"; };
 		01AF9809289E30B100E08767 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		01AF9816289FFCEC00E08767 /* HomeProfileAlertContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileAlertContentViewController.swift; sourceTree = "<group>"; };
+		01AF981B28A0C08300E08767 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		01B1D89627E36EE1001863C8 /* OurDdayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OurDdayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B1D89727E36EE1001863C8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		01B1D89927E36EE1001863C8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -117,6 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01AF9815289EB4FF00E08767 /* CropViewController in Frameworks */,
+				01AF981A28A0C02400E08767 /* Tabman in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				0138EB0927BF44CE003E99B1 /* EventCell.swift */,
-				0134D18627BDE2AF00552FE0 /* EventTableViewController.swift */,
+				0134D18627BDE2AF00552FE0 /* EventViewController.swift */,
 				013822BD27C9C8EF003949DF /* EventViewModel.swift */,
 			);
 			path = Event;
@@ -250,7 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				011E44A327F5EE1800EBFCC1 /* FirstLaunch */,
-				01764074289CB4370070B02A /* Main */,
+				01764074289CB4370070B02A /* Tab */,
 				011E44A627F5F16200EBFCC1 /* Home */,
 				011E44B527F69C1E00EBFCC1 /* Event */,
 				01764077289D10740070B02A /* Setting */,
@@ -258,14 +256,12 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		01764074289CB4370070B02A /* Main */ = {
+		01764074289CB4370070B02A /* Tab */ = {
 			isa = PBXGroup;
 			children = (
-				01764070289CAE480070B02A /* MainCollectionViewCell.swift */,
-				0176406E289CAC4A0070B02A /* MainViewController.swift */,
-				01764072289CB3AB0070B02A /* MainViewModel.swift */,
+				01AF981B28A0C08300E08767 /* TabViewController.swift */,
 			);
-			path = Main;
+			path = Tab;
 			sourceTree = "<group>";
 		};
 		01764077289D10740070B02A /* Setting */ = {
@@ -317,6 +313,7 @@
 			name = OurDday;
 			packageProductDependencies = (
 				01AF9814289EB4FF00E08767 /* CropViewController */,
+				01AF981928A0C02400E08767 /* Tabman */,
 			);
 			productName = OurDday;
 			productReference = 0134D16527BDDE0400552FE0 /* OurDday.app */;
@@ -368,6 +365,7 @@
 			mainGroup = 0134D15C27BDDE0400552FE0;
 			packageReferences = (
 				01AF9813289EB4FF00E08767 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				01AF981828A0C02400E08767 /* XCRemoteSwiftPackageReference "Tabman" */,
 			);
 			productRefGroup = 0134D16627BDDE0400552FE0 /* Products */;
 			projectDirPath = "";
@@ -406,16 +404,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0176406F289CAC4A0070B02A /* MainViewController.swift in Sources */,
 				0134D18027BDE14200552FE0 /* LocalStorageManager.swift in Sources */,
 				013822C027C9CA98003949DF /* EventManager.swift in Sources */,
 				013822BE27C9C8EF003949DF /* EventViewModel.swift in Sources */,
 				01764063289BC4130070B02A /* UIFont+Extension.swift in Sources */,
 				0134D16927BDDE0400552FE0 /* AppDelegate.swift in Sources */,
 				0197D09A289D18C000721EFC /* SettingTableViewCell.swift in Sources */,
-				0134D18D27BDE2AF00552FE0 /* EventTableViewController.swift in Sources */,
-				01764071289CAE480070B02A /* MainCollectionViewCell.swift in Sources */,
+				0134D18D27BDE2AF00552FE0 /* EventViewController.swift in Sources */,
 				0138EB0827BE6938003E99B1 /* Event.swift in Sources */,
+				01AF981C28A0C08300E08767 /* TabViewController.swift in Sources */,
 				01764067289BC4130070B02A /* Calendar+Extension.swift in Sources */,
 				0134D18A27BDE2AF00552FE0 /* HomeViewController.swift in Sources */,
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
@@ -430,7 +427,6 @@
 				01764076289D106E0070B02A /* SettingViewController.swift in Sources */,
 				011E44A527F5F10400EBFCC1 /* HomeInformation.swift in Sources */,
 				011E44A227F5935200EBFCC1 /* DatePickerController.swift in Sources */,
-				01764073289CB3AB0070B02A /* MainViewModel.swift in Sources */,
 				0134D16B27BDDE0400552FE0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -750,6 +746,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		01AF981828A0C02400E08767 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -757,6 +761,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 01AF9813289EB4FF00E08767 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = CropViewController;
+		};
+		01AF981928A0C02400E08767 /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01AF981828A0C02400E08767 /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
