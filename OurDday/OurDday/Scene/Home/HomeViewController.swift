@@ -7,16 +7,47 @@
 
 import UIKit
 import Combine
+import PhotosUI
+import CropViewController
 
-protocol HomeControllerDelegate: AnyObject {
-    func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat)
+protocol HomeViewControllerDelegate: AnyObject {
+//    func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat)
+//    func resetFirstPageViewController()
+//    func setPhotoImageView()
 }
+
+// TODO: Home -> Delegate로 Main으로 전달 -> 사진 선택 & 종류별로 이제 사진 고름 -> identifier에 따라 해당 이미지뷰에 사진 설정 & PageViewController set 다시
 
 final class HomeViewController: UIViewController {
     // MARK: - View Define
-    private let photoImageView = HomePhotoImageView(frame: .zero)
-    private let profileFirstImageView = HomeProfileFirstImageView(frame: .zero)
-    private let profileSecondImageView = HomeProfileSecondImageView(frame: .zero)
+//    private let photoImageView = HomePhotoImageView(frame: .zero)
+//    private let profileFirstImageView = HomeProfileFirstImageView(frame: .zero)
+//    private let profileSecondImageView = HomeProfileSecondImageView(frame: .zero)
+    
+    private let photoImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "photo"))
+        return imageView
+    }()
+    
+    private lazy var profileFirstImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 50
+        imageView.tintColor = .lightGray
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchProfileFirstImageView(_:))))
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private lazy var profileSecondImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 50
+        imageView.tintColor = .lightGray
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchProfileSecondImageView(_:))))
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
     
     private let heartImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "heart.fill"))
@@ -53,7 +84,7 @@ final class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     private var cancellable = Set<AnyCancellable>()
     
-    weak var delegate: HomeControllerDelegate?
+    weak var delegate: HomeViewControllerDelegate?
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -132,5 +163,82 @@ final class HomeViewController: UIViewController {
     
     @objc private func notificationChangeDate() {
         viewModel.fetch()
+    }
+    
+    // MARK: - Method
+    private func setPHPickerConfiguration() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    // MARK: - Objc
+    @objc private func touchProfileFirstImageView(_ sender: UIImageView) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: "수정", style: .destructive, handler: { _ in
+            self.setPHPickerConfiguration()
+        }))
+//        alert.view.tintColor = UIColor.mainColor
+        
+        let contentViewController = HomeProfileAlertContentViewController()
+        alert.setValue(contentViewController, forKey: "contentViewController")
+        present(alert, animated: true)
+//        view.superview
+    }
+    
+    @objc private func touchProfileSecondImageView(_ sender: UIImageView) {
+        print("second")
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension HomeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        let itemProvider = results.first?.itemProvider
+
+        if let itemProvider = itemProvider,
+            itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage else {
+                    return
+                }
+//                DispatchQueue.main.async {
+//                    self.photoImageView.image = image
+//                }
+                DispatchQueue.main.async {
+                    let cropViewController = CropViewController(image: image)
+                    cropViewController.delegate = self
+//                    cropViewController.customAspectRatio = CGSize(width: self.imageWidth, height: self.imageHeight)
+//                    cropViewController.resetAspectRatioEnabled = false
+//                    cropViewController.aspectRatioPickerButtonHidden = true
+//                    cropViewController.modalPresentationStyle = .popover
+                    self.present(cropViewController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - CropViewControllerDelegate
+extension HomeViewController: CropViewControllerDelegate {
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        // TODO: PhotoManager에서 저장 (case 분류 필요)
+        cropViewController.dismiss(animated: true) {
+//            self.delegate?.resetFirstPageViewController()
+        }
+        
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true) {
+//            self.delegate?.resetFirstPageViewController()
+        }
     }
 }
