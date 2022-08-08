@@ -37,6 +37,7 @@
 		01AF9817289FFCEC00E08767 /* HomeProfileAlertContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF9816289FFCEC00E08767 /* HomeProfileAlertContentViewController.swift */; };
 		01AF981A28A0C02400E08767 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 01AF981928A0C02400E08767 /* Tabman */; };
 		01AF981C28A0C08300E08767 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF981B28A0C08300E08767 /* TabViewController.swift */; };
+		01AF981E28A1255900E08767 /* ImageFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF981D28A1255900E08767 /* ImageFileType.swift */; };
 		01B1D89827E36EE1001863C8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89727E36EE1001863C8 /* WidgetKit.framework */; };
 		01B1D89A27E36EE1001863C8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89927E36EE1001863C8 /* SwiftUI.framework */; };
 		01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D89C27E36EE1001863C8 /* OurDdayWidget.swift */; };
@@ -98,6 +99,7 @@
 		01AF9809289E30B100E08767 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		01AF9816289FFCEC00E08767 /* HomeProfileAlertContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileAlertContentViewController.swift; sourceTree = "<group>"; };
 		01AF981B28A0C08300E08767 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		01AF981D28A1255900E08767 /* ImageFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileType.swift; sourceTree = "<group>"; };
 		01B1D89627E36EE1001863C8 /* OurDdayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OurDdayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B1D89727E36EE1001863C8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		01B1D89927E36EE1001863C8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -219,6 +221,7 @@
 			children = (
 				011E44A427F5F10400EBFCC1 /* HomeInformation.swift */,
 				0138EB0727BE6938003E99B1 /* Event.swift */,
+				01AF981D28A1255900E08767 /* ImageFileType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				018A49C727D9D332003E18B2 /* PhotoManager.swift in Sources */,
 				0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */,
 				011E44A827F6834000EBFCC1 /* HomeViewModel.swift in Sources */,
+				01AF981E28A1255900E08767 /* ImageFileType.swift in Sources */,
 				01764064289BC4130070B02A /* DateFormatter+Extension.swift in Sources */,
 				0197D09E289D1DD300721EFC /* SettingTableKeys.swift in Sources */,
 				01764061289BC4130070B02A /* UIColor+Extension.swift in Sources */,

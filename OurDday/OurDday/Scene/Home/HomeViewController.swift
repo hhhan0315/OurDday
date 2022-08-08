@@ -10,40 +10,28 @@ import Combine
 import PhotosUI
 import CropViewController
 
-protocol HomeViewControllerDelegate: AnyObject {
-//    func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat)
-//    func resetFirstPageViewController()
-//    func setPhotoImageView()
-}
-
-// TODO: Home -> Delegate로 Main으로 전달 -> 사진 선택 & 종류별로 이제 사진 고름 -> identifier에 따라 해당 이미지뷰에 사진 설정 & PageViewController set 다시
-
 final class HomeViewController: UIViewController {
     // MARK: - View Define
-//    private let photoImageView = HomePhotoImageView(frame: .zero)
-//    private let profileFirstImageView = HomeProfileFirstImageView(frame: .zero)
-//    private let profileSecondImageView = HomeProfileSecondImageView(frame: .zero)
-    
-    private let photoImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "photo"))
+    private lazy var photoImageView: UIImageView = {
+        let imageView = UIImageView()
         return imageView
     }()
     
     private lazy var profileFirstImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+        let imageView = UIImageView(image: UIImage(named: "smile"))
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 50
-        imageView.tintColor = .lightGray
+        imageView.clipsToBounds = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchProfileFirstImageView(_:))))
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
     private lazy var profileSecondImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+        let imageView = UIImageView(image: UIImage(named: "smile"))
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 50
-        imageView.tintColor = .lightGray
+        imageView.clipsToBounds = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchProfileSecondImageView(_:))))
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -84,7 +72,7 @@ final class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     private var cancellable = Set<AnyCancellable>()
     
-    weak var delegate: HomeViewControllerDelegate?
+    private var currentImageFileType: ImageFileType = .photo
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -149,19 +137,42 @@ final class HomeViewController: UIViewController {
         viewModel.$homeInformation
             .receive(on: DispatchQueue.main)
             .sink { homeInformation in
-                //                self.photoImageView.image = homeInformation.photoURL ?? UIImage(named: "photo")
                 self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date) + 1)일"
                 self.meetDateLabel.text = DateFormatter().toYearMonthDay(date: LocalStorageManager.shared.readDate())
+                
+                if let photoURL = homeInformation.photoURL,
+                   let photoImage = UIImage(contentsOfFile: photoURL.path) {
+                    self.photoImageView.image = photoImage
+                } else {
+                    self.photoImageView.image = UIImage(named: "photo")
+                }
+                
+                if let profileFirstURL = homeInformation.profileFirstURL,
+                   let profileFirstImage = UIImage(contentsOfFile: profileFirstURL.path) {
+                    self.profileFirstImageView.image = profileFirstImage
+                } else {
+                    self.profileFirstImageView.image = UIImage(named: "smile")
+                }
+                
+                
+                if let profileSecondURL = homeInformation.profileSecondURL,
+                   let profileSecondPhoto = UIImage(contentsOfFile: profileSecondURL.path) {
+                    self.profileSecondImageView.image = profileSecondPhoto
+                } else {
+                    self.profileSecondImageView.image = UIImage(named: "smile")
+                }
             }
             .store(in: &cancellable)
     }
     
     // MARK: - Notification
     private func setupNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationChangeDate), name: Notification.Name.changeDate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .changeDate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .resetProfileImage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .setPhoto, object: nil)
     }
     
-    @objc private func notificationChangeDate() {
+    @objc private func notificationChange() {
         viewModel.fetch()
     }
     
@@ -182,17 +193,27 @@ final class HomeViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         alert.addAction(UIAlertAction(title: "수정", style: .destructive, handler: { _ in
             self.setPHPickerConfiguration()
+            self.currentImageFileType = .profileFirst
         }))
-//        alert.view.tintColor = UIColor.mainColor
         
         let contentViewController = HomeProfileAlertContentViewController()
+        contentViewController.configureImageView(imageFileType: .profileFirst)
         alert.setValue(contentViewController, forKey: "contentViewController")
         present(alert, animated: true)
-//        view.superview
     }
     
     @objc private func touchProfileSecondImageView(_ sender: UIImageView) {
-        print("second")
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: "수정", style: .destructive, handler: { _ in
+            self.setPHPickerConfiguration()
+            self.currentImageFileType = .profileSecond
+        }))
+        
+        let contentViewController = HomeProfileAlertContentViewController()
+        contentViewController.configureImageView(imageFileType: .profileSecond)
+        alert.setValue(contentViewController, forKey: "contentViewController")
+        present(alert, animated: true)
     }
 }
 
@@ -209,16 +230,20 @@ extension HomeViewController: PHPickerViewControllerDelegate {
                 guard let image = image as? UIImage else {
                     return
                 }
-//                DispatchQueue.main.async {
-//                    self.photoImageView.image = image
-//                }
+                
                 DispatchQueue.main.async {
-                    let cropViewController = CropViewController(image: image)
+                    let cropViewController = CropViewController(croppingStyle: .circular, image: image)
                     cropViewController.delegate = self
-//                    cropViewController.customAspectRatio = CGSize(width: self.imageWidth, height: self.imageHeight)
-//                    cropViewController.resetAspectRatioEnabled = false
-//                    cropViewController.aspectRatioPickerButtonHidden = true
-//                    cropViewController.modalPresentationStyle = .popover
+                    cropViewController.resetAspectRatioEnabled = false
+                    cropViewController.aspectRatioPickerButtonHidden = true
+                    
+                    switch self.currentImageFileType {
+                    case .photo:
+                        break
+                    case .profileFirst, .profileSecond:
+                        cropViewController.customAspectRatio = CGSize(width: 100.0, height: 100.0)
+                    }
+                    
                     self.present(cropViewController, animated: true, completion: nil)
                 }
             }
@@ -228,17 +253,18 @@ extension HomeViewController: PHPickerViewControllerDelegate {
 
 // MARK: - CropViewControllerDelegate
 extension HomeViewController: CropViewControllerDelegate {
-    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        // TODO: PhotoManager에서 저장 (case 분류 필요)
-        cropViewController.dismiss(animated: true) {
-//            self.delegate?.resetFirstPageViewController()
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        switch currentImageFileType {
+        case .photo:
+            break
+        case .profileFirst:
+            PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: ImageFileType.profileFirst, image: image)
+        case .profileSecond:
+            PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: ImageFileType.profileSecond, image: image)
         }
         
-    }
-    
-    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
-        cropViewController.dismiss(animated: true) {
-//            self.delegate?.resetFirstPageViewController()
-        }
+        viewModel.fetch()
+        
+        cropViewController.dismiss(animated: true)
     }
 }

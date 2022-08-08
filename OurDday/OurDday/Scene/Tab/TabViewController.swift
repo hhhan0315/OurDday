@@ -13,9 +13,24 @@ class TabViewController: TabmanViewController {
     private let viewControllers = [HomeViewController(), EventViewController()]
     private let titles = ["우리", "디데이"]
     
+    private lazy var settingButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        button.tintColor = .mainColor
+        button.addTarget(self, action: #selector(touchSettingButton(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                        
+        
+        view.backgroundColor = .systemBackground
+        
+        setupBar()
+        setupSettingButton()
+    }
+    
+    private func setupBar() {
         self.dataSource = self
         
         let bar = TMBar.ButtonBar()
@@ -33,6 +48,23 @@ class TabViewController: TabmanViewController {
         bar.indicator.overscrollBehavior = .compress
         
         addBar(bar, dataSource: self, at: .top)
+    }
+    
+    private func setupSettingButton() {
+        view.addSubview(settingButton)
+        settingButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            settingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            settingButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            settingButton.widthAnchor.constraint(equalToConstant: 45.0),
+            settingButton.heightAnchor.constraint(equalToConstant: 45.0),
+        ])
+    }
+    
+    @objc private func touchSettingButton(_ sender: UIButton) {
+        let settingViewController = SettingViewController()
+        let navigationController = UINavigationController(rootViewController: settingViewController)
+        present(navigationController, animated: true)
     }
 }
 

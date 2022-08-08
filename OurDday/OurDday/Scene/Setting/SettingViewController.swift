@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import PhotosUI
+import CropViewController
 
 class SettingViewController: UIViewController {
     // MARK: - View Define
@@ -16,7 +18,7 @@ class SettingViewController: UIViewController {
         tableView.delegate = self
         return tableView
     }()
-        
+    
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,17 +127,90 @@ extension SettingViewController: UITableViewDelegate {
                 let datePickerDate = datePickerController.datePicker.date
                 LocalStorageManager.shared.setDate(date: datePickerDate)
                 NotificationCenter.default.post(name: Notification.Name.changeDate, object: nil)
+                self.dismiss(animated: true)
             }))
             alert.setValue(datePickerController, forKey: "contentViewController")
             
             present(alert, animated: true, completion: nil)
+            
+        case SettingTableKeys.setPhoto:
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .images
+
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+            
+        case SettingTableKeys.resetProfile:
+            let title = "초기화하시겠습니까?"
+            let attributeString = NSMutableAttributedString(string: title)
+            if let titleFont = UIFont.customFont(.body) {
+                attributeString.addAttributes([NSAttributedString.Key.font: titleFont],
+                                              range: NSRange(location: 0, length: title.count))
+            }
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .profileFirst)
+                PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .profileSecond)
+                NotificationCenter.default.post(name: Notification.Name.resetProfileImage, object: nil)
+            }))
+            
+            alert.setValue(attributeString, forKey: "attributedTitle")
+            present(alert, animated: true, completion: nil)
+            self.dismiss(animated: true)
+            
         default: break
         }
-                
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44.0
+        return 50.0
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension SettingViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        let itemProvider = results.first?.itemProvider
+
+        if let itemProvider = itemProvider,
+            itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let cropViewController = CropViewController(croppingStyle: .default, image: image)
+                    cropViewController.delegate = self
+                    cropViewController.resetAspectRatioEnabled = false
+                    cropViewController.aspectRatioPickerButtonHidden = true
+                    cropViewController.customAspectRatio = CGSize(width: self.view.frame.width, height: self.view.frame.width)
+                    
+                    self.present(cropViewController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - CropViewControllerDelegate
+extension SettingViewController: CropViewControllerDelegate {
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: .photo, image: image)
+        NotificationCenter.default.post(name: .setPhoto, object: nil)
+        cropViewController.dismiss(animated: true)
+        self.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 }
