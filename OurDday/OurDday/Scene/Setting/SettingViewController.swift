@@ -176,6 +176,7 @@ extension SettingViewController: UITableViewDelegate {
                 PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .profileFirst)
                 PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .profileSecond)
                 NotificationCenter.default.post(name: Notification.Name.resetImage, object: nil)
+                WidgetCenter.shared.reloadAllTimelines()
                 self.dismiss(animated: true)
             }))
             
