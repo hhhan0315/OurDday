@@ -16,10 +16,9 @@ struct Provider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
         var entry = SimpleEntry(date: Date(), backgroundImage: nil, todayCount: nil)
-        entry.color = .mainColor
-
+        
         if let url = userDefaults?.url(forKey: "photoURL"),
-           let image = UIImage(contentsOfFile: url.path){
+           let image = UIImage(contentsOfFile: url.path) {
             entry.backgroundImage = image
         } else {
             entry.backgroundImage = UIImage(named: "photo")
@@ -43,14 +42,12 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let currentDate = Date()
         let startOfDay = Calendar.current.startOfDay(for: currentDate)
-        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
         
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
         var entry = SimpleEntry(date: startOfDay, backgroundImage: nil, todayCount: nil)
-        entry.color = .mainColor
         
         if let url = userDefaults?.url(forKey: "photoURL"),
-           let image = UIImage(contentsOfFile: url.path){
+           let image = UIImage(contentsOfFile: url.path) {
             entry.backgroundImage = image
         } else {
             entry.backgroundImage = UIImage(named: "photo")
@@ -68,7 +65,8 @@ struct Provider: TimelineProvider {
             entry.todayCount = dayCount
         }
         
-        let timeline = Timeline(entries: [entry], policy: .after(endOfDay))
+        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)
+        let timeline = Timeline(entries: [entry], policy: .after(endOfDay ?? Date()))
         completion(timeline)
     }
 }
@@ -77,7 +75,6 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     var backgroundImage: UIImage?
     var todayCount: Int?
-    var color: UIColor? = .mainColor
 }
 
 struct OurDdayWidgetEntryView : View {
@@ -95,36 +92,12 @@ struct OurDdayWidgetEntryView : View {
                     .scaledToFill()
                 
                 if let todayCount = entry.todayCount {
-                    Text("\(todayCount + 1)일")
+                    Text(String(todayCount + 1) + "일")
+                        .font(Font.custom("BMJUA", size: dayCountFontSize))
                         .foregroundColor(.white)
-                        .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
                         .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
                 }
-                
-//                if let phrases = entry.phrases {
-//                    Text(phrases)
-//                        .foregroundColor(.white)
-//                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
-//                        .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
-//                }
             }
-        } else {
-//            ZStack {
-//                if let todayCount = entry.todayCount {
-//                    let color = Color(entry.color ?? UIColor.black)
-//                    Text("\(todayCount + 1)일")
-//                        .foregroundColor(color)
-//                        .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
-//                        .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
-//                }
-                
-//                if let phrases = entry.phrases {
-//                    Text(phrases)
-//                        .foregroundColor(.black)
-//                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
-//                        .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
-//                }
-//            }
         }
     }
 }
@@ -190,22 +163,12 @@ func widgetHeight(forFamily family:WidgetFamily) -> CGSize {
 
 func widgetDayCountFontSize(forFamily family: WidgetFamily) -> CGFloat {
     switch family {
-    case .systemSmall: return CGFloat(32.0)
-    case .systemMedium: return CGFloat(32.0)
-    case .systemLarge: return CGFloat(48.0)
+    case .systemSmall: return CGFloat(30.0)
+    case .systemMedium: return CGFloat(40.0)
+    case .systemLarge: return CGFloat(50.0)
     default: return CGFloat(48.0)
     }
 }
-
-func widgetPhrasesFontSize(forFamily family: WidgetFamily) -> CGFloat {
-    switch family {
-    case .systemSmall: return CGFloat(18.0)
-    case .systemMedium: return CGFloat(18.0)
-    case .systemLarge: return CGFloat(28.0)
-    default: return CGFloat(28.0)
-    }
-}
-
 
 
 //struct OurDdayWidget_Previews: PreviewProvider {
