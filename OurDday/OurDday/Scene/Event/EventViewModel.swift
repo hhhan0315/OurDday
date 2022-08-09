@@ -9,12 +9,12 @@ import Foundation
 
 class EventViewModel: NSObject {
     
-    private var events = [Event]()
+    @Published var events = [Event]()
     
-    func fetch(completion: @escaping () -> Void) {
+    func fetch() {
+        events.removeAll()
         EventManager.shared.getEvents(completion: { events in
             self.events = events
-            completion()
         })
     }
     

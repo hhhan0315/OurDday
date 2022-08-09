@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if LocalStorageManager.shared.isFirstLaunch() {
             window?.rootViewController = FirstLaunchViewController()
         } else {
-            let rootViewController = MainViewController()
+            let rootViewController = TabViewController()
             window?.rootViewController = rootViewController
         }
         window?.makeKeyAndVisible()

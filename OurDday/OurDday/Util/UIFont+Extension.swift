@@ -14,17 +14,21 @@ enum CustomFontSize {
     case body
 }
 
+enum CustomFontName {
+    static let bmjua = "BMJUA"
+}
+
 extension UIFont {
     static func customFont(_ name: CustomFontSize) -> UIFont? {
         switch name {
         case .largeTitle:
-            return UIFont(name: "BMJUA", size: 34.0)
+            return UIFont(name: CustomFontName.bmjua, size: 34.0)
         case .title1:
-            return UIFont(name: "BMJUA", size: 28.0)
+            return UIFont(name: CustomFontName.bmjua, size: 28.0)
         case .title3:
-            return UIFont(name: "BMJUA", size: 20.0)
+            return UIFont(name: CustomFontName.bmjua, size: 20.0)
         case .body:
-            return UIFont(name: "BMJUA", size: 17.0)
+            return UIFont(name: CustomFontName.bmjua, size: 17.0)
         }
     }
 }

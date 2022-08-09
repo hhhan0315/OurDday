@@ -7,32 +7,35 @@
 
 import UIKit
 import Combine
-
-protocol HomeControllerDelegate: AnyObject {
-    func homeControllerImageSize(_ width: CGFloat, _ height: CGFloat)
-}
+import PhotosUI
+import CropViewController
+import WidgetKit
 
 final class HomeViewController: UIViewController {
     // MARK: - View Define
-    private let photoImageView: UIImageView = {
+    private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "photo")
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private let myImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+    private lazy var profileFirstImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 50
-        imageView.tintColor = .lightGray
+        imageView.clipsToBounds = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchProfileFirstImageView(_:))))
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    private let youImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "face.smiling"))
+    private lazy var profileSecondImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 50
-        imageView.tintColor = .lightGray
+        imageView.clipsToBounds = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchProfileSecondImageView(_:))))
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -71,7 +74,7 @@ final class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     private var cancellable = Set<AnyCancellable>()
     
-    weak var delegate: HomeControllerDelegate?
+    private var currentImageFileType: ImageFileType = .photo
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -83,6 +86,7 @@ final class HomeViewController: UIViewController {
         
         setupViews()
         setupBind()
+        setupNotification()
     }
     
     // MARK: - Layout
@@ -92,13 +96,13 @@ final class HomeViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [photoImageView, heartDateStackView, myImageView, youImageView, meetDateLabel].forEach {
+        [photoImageView, heartDateStackView, profileFirstImageView, profileSecondImageView, meetDateLabel].forEach {
             view.addSubview($0)
         }
     }
     
     private func makeConstraints() {
-        [photoImageView, heartDateStackView, myImageView, youImageView, meetDateLabel].forEach {
+        [photoImageView, heartDateStackView, profileFirstImageView, profileSecondImageView, meetDateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
@@ -112,17 +116,17 @@ final class HomeViewController: UIViewController {
             heartDateStackView.widthAnchor.constraint(equalToConstant: 100.0),
             heartDateStackView.heightAnchor.constraint(equalToConstant: 100.0),
             
-            myImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
-            myImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
-            myImageView.widthAnchor.constraint(equalToConstant: 100.0),
-            myImageView.heightAnchor.constraint(equalToConstant: 100.0),
-            myImageView.trailingAnchor.constraint(equalTo: heartDateStackView.leadingAnchor, constant: -16.0),
+            profileFirstImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
+            profileFirstImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
+            profileFirstImageView.widthAnchor.constraint(equalToConstant: 100.0),
+            profileFirstImageView.heightAnchor.constraint(equalToConstant: 100.0),
+            profileFirstImageView.trailingAnchor.constraint(equalTo: heartDateStackView.leadingAnchor, constant: -16.0),
             
-            youImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
-            youImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
-            youImageView.widthAnchor.constraint(equalToConstant: 100.0),
-            youImageView.heightAnchor.constraint(equalToConstant: 100.0),
-            youImageView.leadingAnchor.constraint(equalTo: heartDateStackView.trailingAnchor, constant: 16.0),
+            profileSecondImageView.topAnchor.constraint(equalTo: heartDateStackView.topAnchor),
+            profileSecondImageView.centerYAnchor.constraint(equalTo: heartDateStackView.centerYAnchor),
+            profileSecondImageView.widthAnchor.constraint(equalToConstant: 100.0),
+            profileSecondImageView.heightAnchor.constraint(equalToConstant: 100.0),
+            profileSecondImageView.leadingAnchor.constraint(equalTo: heartDateStackView.trailingAnchor, constant: 16.0),
             
             meetDateLabel.topAnchor.constraint(equalTo: heartDateStackView.bottomAnchor, constant: 10.0),
             meetDateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -135,10 +139,130 @@ final class HomeViewController: UIViewController {
         viewModel.$homeInformation
             .receive(on: DispatchQueue.main)
             .sink { homeInformation in
-//                self.photoImageView.image = homeInformation.photoURL ?? UIImage(named: "photo")
                 self.dateLabel.text = "\(Calendar.countDaysFromNow(fromDate: homeInformation.date) + 1)일"
                 self.meetDateLabel.text = DateFormatter().toYearMonthDay(date: LocalStorageManager.shared.readDate())
+                
+                if let photoURL = homeInformation.photoURL,
+                   let photoImage = UIImage(contentsOfFile: photoURL.path) {
+                    self.photoImageView.image = photoImage
+                } else {
+                    self.photoImageView.image = UIImage(named: "photo")
+                }
+                
+                if let profileFirstURL = homeInformation.profileFirstURL,
+                   let profileFirstImage = UIImage(contentsOfFile: profileFirstURL.path) {
+                    self.profileFirstImageView.image = profileFirstImage
+                } else {
+                    self.profileFirstImageView.image = UIImage(named: "smile")
+                }
+                
+                
+                if let profileSecondURL = homeInformation.profileSecondURL,
+                   let profileSecondPhoto = UIImage(contentsOfFile: profileSecondURL.path) {
+                    self.profileSecondImageView.image = profileSecondPhoto
+                } else {
+                    self.profileSecondImageView.image = UIImage(named: "smile")
+                }
             }
             .store(in: &cancellable)
+    }
+    
+    // MARK: - Notification
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .changeDate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .resetImage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .setPhoto, object: nil)
+    }
+    
+    @objc private func notificationChange() {
+        viewModel.fetch()
+    }
+    
+    // MARK: - Method
+    private func setPHPickerConfiguration() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    private func showAlert(imageFileType: ImageFileType) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: "수정", style: .destructive, handler: { _ in
+            self.setPHPickerConfiguration()
+            self.currentImageFileType = imageFileType
+        }))
+        
+        let contentViewController = HomeProfileAlertContentViewController()
+        contentViewController.configureImageView(imageFileType: imageFileType)
+        alert.setValue(contentViewController, forKey: "contentViewController")
+        present(alert, animated: true)
+    }
+    
+    // MARK: - Objc
+    @objc private func touchProfileFirstImageView(_ sender: UIImageView) {
+        showAlert(imageFileType: .profileFirst)
+    }
+    
+    @objc private func touchProfileSecondImageView(_ sender: UIImageView) {
+        showAlert(imageFileType: .profileSecond)
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension HomeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        let itemProvider = results.first?.itemProvider
+
+        if let itemProvider = itemProvider,
+            itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+                    cropViewController.delegate = self
+                    cropViewController.resetAspectRatioEnabled = false
+                    cropViewController.aspectRatioPickerButtonHidden = true
+                    
+                    switch self.currentImageFileType {
+                    case .photo:
+                        break
+                    case .profileFirst, .profileSecond:
+                        cropViewController.customAspectRatio = CGSize(width: 100.0, height: 100.0)
+                    }
+                    
+                    self.present(cropViewController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - CropViewControllerDelegate
+extension HomeViewController: CropViewControllerDelegate {
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        switch currentImageFileType {
+        case .photo:
+            break
+        case .profileFirst:
+            PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: ImageFileType.profileFirst, image: image)
+            WidgetCenter.shared.reloadAllTimelines()
+        case .profileSecond:
+            PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: ImageFileType.profileSecond, image: image)
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+        
+        viewModel.fetch()
+        
+        cropViewController.dismiss(animated: true)
     }
 }

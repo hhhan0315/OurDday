@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 final class FirstLaunchViewController: UIViewController {
     // MARK: - UI Define
@@ -79,13 +80,15 @@ final class FirstLaunchViewController: UIViewController {
     @objc private func touchStartButton(_ sender: UIButton) {
         LocalStorageManager.shared.setFirstLaunch()
         LocalStorageManager.shared.setDate(date: selectDate)
-        view.window?.rootViewController = MainViewController()
+        WidgetCenter.shared.reloadAllTimelines()
+        view.window?.rootViewController = TabViewController()
     }
     
     @objc private func touchDateButton(_ sender: UIButton) {
         let datePickerController = DatePickerViewController()
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             let datePickerDate = datePickerController.datePicker.date
             self.selectDate = datePickerDate

@@ -7,15 +7,6 @@
 
 import Foundation
 
-//extension Date {
-//    func toStringWithDayOfTheWeek() -> String {
-//        let formatter = DateFormatter()
-//        formatter.locale = Locale(identifier: "ko_kr")
-//        formatter.dateFormat = "yyyy.MM.dd(EEE)"
-//        return formatter.string(from: self)
-//    }
-//}
-
 extension DateFormatter {
     func toYearMonthDay(date: Date) -> String {
         self.dateFormat = "yyyy.MM.dd"
