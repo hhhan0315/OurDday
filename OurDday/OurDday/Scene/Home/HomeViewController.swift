@@ -168,7 +168,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Notification
     private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .changeDate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .resetProfileImage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .resetImage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .setPhoto, object: nil)
     }
     

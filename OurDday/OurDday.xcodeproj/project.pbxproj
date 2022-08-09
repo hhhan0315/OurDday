@@ -22,6 +22,7 @@
 		013822C027C9CA98003949DF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013822BF27C9CA98003949DF /* EventManager.swift */; };
 		0138EB0827BE6938003E99B1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0727BE6938003E99B1 /* Event.swift */; };
 		0138EB0A27BF44CE003E99B1 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138EB0927BF44CE003E99B1 /* EventCell.swift */; };
+		0152043628A15D080014699F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0134D17127BDDE0600552FE0 /* Assets.xcassets */; };
 		01764061289BC4130070B02A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405A289BC4130070B02A /* UIColor+Extension.swift */; };
 		01764063289BC4130070B02A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405C289BC4130070B02A /* UIFont+Extension.swift */; };
 		01764064289BC4130070B02A /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405D289BC4130070B02A /* DateFormatter+Extension.swift */; };
@@ -38,6 +39,7 @@
 		01AF981A28A0C02400E08767 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 01AF981928A0C02400E08767 /* Tabman */; };
 		01AF981C28A0C08300E08767 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF981B28A0C08300E08767 /* TabViewController.swift */; };
 		01AF981E28A1255900E08767 /* ImageFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AF981D28A1255900E08767 /* ImageFileType.swift */; };
+		01AF981F28A159D400E08767 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176405A289BC4130070B02A /* UIColor+Extension.swift */; };
 		01B1D89827E36EE1001863C8 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89727E36EE1001863C8 /* WidgetKit.framework */; };
 		01B1D89A27E36EE1001863C8 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01B1D89927E36EE1001863C8 /* SwiftUI.framework */; };
 		01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1D89C27E36EE1001863C8 /* OurDdayWidget.swift */; };
@@ -396,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01B1D89F27E36EE3001863C8 /* Assets.xcassets in Resources */,
+				0152043628A15D080014699F /* Assets.xcassets in Resources */,
 				0176406D289BFB510070B02A /* BMJUA_ttf.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01B1D89D27E36EE1001863C8 /* OurDdayWidget.swift in Sources */,
+				01AF981F28A159D400E08767 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

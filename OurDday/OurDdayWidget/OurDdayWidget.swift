@@ -16,10 +16,13 @@ struct Provider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
         var entry = SimpleEntry(date: Date(), backgroundImage: nil, todayCount: nil)
+        entry.color = .mainColor
 
-        if let url = userDefaults?.url(forKey: "imageUrl"),
+        if let url = userDefaults?.url(forKey: "photoURL"),
            let image = UIImage(contentsOfFile: url.path){
             entry.backgroundImage = image
+        } else {
+            entry.backgroundImage = UIImage(named: "photo")
         }
 
         if let date = userDefaults?.object(forKey: "date") as? Date {
@@ -27,27 +30,13 @@ struct Provider: TimelineProvider {
 
             let from = calendar.startOfDay(for: date)
             let to = calendar.startOfDay(for: Date())
-
+            
             let components = calendar.dateComponents([.day], from: from, to: to)
             let dayCount = components.day ?? 0
 
             entry.todayCount = dayCount
         }
         
-        if let phrases = userDefaults?.string(forKey: "phrases") {
-            entry.phrases = phrases
-        }
-        
-        if let colorData = userDefaults?.data(forKey: "mainColor") {
-            do {
-                if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
-                    entry.color = color
-                }
-            } catch {
-                print("Error UserDefaults")
-            }
-        }
-
         completion(entry)
     }
     
@@ -57,11 +46,14 @@ struct Provider: TimelineProvider {
         let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
         
         let userDefaults = UserDefaults(suiteName: "group.OurDday")
-        var entry = SimpleEntry(date: startOfDay, backgroundImage: nil, todayCount: nil, phrases: nil)
+        var entry = SimpleEntry(date: startOfDay, backgroundImage: nil, todayCount: nil)
+        entry.color = .mainColor
         
-        if let url = userDefaults?.url(forKey: "imageUrl"),
+        if let url = userDefaults?.url(forKey: "photoURL"),
            let image = UIImage(contentsOfFile: url.path){
             entry.backgroundImage = image
+        } else {
+            entry.backgroundImage = UIImage(named: "photo")
         }
         
         if let date = userDefaults?.object(forKey: "date") as? Date {
@@ -74,20 +66,6 @@ struct Provider: TimelineProvider {
             let dayCount = components.day ?? 0
             
             entry.todayCount = dayCount
-        }
-        
-        if let phrases = userDefaults?.string(forKey: "phrases") {
-            entry.phrases = phrases
-        }
-        
-        if let colorData = userDefaults?.data(forKey: "mainColor") {
-            do {
-                if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
-                    entry.color = color
-                }
-            } catch {
-                print("Error UserDefaults")
-            }
         }
         
         let timeline = Timeline(entries: [entry], policy: .after(endOfDay))
@@ -99,8 +77,7 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     var backgroundImage: UIImage?
     var todayCount: Int?
-    var phrases: String?
-    var color: UIColor?
+    var color: UIColor? = .mainColor
 }
 
 struct OurDdayWidgetEntryView : View {
@@ -110,7 +87,6 @@ struct OurDdayWidgetEntryView : View {
     var body: some View {
         let size = widgetHeight(forFamily: family)
         let dayCountFontSize = widgetDayCountFontSize(forFamily: family)
-        let phrasesFontSize = widgetPhrasesFontSize(forFamily: family)
         
         if let backgroundImage = entry.backgroundImage {
             ZStack {
@@ -125,30 +101,30 @@ struct OurDdayWidgetEntryView : View {
                         .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
                 }
                 
-                if let phrases = entry.phrases {
-                    Text(phrases)
-                        .foregroundColor(.white)
-                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
-                        .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
-                }
+//                if let phrases = entry.phrases {
+//                    Text(phrases)
+//                        .foregroundColor(.white)
+//                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
+//                        .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
+//                }
             }
         } else {
-            ZStack {
-                if let todayCount = entry.todayCount {
-                    let color = Color(entry.color ?? UIColor.systemBlue)
-                    Text("\(todayCount + 1)일")
-                        .foregroundColor(color)
-                        .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
-                        .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
-                }
+//            ZStack {
+//                if let todayCount = entry.todayCount {
+//                    let color = Color(entry.color ?? UIColor.black)
+//                    Text("\(todayCount + 1)일")
+//                        .foregroundColor(color)
+//                        .font(.system(size: dayCountFontSize, weight: .semibold, design: .default))
+//                        .frame(width: size.width - 20, height: size.height - 20, alignment: .bottomTrailing)
+//                }
                 
-                if let phrases = entry.phrases {
-                    Text(phrases)
-                        .foregroundColor(.black)
-                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
-                        .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
-                }
-            }
+//                if let phrases = entry.phrases {
+//                    Text(phrases)
+//                        .foregroundColor(.black)
+//                        .font(.system(size: phrasesFontSize, weight: .regular, design: .default))
+//                        .frame(width: size.width - 30, height: size.height - 30, alignment: .topLeading)
+//                }
+//            }
         }
     }
 }
@@ -162,8 +138,8 @@ struct OurDdayWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             OurDdayWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("우리만의 디데이 위젯")
-        .description("우리만의 디데이를 위젯으로 확인할 수 있습니다.")
+        .configurationDisplayName("우리디데이 위젯")
+        .description("우리디데이를 위젯으로 확인할 수 있습니다.")
     }
 }
 
