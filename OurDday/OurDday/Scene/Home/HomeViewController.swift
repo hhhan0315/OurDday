@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import PhotosUI
 import CropViewController
+import WidgetKit
 
 final class HomeViewController: UIViewController {
     // MARK: - View Define
@@ -254,8 +255,10 @@ extension HomeViewController: CropViewControllerDelegate {
             break
         case .profileFirst:
             PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: ImageFileType.profileFirst, image: image)
+            WidgetCenter.shared.reloadAllTimelines()
         case .profileSecond:
             PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: ImageFileType.profileSecond, image: image)
+            WidgetCenter.shared.reloadAllTimelines()
         }
         
         viewModel.fetch()
