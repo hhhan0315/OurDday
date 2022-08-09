@@ -14,6 +14,7 @@ final class HomeViewController: UIViewController {
     // MARK: - View Define
     private lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -187,33 +188,27 @@ final class HomeViewController: UIViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
-    // MARK: - Objc
-    @objc private func touchProfileFirstImageView(_ sender: UIImageView) {
+    private func showAlert(imageFileType: ImageFileType) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         alert.addAction(UIAlertAction(title: "수정", style: .destructive, handler: { _ in
             self.setPHPickerConfiguration()
-            self.currentImageFileType = .profileFirst
+            self.currentImageFileType = imageFileType
         }))
         
         let contentViewController = HomeProfileAlertContentViewController()
-        contentViewController.configureImageView(imageFileType: .profileFirst)
+        contentViewController.configureImageView(imageFileType: imageFileType)
         alert.setValue(contentViewController, forKey: "contentViewController")
         present(alert, animated: true)
     }
     
+    // MARK: - Objc
+    @objc private func touchProfileFirstImageView(_ sender: UIImageView) {
+        showAlert(imageFileType: .profileFirst)
+    }
+    
     @objc private func touchProfileSecondImageView(_ sender: UIImageView) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-        alert.addAction(UIAlertAction(title: "수정", style: .destructive, handler: { _ in
-            self.setPHPickerConfiguration()
-            self.currentImageFileType = .profileSecond
-        }))
-        
-        let contentViewController = HomeProfileAlertContentViewController()
-        contentViewController.configureImageView(imageFileType: .profileSecond)
-        alert.setValue(contentViewController, forKey: "contentViewController")
-        present(alert, animated: true)
+        showAlert(imageFileType: .profileSecond)
     }
 }
 

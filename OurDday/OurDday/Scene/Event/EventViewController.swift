@@ -100,6 +100,6 @@ extension EventViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension EventViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return view.frame.height / 9
     }
 }
