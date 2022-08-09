@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 final class FirstLaunchViewController: UIViewController {
     // MARK: - UI Define
@@ -79,6 +80,7 @@ final class FirstLaunchViewController: UIViewController {
     @objc private func touchStartButton(_ sender: UIButton) {
         LocalStorageManager.shared.setFirstLaunch()
         LocalStorageManager.shared.setDate(date: selectDate)
+        WidgetCenter.shared.reloadAllTimelines()
         view.window?.rootViewController = TabViewController()
     }
     

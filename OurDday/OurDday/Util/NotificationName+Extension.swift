@@ -10,5 +10,5 @@ import Foundation
 extension Notification.Name {
     static let changeDate = Notification.Name("ChangeDate")
     static let setPhoto = Notification.Name("SetPhoto")
-    static let resetProfileImage = Notification.Name("ResetProfileImage")
+    static let resetImage = Notification.Name("ResetImage")
 }

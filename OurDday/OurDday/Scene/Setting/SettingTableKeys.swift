@@ -15,6 +15,7 @@ struct SettingTableKeys {
     
     static let changeDate = "우리 만난 날 설정"
     static let setPhoto = "배경 이미지 설정"
+    static let resetPhoto = "배경 이미지 초기화"
     static let resetProfile = "우리 이미지 초기화"
     
     static let data: [[String:Any]] = [
@@ -23,6 +24,7 @@ struct SettingTableKeys {
             SettingTableKeys.Rows: [
                 [SettingTableKeys.Title: changeDate],
                 [SettingTableKeys.Title: setPhoto],
+                [SettingTableKeys.Title: resetPhoto],
                 [SettingTableKeys.Title: resetProfile],
             ]
         ],

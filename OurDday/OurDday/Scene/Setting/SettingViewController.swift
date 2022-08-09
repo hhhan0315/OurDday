@@ -8,6 +8,7 @@
 import UIKit
 import PhotosUI
 import CropViewController
+import WidgetKit
 
 class SettingViewController: UIViewController {
     // MARK: - View Define
@@ -127,6 +128,7 @@ extension SettingViewController: UITableViewDelegate {
                 let datePickerDate = datePickerController.datePicker.date
                 LocalStorageManager.shared.setDate(date: datePickerDate)
                 NotificationCenter.default.post(name: Notification.Name.changeDate, object: nil)
+                WidgetCenter.shared.reloadAllTimelines()
                 self.dismiss(animated: true)
             }))
             alert.setValue(datePickerController, forKey: "contentViewController")
@@ -142,6 +144,25 @@ extension SettingViewController: UITableViewDelegate {
             picker.delegate = self
             self.present(picker, animated: true, completion: nil)
             
+        case SettingTableKeys.resetPhoto:
+            let title = "초기화하시겠습니까?"
+            let attributeString = NSMutableAttributedString(string: title)
+            if let titleFont = UIFont.customFont(.body) {
+                attributeString.addAttributes([NSAttributedString.Key.font: titleFont],
+                                              range: NSRange(location: 0, length: title.count))
+            }
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .photo)
+                NotificationCenter.default.post(name: Notification.Name.resetImage, object: nil)
+                WidgetCenter.shared.reloadAllTimelines()
+                self.dismiss(animated: true)
+            }))
+            
+            alert.setValue(attributeString, forKey: "attributedTitle")
+            present(alert, animated: true, completion: nil)
+            
         case SettingTableKeys.resetProfile:
             let title = "초기화하시겠습니까?"
             let attributeString = NSMutableAttributedString(string: title)
@@ -154,12 +175,12 @@ extension SettingViewController: UITableViewDelegate {
             alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .profileFirst)
                 PhotoManager.shared.removeImageFromDocumentDirectory(imageFileType: .profileSecond)
-                NotificationCenter.default.post(name: Notification.Name.resetProfileImage, object: nil)
+                NotificationCenter.default.post(name: Notification.Name.resetImage, object: nil)
+                self.dismiss(animated: true)
             }))
             
             alert.setValue(attributeString, forKey: "attributedTitle")
             present(alert, animated: true, completion: nil)
-            self.dismiss(animated: true)
             
         default: break
         }
@@ -205,6 +226,7 @@ extension SettingViewController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         PhotoManager.shared.saveImageToDocumentDirectory(imageFileType: .photo, image: image)
         NotificationCenter.default.post(name: .setPhoto, object: nil)
+        WidgetCenter.shared.reloadAllTimelines()
         cropViewController.dismiss(animated: true)
         self.dismiss(animated: true)
     }
