@@ -19,7 +19,7 @@ final class HomeViewController: UIViewController {
     }()
     
     private lazy var profileFirstImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "smile"))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController {
     }()
     
     private lazy var profileSecondImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "smile"))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
