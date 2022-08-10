@@ -9,6 +9,8 @@
 - 라이브러리
   - [ToCropViewController](https://github.com/TimOliver/TOCropViewController)
   - [Tabman](https://github.com/uias/Tabman)
+- 앱 스토어
+  - https://apps.apple.com/kr/app/우리디데이-커플-기념일/id1616155192
 
 # 미리보기
 <img src="https://github.com/hhhan0315/OurDday/blob/main/스크린샷/미리보기.png">
