@@ -47,6 +47,11 @@
 - FileManager.default.containerURL(forSecurityAppicationGroupIdentifier:) 활용
 - 주소 자체는 UserDefaults, 이미지 자체는 FileManager 저장으로 구현
 
+## 날짜 업데이트
+- 다음날일 경우 다시 실행하지 않아도 앱, 위젯 날짜 업데이트 필요
+- Notification.Name.NSCalendarDayChanged 활용
+- Widget은 TimelineReloadPolicy 활용
+
 # 이전 버전
 ## 1.0
 |![1](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-1.jpg)|![2](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-2.jpg)|![3](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-3.jpg)|![4](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-4.jpg)|![5](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-5.jpg)|
