@@ -172,6 +172,7 @@ final class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .changeDate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .resetImage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: .setPhoto, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
     }
     
     @objc private func notificationChange() {

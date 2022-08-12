@@ -69,10 +69,11 @@ final class EventViewController: UIViewController {
     
     // MARK: - Notification
     private func setupNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationChangeDate), name: Notification.Name.changeDate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: Notification.Name.changeDate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationChange), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
     }
     
-    @objc private func notificationChangeDate() {
+    @objc private func notificationChange() {
         viewModel.fetch()
     }
 }
