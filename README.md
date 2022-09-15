@@ -52,6 +52,18 @@
 - Notification.Name.NSCalendarDayChanged 활용
 - Widget은 TimelineReloadPolicy 활용
 
+## 코드로 UI 구현
+- 코드로 구현함으로써 dataSource 등 놓치는 부분이 발생하지 않아서 좋았다.
+- 만약 디자이너분과 협업을 한다면 코드로만 구현하는 것은 단점이 될 수 있다고 생각한다.
+
+## MVVM 패턴
+- MVVM 패턴을 활용하고 Data Binding은 Combine을 활용했다.
+- 아직까지는 이해가 더 필요한 부분이라고 생각한다.
+
+## Custom Font 적용
+- 기본 시스템 폰트를 디자인적으로 개선해보기 위해 선택
+- https://zeddios.tistory.com/199
+
 # 이전 버전
 ## 1.0
 |![1](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-1.jpg)|![2](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-2.jpg)|![3](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-3.jpg)|![4](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-4.jpg)|![5](https://github.com/hhhan0315/OurDday/blob/main/스크린샷/ios-6.5-inch-5.jpg)|
